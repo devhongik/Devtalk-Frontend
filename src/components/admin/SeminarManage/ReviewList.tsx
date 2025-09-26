@@ -37,7 +37,7 @@ const ReviewList = () => {
   const reviews = mockReviews;
 
   return (
-    <div>
+    <div className="bg-grey-900 p-6 rounded-10">
       <h2 className="heading-2-bold text-white mb-6">후기 목록</h2>
       {reviews.length > 0 ? (
         <div className="grid grid-cols-2 gap-10">
