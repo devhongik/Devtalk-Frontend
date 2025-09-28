@@ -2,13 +2,16 @@ import Cta from '../../../components/common/Cta';
 import Footer from '../../../components/common/Footer';
 import Header from '../../../components/common/Header';
 import SeminarPoster from '../../../components/common/SeminarPoster';
-import { LectureCardMain } from '../../../components/LectureCard/LectureCardMain';
 import IntroDevtalk from '../../../assets/introDevtalk.svg';
 import ReviewCard from '../../../components/common/ReviewCard';
 import ExSeminar from '../../../assets/exSeminar.jpg';
 import { ButtonExSeminar } from '../../../components/Button/ButtonExSeminar';
 import Timer from '../../../assets/icons/common/timer.svg';
 import { Button } from '../../../components/Button/Button';
+import Carousel from '../../../components/LectureCard/Carousel';
+import { LectureCardMain } from '../../../components/LectureCard/LectureCardMain';
+import { LectureCardSpeaker } from '../../../components/LectureCard/LectureCardSpeaker';
+import { LectureCardSession } from '../../../components/LectureCard/LectureCardSession';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
@@ -20,12 +23,24 @@ const Home = () => {
       <Cta />
       {/* 강연 소개 카드 */}
       <div className="flex flex-col pt-80 gap-32 px-20">
-        <div className="text-white heading-2-semibold">다가오는 세미나 강연 소개</div>
-        <div className="flex flex-col gap-80 items-center px-12">
-          <LectureCardMain />
-          <LectureCardMain />
+        <div className="text-white heading-2-semibold">
+          다가오는 세미나 강연 소개
+        </div>
+
+        <div className="-mx-20 flex flex-col gap-80">
+          <Carousel>
+            <LectureCardMain />
+            <LectureCardSpeaker />
+            <LectureCardSession />
+          </Carousel>
+          <Carousel>
+            <LectureCardMain />
+            <LectureCardSpeaker />
+            <LectureCardSession />
+          </Carousel>
         </div>
       </div>
+
 
       {/* 데브톡 소개 */}
       <div className="flex flex-col pt-[200px] px-20 pb-[92px]">

@@ -2,7 +2,7 @@ import speakerEx from '../../assets/speakerEx.jpg';
 
 export const LectureCardMain = () => {
   return (
-    <div className="relative w-[311px] h-[500px] rounded-[12px] overflow-hidden bg-black">
+    <div className="relative w-[311px] h-[500px] rounded-[12px] overflow-hidden bg-black flex-shrink-0 snap-center">
       <img src={speakerEx} alt="연사 이미지" className="w-full h-full object-cover" />
       <div className="absolute bottom-0 left-0 right-0 h-[200px] bg-gradient-to-t from-[#3A4140] via-[#090A0C] to-transparent" />
 
