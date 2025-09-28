@@ -22,7 +22,6 @@
 
     -webkit-background-clip: text;
     color: transparent;
-
   }
 
   .container-gradient {
@@ -41,5 +40,3 @@
     backdrop-filter: blur(2px);
   }
 }
-
-
