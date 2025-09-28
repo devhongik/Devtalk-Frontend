@@ -3,7 +3,7 @@ import speakerEx from '../../assets/speakerEx.jpg';
 export const LectureCardSpeaker = () => {
   return (
     <div
-      className="w-[311px] h-[500px] rounded-[12px] flex flex-col items-center justify-start p-6"
+      className="w-[311px] h-[500px] rounded-[12px] flex flex-col items-center justify-start p-6 flex-shrink-0 snap-center"
       style={{
         background:
           'linear-gradient(180deg, #090A0C 0%, rgba(9, 10, 12, 0.70) 100%), linear-gradient(90deg, #F2FFD5 0%, #B2CCFF 128.68%)',

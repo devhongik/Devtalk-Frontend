@@ -20,7 +20,9 @@ import Reviews from './pages/admin/home-manage/Reviews';
 import SeminarCards from './pages/admin/seminar-manage/Cards';
 import SeminarManageDetail from './pages/admin/seminar-manage/Detail';
 import SeminarAdd from './pages/admin/seminar-manage/Add';
-import SeminarApplicants from './pages/admin/seminar-manage/Applicants';
+import SeminarApplicantsList from './pages/admin/seminar-manage/applicants/List'
+import SeminarApplicantsDetail from './pages/admin/seminar-manage/applicants/Detail'
+import SeminarApplicantsQuestions from './pages/admin/seminar-manage/applicants/Questions';
 import Attendance from './pages/admin/seminar-live/Attendance';
 import Accounts from './pages/admin/auth-manage/Accounts';
 import './App.css';
@@ -56,7 +58,9 @@ function App() {
           <Route path="/admin/seminars" element={<SeminarCards />} />
           <Route path="/admin/seminars/:id" element={<SeminarManageDetail />} />
           <Route path="/admin/seminars/add" element={<SeminarAdd />} />
-          <Route path="/admin/seminars/applicants" element={<SeminarApplicants />} />
+          <Route path="/admin/seminars/applicants" element={<SeminarApplicantsList />} />
+          <Route path="/admin/seminars/applicants/:id" element={<SeminarApplicantsDetail />} />
+          <Route path="/admin/seminars/applicants/:id/questions" element={<SeminarApplicantsQuestions />} />
           <Route path="/admin/seminar-live/attendance" element={<Attendance />} />
           <Route path="/admin/admin-accounts" element={<Accounts />} />
         </Route>
