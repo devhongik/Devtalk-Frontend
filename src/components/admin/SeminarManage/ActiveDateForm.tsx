@@ -6,7 +6,7 @@ interface ActiveDateProps {
   initialApplicationDate?: Date;
 }
 
-const ActiveDate: React.FC<ActiveDateProps> = ({ initialSeminarDate, initialApplicationDate }) => {
+const ActiveDateForm: React.FC<ActiveDateProps> = ({ initialSeminarDate, initialApplicationDate }) => {
   const [seminarDate, setSeminarDate] = useState(initialSeminarDate || new Date());
   const [applicationDate, setApplicationDate] = useState(initialApplicationDate || new Date());
   const [error, setError] = useState<string>('');
@@ -37,4 +37,4 @@ const ActiveDate: React.FC<ActiveDateProps> = ({ initialSeminarDate, initialAppl
   );
 };
 
-export default ActiveDate;
+export default ActiveDateForm;

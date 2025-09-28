@@ -1,6 +1,6 @@
 import CustomSelect from './CustomSelect';
 
-const DateSelectGroup: React.FC<{ date: Date; onDateChange: (newDate: Date) => void }> = ({
+const DateTimeSelector: React.FC<{ date: Date; onDateChange: (newDate: Date) => void }> = ({
   date,
   onDateChange,
 }) => {
@@ -90,4 +90,4 @@ const DateSelectGroup: React.FC<{ date: Date; onDateChange: (newDate: Date) => v
   );
 };
 
-export default DateSelectGroup;
+export default DateTimeSelector;
