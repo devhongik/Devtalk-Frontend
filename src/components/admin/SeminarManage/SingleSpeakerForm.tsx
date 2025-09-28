@@ -76,7 +76,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({ partNumber, speak
           onChange={handleInputChange} 
           type="text" 
           placeholder="이름을 입력해주세요." 
-          className="w-full h-[66px] px-6 py-5 rounded-[var(--radius-8)] bg-grey-700 text-grey-300 focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent" />
+          className="w-full h-[66px] px-6 py-5 rounded-8 bg-grey-700 text-grey-300 focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent" />
         </div>
 
         {/* 소속 */}
@@ -89,7 +89,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({ partNumber, speak
           onChange={handleInputChange} 
           rows={4} 
           placeholder="소속을 입력해주세요." 
-          className="w-full px-6 py-3 rounded-[var(--radius-8)] bg-grey-700 text-grey-300 focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent scrollbar-hide resize-none" />
+          className="w-full px-6 py-3 rounded-8 bg-grey-700 text-grey-300 focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent scrollbar-hide resize-none" />
         </div>
         
         {/* 이력 */}
@@ -102,7 +102,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({ partNumber, speak
           onChange={handleInputChange} 
           rows={4} 
           placeholder="이력을 입력해주세요." 
-          className="w-full px-6 py-3 rounded-[var(--radius-8)] bg-grey-700 text-grey-300 focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent scrollbar-hide resize-none" />
+          className="w-full px-6 py-3 rounded-8 bg-grey-700 text-grey-300 focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent scrollbar-hide resize-none" />
         </div>
         
         {/* 강연 제목 */}
@@ -115,7 +115,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({ partNumber, speak
           onChange={handleInputChange} 
           rows={4} 
           placeholder="강연 제목을 입력해주세요." 
-          className="w-full px-6 py-3 rounded-[var(--radius-8)] bg-grey-700 text-grey-300 focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent scrollbar-hide resize-none" />
+          className="w-full px-6 py-3 rounded-8 bg-grey-700 text-grey-300 focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent scrollbar-hide resize-none" />
         </div>
 
         {/* 강연 내용 */}
@@ -127,7 +127,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({ partNumber, speak
           onChange={handleInputChange} 
           rows={10} 
           placeholder={`강연 내용을 입력해주세요. 강조하고 싶은 텍스트 앞뒤에 %를 입력하면 강조처리 됩니다.\n(예: %LLM은 어쩌다 이렇게 똑똑해졌을까요?%)`}
-          className="w-full px-6 py-3 rounded-[var(--radius-8)] bg-grey-700 text-grey-300 focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent scrollbar-hide resize-none" />
+          className="w-full px-6 py-3 rounded-8 bg-grey-700 text-grey-300 focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent scrollbar-hide resize-none" />
         </div>
       </div>
     </div>
