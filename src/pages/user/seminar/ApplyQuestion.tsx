@@ -11,7 +11,7 @@ const ApplyQuestion = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-16">
+      <div className="flex flex-col gap-16 mb-[160px]">
         <ApplyHeader backTo="/seminar/apply-info" />
         <div className="flex flex-col gap-32">
           {/* 문구 */}
