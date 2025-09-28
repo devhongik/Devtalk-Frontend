@@ -2,9 +2,10 @@ type ButtonProps = {
   variant?: 'home' | 'default' | 'sub' | 'disabled';
   text: string;
   onClick?: () => void;
+  className?: string;
 };
 
-export const Button = ({ variant = 'default', text, onClick }: ButtonProps) => {
+export const Button = ({ variant = 'default', text, onClick, className }: ButtonProps) => {
   const baseStyle = 'w-[335px] h-[48px] rounded-80 subhead-1-semibold cursor-pointer';
   const variantStyles = {
     home: 'button-gradient text-white',
@@ -13,6 +14,11 @@ export const Button = ({ variant = 'default', text, onClick }: ButtonProps) => {
     disabled: 'bg-grey-700 text-grey-500',
   };
   return (
-    <button className={`${baseStyle} ${variantStyles[variant]}`} onClick={onClick}>{text}</button>
+    <button
+      className={`${baseStyle} ${variantStyles[variant]} ${className ?? ''}`}
+      onClick={onClick}
+    >
+      {text}
+    </button>
   );
 };
