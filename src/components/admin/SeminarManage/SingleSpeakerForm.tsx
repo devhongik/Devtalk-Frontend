@@ -37,7 +37,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({ partNumber, speak
         
         {/* 프로필 사진 */}
         <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-          <label className="subhead-2-medium text-center">프로필 사진</label>
+          <label className="subhead-1-medium text-center">프로필 사진</label>
           <div className="flex items-center space-x-4 h-[35px]">
             <input 
             type="file" 
@@ -68,7 +68,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({ partNumber, speak
         
         {/* 이름 */}
         <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-          <label htmlFor={`name-${partNumber}`} className="subhead-2-medium text-center">이름</label>
+          <label htmlFor={`name-${partNumber}`} className="subhead-1-medium text-center">이름</label>
           <input 
           id={`name-${partNumber}`} 
           name="name" 
@@ -81,7 +81,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({ partNumber, speak
 
         {/* 소속 */}
         <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-          <label htmlFor={`organization-${partNumber}`} className="subhead-2-medium text-center">소속</label>
+          <label htmlFor={`organization-${partNumber}`} className="subhead-1-medium text-center">소속</label>
           <textarea 
           id={`organization-${partNumber}`} 
           name="organization" 
@@ -94,7 +94,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({ partNumber, speak
         
         {/* 이력 */}
         <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-          <label htmlFor={`history-${partNumber}`} className="subhead-2-medium text-center">이력</label>
+          <label htmlFor={`history-${partNumber}`} className="subhead-1-medium text-center">이력</label>
           <textarea 
           id={`history-${partNumber}`} 
           name="history" 
@@ -107,7 +107,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({ partNumber, speak
         
         {/* 강연 제목 */}
         <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-          <label htmlFor={`title-${partNumber}`} className="subhead-2-medium text-center">강연 제목</label>
+          <label htmlFor={`title-${partNumber}`} className="subhead-1-medium text-center">강연 제목</label>
           <textarea 
           id={`title-${partNumber}`} 
           name="title" 
@@ -120,7 +120,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({ partNumber, speak
 
         {/* 강연 내용 */}
         <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-          <label htmlFor={`description-${partNumber}`} className="subhead-2-medium text-center">강연 내용</label>
+          <label htmlFor={`description-${partNumber}`} className="subhead-1-medium text-center">강연 내용</label>
           <textarea 
           id={`description-${partNumber}`} 
           name="description" value={speakerData.description} 
