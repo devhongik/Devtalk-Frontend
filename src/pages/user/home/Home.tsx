@@ -2,14 +2,18 @@ import Cta from '../../../components/common/Cta';
 import Footer from '../../../components/common/Footer';
 import Header from '../../../components/common/Header';
 import SeminarPoster from '../../../components/common/SeminarPoster';
-import { LectureCardMain } from '../../../components/LectureCard/LectureCardMain';
 import IntroDevtalk from '../../../assets/introDevtalk.svg';
 import ReviewCard from '../../../components/common/ReviewCard';
 import ExSeminar from '../../../assets/exSeminar.jpg';
 import { ButtonExSeminar } from '../../../components/Button/ButtonExSeminar';
 import Timer from '../../../assets/icons/common/timer.svg';
 import { Button } from '../../../components/Button/Button';
+import Carousel from '../../../components/LectureCard/Carousel';
+import { LectureCardMain } from '../../../components/LectureCard/LectureCardMain';
+import { LectureCardSpeaker } from '../../../components/LectureCard/LectureCardSpeaker';
+import { LectureCardSession } from '../../../components/LectureCard/LectureCardSession';
 import { useNavigate } from 'react-router-dom';
+import InfiniteCarousel from '../../../components/common/InfiniteCarousel';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -20,12 +24,24 @@ const Home = () => {
       <Cta />
       {/* 강연 소개 카드 */}
       <div className="flex flex-col pt-80 gap-32 px-20">
-        <div className="text-white heading-2-semibold">다가오는 세미나 강연 소개</div>
-        <div className="flex flex-col gap-80 items-center px-12">
-          <LectureCardMain />
-          <LectureCardMain />
+        <div className="text-white heading-2-semibold">
+          다가오는 세미나 강연 소개
+        </div>
+
+        <div className="-mx-20 flex flex-col gap-80">
+          <Carousel>
+            <LectureCardMain />
+            <LectureCardSpeaker />
+            <LectureCardSession />
+          </Carousel>
+          <Carousel>
+            <LectureCardMain />
+            <LectureCardSpeaker />
+            <LectureCardSession />
+          </Carousel>
         </div>
       </div>
+
 
       {/* 데브톡 소개 */}
       <div className="flex flex-col pt-[200px] px-20 pb-[92px]">
@@ -51,7 +67,16 @@ const Home = () => {
       {/* 학우들의 후기 */}
       <div className="flex flex-col px-20 gap-16 pb-[200px]">
         <p className="text-white heading-2-bold">학우들의 후기</p>
-        <ReviewCard />
+        <div className="-mx-20">
+          <InfiniteCarousel>
+            <ReviewCard session={9} rating={5} content="요즘 핫한 주제로 강연을 들어서 너무 좋았습니다 !" />
+            <ReviewCard session={6} rating={5} content="4학년인 만큼 진로에 고민과 걱정이 많았는데 삶의 경험이 풍부하신 분들의 연사를 들으니 마인드셋에 도움이 되었습니다."/>
+            <ReviewCard session={9} rating={5} content="부전공생이라서 정규수업 외에는 실무적인 정보들을 얻기가 어려웠는데 이렇게 좋은 자리 마련해주셔서 정말 재미있고 유익했습니다. 감사합니다."/>
+            <ReviewCard session={8} rating={5} content="라이브 코딩 재밌었어요 ㅋㅋㅋ"/>
+            <ReviewCard session={7} rating={5} content="생각해보지 못했던 주제들에 대한 이야기를 들을 수 있어서 좋았습니다."/>
+            <ReviewCard session={6} rating={5} content="한국뿐만이 아니라 보다 넓은 세상에서 활약하고 계시는 분들의 경험을 들을 수 있는 귀중한 기회를 얻을 수 있어서 좋았습니다."/>
+          </InfiniteCarousel>
+        </div>
       </div>
 
       {/* 이전 세미나 알아보기 */}
