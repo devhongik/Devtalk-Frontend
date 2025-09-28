@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import arrow from '../../assets/icons/components/SeminarApply/arrow.svg';
 
 interface BackButtonProps {
   className?: string;
@@ -17,9 +18,7 @@ const BackButton: React.FC<BackButtonProps> = ({ className = '' }) => {
       className={`text-white hover:opacity-70 transition-opacity ${className} cursor-pointer`}
       aria-label="뒤로가기"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
-        <path d="M23.8333 14.5H5.16663M5.16663 14.5L12.1666 21.5M5.16663 14.5L12.1666 7.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
+      <img src={arrow} alt="뒤로가기" className="w-7 h-7" />
     </button>
   );
 };
