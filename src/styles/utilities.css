@@ -22,7 +22,11 @@
 
     -webkit-background-clip: text;
     color: transparent;
+  }
 
+  .text-gradient-light {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-text-light);
   }
 
   .container-gradient {
@@ -41,5 +45,3 @@
     backdrop-filter: blur(2px);
   }
 }
-
-

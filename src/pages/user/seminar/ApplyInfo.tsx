@@ -28,6 +28,11 @@ const ApplyInfo = () => {
 
         {/* 온라인 LIVE 안내 영역 */}
         <Chip text="온라인 LIVE 안내" />
+        <div className="subhead-1-semibold text-white">
+          현장 참석이 어려운 분들을 위해
+          <br />
+          <span className="text-gradient-light">온라인 라이브</span>를 병행합니다!
+        </div>
       </div>
     </>
   );
