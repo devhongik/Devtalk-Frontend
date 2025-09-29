@@ -25,8 +25,10 @@
   }
 
   .text-gradient-light {
-    @apply bg-clip-text text-transparent;
-    background-image: var(--gradient-text-light);
+    background-image: var(--gradient-graphic-light);
+
+    -webkit-background-clip: text;
+    color: transparent;
   }
 
   .container-gradient {
