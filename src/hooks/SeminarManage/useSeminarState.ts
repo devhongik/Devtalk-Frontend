@@ -67,6 +67,29 @@ const initialData: SeminarDetails = {
   applicationDate: new Date(),
 };
 
+const blankSpeakerState: Speaker = {
+  profileUrl: null,
+  name: '',
+  organization: '',
+  history: '',
+  title: '',
+  description: '',
+};
+
+const blankData: SeminarDetails = {
+  mainImageUrl: null,
+  title: '',
+  date: '',
+  location: '',
+  topic: '',
+  presentationFiles: [],
+  speakers: [blankSpeakerState, blankSpeakerState],
+  liveLink: '',
+  reviews: [],
+  seminarDate: new Date(),
+  applicationDate: new Date(),
+};
+
 export const useSeminarState = (id: string | undefined) => {
   const [state, setState] = useState<SeminarState>({
     initialState: null,
@@ -80,35 +103,45 @@ export const useSeminarState = (id: string | undefined) => {
 
   // 데이터 로딩
   useEffect(() => {
-    if (!id) return;
+    if (id) {
+      const fetchSeminarData = async () => {
+        try {
+          setState((prev) => ({ ...prev, isLoading: true }));
 
-    const fetchSeminarData = async () => {
-      try {
-        setState((prev) => ({ ...prev, isLoading: true }));
+          // API 호출 시뮬레이션
+          const response = await new Promise<SeminarDetails>((resolve) =>
+            setTimeout(() => resolve(initialData), 1000)
+          );
 
-        // API 호출 시뮬레이션
-        const response = await new Promise<SeminarDetails>((resolve) =>
-          setTimeout(() => resolve(initialData), 1000)
-        );
+          setState((prev) => ({
+            ...prev,
+            initialState: response,
+            currentState: response,
+            error: null,
+            isLoading: false,
+          }));
+        } catch (err) {
+          setState((prev) => ({
+            ...prev,
+            error: '세미나 정보를 불러오는 데 실패했습니다.',
+            isLoading: false,
+          }));
+          console.error(err);
+        }
+      };
 
-        setState((prev) => ({
-          ...prev,
-          initialState: response,
-          currentState: response,
-          error: null,
-          isLoading: false,
-        }));
-      } catch (err) {
-        setState((prev) => ({
-          ...prev,
-          error: '세미나 정보를 불러오는 데 실패했습니다.',
-          isLoading: false,
-        }));
-        console.error(err);
-      }
-    };
-
-    fetchSeminarData();
+      fetchSeminarData();
+    } else {
+      setState({
+        initialState: blankData,
+        currentState: blankData,
+        isLoading: false,
+        error: null,
+        isDirty: false,
+        validationErrors: {},
+        activationError: '',
+      });
+    }
   }, [id]);
 
   // isDirty 상태 감지
