@@ -1,6 +1,7 @@
 import ApplyHeader from '../../../components/SeminarApply/ApplyHeader';
 import { Chip } from '../../../components/Chip/Chip';
 import SpeakerInfo from '../../../components/SeminarApply/SpeakerInfo';
+import LiveInfo from '../../../components/SeminarApply/LiveInfo';
 
 const ApplyInfo = () => {
   return (
@@ -27,16 +28,19 @@ const ApplyInfo = () => {
         </div>
 
         {/* 온라인 LIVE 안내 영역 */}
-        <Chip text="온라인 LIVE 안내" />
-        <div className="flex flex-col gap-8">
-          <div className="subhead-1-semibold text-white">
-            현장 참석이 어려운 분들을 위해
-            <br />
-            <span className="text-gradient">온라인 라이브</span>를 병행합니다!
+        <div className="flex flex-col gap-20">
+          <Chip text="온라인 LIVE 안내" />
+          <div className="flex flex-col gap-8">
+            <div className="subhead-1-semibold text-white">
+              현장 참석이 어려운 분들을 위해
+              <br />
+              <span className="text-gradient">온라인 라이브</span>를 병행합니다!
+            </div>
+            <p className="caption-medium text-grey-300">
+              * 첫 라이브 진행으로, 진행이 원활하지 않을 수 있습니다.
+            </p>
+            <LiveInfo />
           </div>
-          <p className="caption-medium text-grey-300">
-            * 첫 라이브 진행으로, 진행이 원활하지 않을 수 있습니다.
-          </p>
         </div>
       </div>
     </>
