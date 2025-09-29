@@ -18,7 +18,7 @@ const initialSpeakerState: Speaker = {
     'ChatGPT 3년차, LLM은 더욱 어려운 문제를 해결하고 실제 작업을 수행하는 수준으로 발전했습니다.\n코딩을 비롯한 다양한 분야에서 인간의 능력을 넘어서고, 연구 보고서도 쓰고, 혼자 티켓 예약도 할 수 있다는데요.\nLLM은 어쩌다 이렇게 똑똑해졌을까요?\nLLM의 놀라운 능력의 비밀, 추론(Reasoning)과 에이전트(Agent)라는 핵심 키워드를 쉽고 명확하게 알아봅시다!',
 };
 
-// 초기 데이터
+// mock data
 const initialData: SeminarDetails = {
   mainImageUrl: null,
   title: '제 10회 Devtalk Seminar',
@@ -163,9 +163,56 @@ export const useSeminarState = (id: string | undefined) => {
     }
   };
 
+  // 필수 필드 검증
+  const validateRequiredFields = (): boolean => {
+    if (!state.currentState) return false;
+
+    const { mainImageUrl, title, date, location, topic, speakers, seminarDate, applicationDate } =
+      state.currentState;
+
+    // 기본 필드 검증
+    if (!title.trim() || !date.trim() || !location.trim() || !topic.trim()) {
+      return false;
+    }
+
+    // 썸네일 이미지 검증
+    if (!mainImageUrl) {
+      return false;
+    }
+
+    // 연사진 정보 검증 (최소 1명 이상, 모두 필수 필드 입력)
+    if (speakers.length === 0) {
+      return false;
+    }
+
+    for (const speaker of speakers) {
+      if (
+        !speaker.name.trim() ||
+        !speaker.organization.trim() ||
+        !speaker.history.trim() ||
+        !speaker.title.trim() ||
+        !speaker.description.trim() ||
+        !speaker.profileUrl
+      ) {
+        return false;
+      }
+    }
+
+    if (!seminarDate || !applicationDate) {
+      return false;
+    }
+
+    return true;
+  };
+
+  // 필수 정보 기입 여부
+  const isRequiredFieldsFilled = validateRequiredFields();
+
   // 에러 상태 확인
   const hasErrors =
-    Object.values(state.validationErrors).some((error) => !!error) || !!state.activationError;
+    Object.values(state.validationErrors).some((error) => !!error) ||
+    !!state.activationError ||
+    !isRequiredFieldsFilled;
 
   // initialState 업데이트
   const setInitialState = (newState: SeminarDetails) => {
@@ -177,6 +224,7 @@ export const useSeminarState = (id: string | undefined) => {
     updateSeminarData,
     handleBlur,
     hasErrors,
+    isRequiredFieldsFilled,
     setInitialState,
   };
 };
