@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UserLayout from './layouts/user/UserLayout';
 import AdminLayout from './layouts/admin/AdminLayout';
 import Home from './pages/user/home/Home';
-import SeminarApply from './pages/user/seminar/Apply';
+import SeminarApplyInfo from './pages/user/seminar/ApplyInfo';
+import SeminarApplyQuestion from './pages/user/seminar/ApplyQuestion';
 import SeminarHome from './pages/user/seminar/Home';
 import SeminarDetail from './pages/user/seminar/Detail';
 import SeminarLive from './pages/user/seminar/Live';
@@ -19,7 +20,9 @@ import Reviews from './pages/admin/home-manage/Reviews';
 import SeminarCards from './pages/admin/seminar-manage/Cards';
 import SeminarManageDetail from './pages/admin/seminar-manage/Detail';
 import SeminarAdd from './pages/admin/seminar-manage/Add';
-import SeminarApplicants from './pages/admin/seminar-manage/Applicants';
+import SeminarApplicantsList from './pages/admin/seminar-manage/applicants/List'
+import SeminarApplicantsDetail from './pages/admin/seminar-manage/applicants/Detail'
+import SeminarApplicantsQuestions from './pages/admin/seminar-manage/applicants/Questions';
 import Attendance from './pages/admin/seminar-live/Attendance';
 import Accounts from './pages/admin/auth-manage/Accounts';
 import './App.css';
@@ -31,7 +34,8 @@ function App() {
         {/* 유저 페이지 */}
         <Route element={<UserLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/seminar/apply" element={<SeminarApply />} />
+          <Route path="/seminar/apply-info" element={<SeminarApplyInfo />} />
+          <Route path="/seminar/apply-question" element={<SeminarApplyQuestion />} />
           <Route path="/seminar" element={<SeminarHome />} />
           <Route path="/seminar/:id" element={<SeminarDetail />} />
           <Route path="/seminar/live" element={<SeminarLive />} />
@@ -54,7 +58,9 @@ function App() {
           <Route path="/admin/seminars" element={<SeminarCards />} />
           <Route path="/admin/seminars/:id" element={<SeminarManageDetail />} />
           <Route path="/admin/seminars/add" element={<SeminarAdd />} />
-          <Route path="/admin/seminars/applicants" element={<SeminarApplicants />} />
+          <Route path="/admin/seminars/applicants" element={<SeminarApplicantsList />} />
+          <Route path="/admin/seminars/applicants/:id" element={<SeminarApplicantsDetail />} />
+          <Route path="/admin/seminars/applicants/:id/questions" element={<SeminarApplicantsQuestions />} />
           <Route path="/admin/seminar-live/attendance" element={<Attendance />} />
           <Route path="/admin/admin-accounts" element={<Accounts />} />
         </Route>

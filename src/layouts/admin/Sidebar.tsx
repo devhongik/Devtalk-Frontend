@@ -24,9 +24,7 @@ const menuData = [
   {
     title: '세미나 Live 관리',
     children: [
-      { name: 'Live 링크 관리', to: '/admin/seminar-live/links' },
       { name: '출석 관리', to: '/admin/seminar-live/attendance' },
-      { name: '질문 및 후기', to: '/admin/seminar-live/questions' },
     ],
   },
   {
@@ -55,37 +53,37 @@ export const Sidebar: React.FC = () => {
   return (
     <aside className="w-[290px] text-white bg-grey-900 flex flex-col">
       {/* 로고 */}
-      <Link className="flex items-center justify-center gap-5 h-[80px]" to="/admin">
+      <Link className="flex items-center justify-center gap-5 h-[80px]" to="/admin/home/promo">
         <img src={devlogo} alt="devlogo" className="w-80 h-9" />
         <span className="heading-2-bold">Admin</span>
       </Link>
 
       {/* 사이드바 메뉴들 */}
-      <div className="flex-1 h-[44px] px-4 overflow-y-auto">
-        <nav className="flex flex-col space-y-2">
+      <div className="flex-1 h-[44px] overflow-y-auto">
+        <nav className="flex flex-col">
           {menuData.map((section) => (
             <div key={section.title}>
               <div
-                className="flex justify-between gap-6 p-3 pl-[40px] pr-[20px] cursor-pointer rounded-md hover:bg-grey-700"
+                className="flex justify-between items-center gap-6 py-3 px-[40px] cursor-pointer hover:bg-grey-700"
                 onClick={() => handleSectionClick(section.title)}
               >
                 <h3 className="heading-3-semibold">{section.title}</h3>
                 {openSections.includes(section.title) ? (
-                  <img src={chevrondown} />
-                ) : (
                   <img src={chevronup} />
+                ) : (
+                  <img src={chevrondown} />
                 )}
               </div>
 
               {openSections.includes(section.title) && (
-                <ul className="py-1 pl-[28px]">
+                <ul className="py-1">
                   {section.children.map((item) => (
                     <li key={item.name}>
                       <NavLink
                         to={item.to}
                         end // 정확히 일치하는 경로에서만 스타일 적용
                         className={({ isActive }) =>
-                          `flex items-center h-[40px] p-3 rounded-md cursor-pointer subhead-1-medium relative transition-colors ${
+                          `flex items-center h-[40px] py-3 px-[40px] cursor-pointer subhead-1-medium relative transition-colors ${
                             isActive ? activeLinkStyle : inactiveLinkStyle
                           }`
                         }
