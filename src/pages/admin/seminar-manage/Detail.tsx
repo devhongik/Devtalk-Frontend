@@ -1,124 +1,10 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSeminarState } from '../../../hooks/SeminarManage/useSeminarState';
 import { useReviewActions } from '../../../hooks/SeminarManage/useReviewActions';
-import type { SeminarDetails, FormErrors } from '../../../types/SeminarManage/seminar';
 
-import AdminImageUpload from '../../../components/admin/upload/AdminImageUpload';
-import SeminarForm from '../../../components/admin/seminar-manage/SeminarDetail/SeminarForm';
-import SpeakersForm from '../../../components/admin/seminar-manage/Speaker/SpeakerForm';
-import ReviewList from '../../../components/admin/seminar-manage/Review/ReviewList';
-import LiveLinkInput from '../../../components/admin/seminar-manage/LiveLink/LiveLinkInput';
-import ActiveDateForm from '../../../components/admin/seminar-manage/ActivationDate/ActiveDateForm';
-
-interface HeaderProps {
-  onDelete: () => void;
-}
-
-// 헤더 컴포넌트
-const Header: React.FC<HeaderProps> = ({ onDelete }) => (
-  <header className="sticky top-0 z-20 h-[70px] mb-10 bg-background/90">
-    <div className="max-w-[1030px] min-w-[850px] h-full mx-auto flex justify-between items-center">
-      <h1 className="heading-1-bold text-white">세미나 상세정보 관리</h1>
-      <button
-        className="heading-3-semibold text-status-error hover:text-status-error/80 cursor-pointer"
-        onClick={onDelete}
-      >
-        세미나 삭제하기
-      </button>
-    </div>
-  </header>
-);
-
-// 메인 컴포넌트
-interface MainContentProps {
-  currentState: SeminarDetails;
-  validationErrors: FormErrors;
-  activationError: string;
-  updateSeminarData: (data: Partial<SeminarDetails>) => void;
-  handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
-  handleRegisterReviewToHome: (reviewId: number) => void;
-  handleUnregisterReviewFromHome: (reviewId: number) => void;
-  handleDeleteReview: (reviewId: number) => void;
-}
-
-const MainContent: React.FC<MainContentProps> = ({
-  currentState,
-  validationErrors,
-  activationError,
-  updateSeminarData,
-  handleBlur,
-  handleRegisterReviewToHome,
-  handleUnregisterReviewFromHome,
-  handleDeleteReview,
-}) => (
-  <main className="max-w-[1030px] min-w-[850px] mx-auto space-y-10 mb-[65px]">
-    <AdminImageUpload
-      title="세미나 썸네일 이미지"
-      onUpload={(files) => updateSeminarData({ mainImageUrl: files[0] })}
-      onRemove={() => updateSeminarData({ mainImageUrl: null })}
-    />
-
-    <SeminarForm
-      data={currentState}
-      onChange={updateSeminarData}
-      errors={validationErrors}
-      onBlur={handleBlur}
-    />
-
-    <SpeakersForm
-      speakers={currentState.speakers}
-      onChange={(speakers) => updateSeminarData({ speakers })}
-    />
-
-    <ReviewList
-      reviews={currentState.reviews}
-      onRegisterToHome={handleRegisterReviewToHome}
-      onUnregisterFromHome={handleUnregisterReviewFromHome}
-      onDelete={handleDeleteReview}
-    />
-
-    <LiveLinkInput
-      link={currentState.liveLink}
-      onLinkChange={(newLink) => updateSeminarData({ liveLink: newLink })}
-    />
-
-    <ActiveDateForm
-      seminarDate={currentState.seminarDate}
-      applicationDate={currentState.applicationDate}
-      onChange={(dateType, newDate) => updateSeminarData({ [dateType]: newDate })}
-      error={activationError}
-    />
-  </main>
-);
-
-// 푸터 컴포넌트
-interface FooterProps {
-  isDirty: boolean;
-  hasErrors: boolean;
-  onSave: () => void;
-  onCancel: () => void;
-}
-
-const Footer: React.FC<FooterProps> = ({ isDirty, hasErrors, onSave, onCancel }) => (
-  <footer className="max-w-[1030px] min-w-[850px] mx-auto">
-    <div className="flex justify-end gap-3 px-8">
-      <button
-        className="w-56 h-[68px] px-6 py-3 heading-3-semibold bg-grey-700 text-black rounded-10 hover:bg-grey-600 cursor-pointer"
-        onClick={onCancel}
-      >
-        취소하기
-      </button>
-      <button
-        disabled={!isDirty || hasErrors}
-        className="w-56 h-[68px] px-6 py-3 heading-3-semibold bg-green-300 text-black rounded-10 
-                  hover:bg-green-400 disabled:bg-grey-500 disabled:cursor-not-allowed cursor-pointer"
-        onClick={onSave}
-      >
-        수정하기
-      </button>
-    </div>
-  </footer>
-);
+import Header from '../../../components/admin/seminar-manage/Header';
+import MainContent from '../../../components/admin/seminar-manage/MainContent';
+import Footer from '../../../components/admin/seminar-manage/Footer';
 
 // 페이지
 const Detail = () => {
@@ -173,11 +59,7 @@ const Detail = () => {
   const handleCancel = () => {
     if (!currentState) return;
 
-    if (isDirty) {
-      if (window.confirm('변경사항이 있습니다. 정말 취소하시겠습니까?')) {
-        navigate(-1);
-      }
-    } else {
+    if (isDirty && window.confirm('변경사항이 있습니다. 정말 취소하시겠습니까?')) {
       navigate(-1);
     }
   };
@@ -199,11 +81,10 @@ const Detail = () => {
 
   return (
     <div className="p-[60px] min-h-screen">
-      {/* 헤더 */}
-      <Header onDelete={handleDelete} />
+      <Header title="세미나 상세정보 관리" showDeleteButton={true} onDelete={handleDelete} />
 
-      {/* 메인 영역 */}
       <MainContent
+        showReviewList={true}
         currentState={currentState}
         validationErrors={validationErrors}
         activationError={activationError}
@@ -214,8 +95,13 @@ const Detail = () => {
         handleDeleteReview={handleDeleteReview}
       />
 
-      {/* 하단 수정/취소 버튼 */}
-      <Footer isDirty={isDirty} hasErrors={hasErrors} onSave={handleSave} onCancel={handleCancel} />
+      <Footer
+        saveButtonText="수정하기"
+        isDirty={isDirty}
+        hasErrors={hasErrors}
+        onSave={handleSave}
+        onCancel={handleCancel}
+      />
     </div>
   );
 };
