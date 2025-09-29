@@ -1,5 +1,5 @@
 import SingleSpeakerForm from './SingleSpeakerForm';
-import type { Speaker } from '../../../types/SeminarManage/seminar';
+import type { Speaker } from '../../../../types/SeminarManage/seminar';
 
 interface SpeakerFormProps {
   speakers: Speaker[];

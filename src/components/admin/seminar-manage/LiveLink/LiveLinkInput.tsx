@@ -1,3 +1,5 @@
+import '../../../../styles/formInput.css';
+
 interface LiveLinkInputProps {
   link: string;
   onLinkChange: (newLink: string) => void;
@@ -14,8 +16,7 @@ const LiveLinkInput: React.FC<LiveLinkInputProps> = ({ link, onLinkChange }) => 
       <h2 className="heading-2-bold text-white mb-6">세미나 Live 링크</h2>
       <input
         type="url"
-        className="w-full h-[66px] px-6 py-5 rounded-8 bg-grey-700 text-grey-300  
-                   focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent"
+        className="form-input-base form-input-text"
         placeholder="링크 URL을 입력해주세요."
         value={link}
         onChange={handleChange}

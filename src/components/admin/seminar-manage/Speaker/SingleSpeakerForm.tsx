@@ -1,3 +1,4 @@
+import '../../../../styles/formInput.css';
 import deleteIcon from '../../../../assets/icons/common/delete.svg';
 import type { Speaker } from '../../../../types/SeminarManage/seminar';
 
@@ -74,7 +75,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({
             onChange={handleInputChange}
             type="text"
             placeholder="이름을 입력해주세요."
-            className="w-full h-[66px] px-6 py-5 rounded-8 bg-grey-700 text-grey-300 focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent"
+            className="form-input-base form-input-text"
           />
         </div>
 
@@ -90,7 +91,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({
             onChange={handleInputChange}
             rows={4}
             placeholder="소속을 입력해주세요."
-            className="w-full px-6 py-3 rounded-8 bg-grey-700 text-grey-300 focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent scrollbar-hide resize-none"
+            className="form-input-base form-input-textarea"
           />
         </div>
 
@@ -106,7 +107,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({
             onChange={handleInputChange}
             rows={4}
             placeholder="이력을 입력해주세요."
-            className="w-full px-6 py-3 rounded-8 bg-grey-700 text-grey-300 focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent scrollbar-hide resize-none"
+            className="form-input-base form-input-textarea"
           />
         </div>
 
@@ -122,7 +123,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({
             onChange={handleInputChange}
             rows={4}
             placeholder="강연 제목을 입력해주세요."
-            className="w-full px-6 py-3 rounded-8 bg-grey-700 text-grey-300 focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent scrollbar-hide resize-none"
+            className="form-input-base form-input-textarea"
           />
         </div>
 
@@ -138,7 +139,7 @@ const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({
             onChange={handleInputChange}
             rows={10}
             placeholder={`강연 내용을 입력해주세요. 강조하고 싶은 텍스트 앞뒤에 %를 입력하면 강조처리 됩니다.\n(예: %LLM은 어쩌다 이렇게 똑똑해졌을까요?%)`}
-            className="w-full px-6 py-3 rounded-8 bg-grey-700 text-grey-300 focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent scrollbar-hide resize-none"
+            className="form-input-base form-input-textarea"
           />
         </div>
       </div>
