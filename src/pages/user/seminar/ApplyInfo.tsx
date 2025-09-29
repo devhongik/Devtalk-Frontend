@@ -12,12 +12,12 @@ const ApplyInfo = () => {
           <Chip text="Outline" />
           <div className="flex flex-col gap-8">
             <div className="flex flex-row gap-16">
-              <div className="body-1-medium text-grey-300">일시</div>
-              <div className="body-1-medium text-white">2025. 10. 4.(토) 오후 6:30~8:30</div>
+              <p className="body-1-medium text-grey-300">일시</p>
+              <p className="body-1-medium text-white">2025. 10. 4.(토) 오후 6:30~8:30</p>
             </div>
             <div className="flex flex-row gap-16">
-              <div className="body-1-medium text-grey-300">장소</div>
-              <div className="body-1-medium text-white">홍익대학교 L0201</div>
+              <p className="body-1-medium text-grey-300">장소</p>
+              <p className="body-1-medium text-white">홍익대학교 L0201</p>
             </div>
           </div>
           <div className="flex flex-col gap-12">
