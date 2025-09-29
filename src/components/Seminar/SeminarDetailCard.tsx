@@ -1,4 +1,4 @@
-function SeminaDeailCard({ id }: { id: number }) {
+function SeminarDeailCard({ id }: { id: number }) {
   return (
     <div className="w-[375px] h-[449px] gap-20 p-20 flex flex-col">
       <div className="w-[335px] h-[404px] gap-[31px] flex flex-col">
@@ -18,11 +18,11 @@ function SeminaDeailCard({ id }: { id: number }) {
           </div>
         </div>
       </div>
-      <div className="w-[102px] h-[25px] gap-10 px-8 py-4 rounded-4 text-gradient caption-semibold bg-grey-900">
-        발표자료 다운로드
+      <div className="w-[102px] h-[25px] gap-10 px-8 py-4 rounded-4 bg-grey-900 cursor-pointer text-center flex items-center">
+        <span className="text-gradient caption-semibold ">발표자료 다운로드</span>
       </div>
     </div>
   );
 }
 
-export default SeminaDeailCard;
+export default SeminarDeailCard;
