@@ -1,5 +1,5 @@
-import deleteIcon from '../../../assets/icons/common/delete.svg';
-import type { Speaker } from '../../../types/SeminarManage/seminar';
+import deleteIcon from '../../../../assets/icons/common/delete.svg';
+import type { Speaker } from '../../../../types/SeminarManage/seminar';
 
 interface SingleSpeakerFormProps {
   partNumber: number;

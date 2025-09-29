@@ -1,5 +1,5 @@
 import ReviewListItemCard from './ReivewItem';
-import type { Review } from '../../../types/SeminarManage/seminar';
+import type { Review } from '../../../../types/SeminarManage/seminar';
 
 interface ReviewListProps {
   reviews: Review[];

@@ -4,11 +4,11 @@ import { useReviewActions } from '../../../hooks/SeminarManage/useReviewActions'
 import type { SeminarDetails, FormErrors } from '../../../types/SeminarManage/seminar';
 
 import AdminImageUpload from '../../../components/admin/upload/AdminImageUpload';
-import SeminarForm from '../../../components/admin/SeminarManage/SeminarForm';
-import SpeakersForm from '../../../components/admin/SeminarManage/SpeakerForm';
-import ReviewList from '../../../components/admin/SeminarManage/ReviewList';
-import LiveLinkInput from '../../../components/admin/SeminarManage/LiveLinkInput';
-import ActiveDateForm from '../../../components/admin/SeminarManage/ActiveDateForm';
+import SeminarForm from '../../../components/admin/seminar-manage/SeminarDetail/SeminarForm';
+import SpeakersForm from '../../../components/admin/seminar-manage/Speaker/SpeakerForm';
+import ReviewList from '../../../components/admin/seminar-manage/Review/ReviewList';
+import LiveLinkInput from '../../../components/admin/seminar-manage/LiveLink/LiveLinkInput';
+import ActiveDateForm from '../../../components/admin/seminar-manage/ActivationDate/ActiveDateForm';
 
 interface HeaderProps {
   onDelete: () => void;

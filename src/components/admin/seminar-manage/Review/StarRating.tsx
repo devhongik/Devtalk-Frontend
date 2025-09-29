@@ -1,5 +1,5 @@
-import Fillstar from "../../../assets/icons/components/ReviewCard/fillstar.svg?react";
-import Nostar from "../../../assets/icons/components/ReviewCard/nonestar.svg?react"
+import Fillstar from "../../../../assets/icons/components/ReviewCard/fillstar.svg?react";
+import Nostar from "../../../../assets/icons/components/ReviewCard/nonestar.svg?react"
 
 interface StarRatingProps {
   rating: number;

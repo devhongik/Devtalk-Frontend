@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import StarRating from './StarRating';
-import moremenu from '../../../assets/icons/components/ReviewCard/moremenu.svg';
-import type { Review } from '../../../types/SeminarManage/seminar';
+import moremenu from '../../../../assets/icons/components/ReviewCard/moremenu.svg';
+import type { Review } from '../../../../types/SeminarManage/seminar';
 
 interface ReviewListItemCardProps {
   review: Review;

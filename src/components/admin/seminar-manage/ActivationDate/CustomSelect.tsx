@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import chevronDownIcon from '../../../assets/icons/common/chevrondown.svg';
+import chevronDownIcon from '../../../../assets/icons/common/chevrondown.svg';
 
 interface Option {
   value: number | string;

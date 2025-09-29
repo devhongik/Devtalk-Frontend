@@ -1,6 +1,6 @@
-import FormField from '../SeminarManage/FormField';
-import AdminPresentationUpload from '../upload/AdminPresentationUpload';
-import type { SeminarFormData } from '../../../types/SeminarManage/seminar';
+import FormField from './FormField';
+import AdminPresentationUpload from '../../upload/AdminPresentationUpload';
+import type { SeminarFormData } from '../../../../types/SeminarManage/seminar';
 
 interface SeminarFormProps {
   data: SeminarFormData;
