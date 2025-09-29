@@ -218,17 +218,18 @@ export const useSeminarState = (id: string | undefined) => {
       return false;
     }
 
-    for (const speaker of speakers) {
-      if (
-        !speaker.name.trim() ||
-        !speaker.organization.trim() ||
-        !speaker.history.trim() ||
-        !speaker.title.trim() ||
-        !speaker.description.trim() ||
-        !speaker.profileUrl
-      ) {
-        return false;
-      }
+    if (
+      !speakers.some(
+        (speaker) =>
+          !!speaker.name.trim() &&
+          !!speaker.organization.trim() &&
+          !!speaker.history.trim() &&
+          !!speaker.title.trim() &&
+          !!speaker.description.trim() &&
+          !!speaker.profileUrl
+      )
+    ) {
+      return false;
     }
 
     if (!seminarDate || !applicationDate) {
