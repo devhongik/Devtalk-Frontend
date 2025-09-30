@@ -31,10 +31,10 @@ const PARTICIPATE = ['오프라인', '온라인 Live (Q&A, 이벤트 참여 불�
 
 const ApplyForm = () => {
   const navigate = useNavigate();
-  const { rootRef, canNext, validate } = useApplyFormValidation();
+  const { rootRef, canNext } = useApplyFormValidation();
 
   return (
-    <div ref={rootRef} onChange={validate} className="flex flex-col gap-80">
+    <div ref={rootRef} className="flex flex-col gap-80">
       <div className="flex flex-col gap-13">
         <div className="flex flex-col gap-11">
           <NameSection />

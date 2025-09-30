@@ -15,9 +15,7 @@ export const GradeSection = ({ options }: GradeSectionProps) => (
             <input id={id} name="grade" type="radio" value={g} className="sr-only" />
 
             <span className="relative w-6 h-6 shrink-0">
-              {/* 빈 원: 항상 보임 */}
               <img src={emptycircle} alt="" className="w-6 h-6" />
-              {/* 찬 원: 기본 숨김, 체크 시 중앙에 표시 */}
               <img
                 src={chosencircle}
                 alt=""

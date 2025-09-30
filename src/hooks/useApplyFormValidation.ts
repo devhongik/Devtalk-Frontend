@@ -1,26 +1,30 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { buildPayload, validateAll } from '../utils/validators';
+import { validateAll } from '../utils/validators';
 
 export function useApplyFormValidation() {
   const rootRef = useRef<HTMLDivElement>(null);
   const [canNext, setCanNext] = useState(false);
 
-  const validate = useCallback(() => {
+  const runValidate = useCallback(() => {
     const root = rootRef.current;
     if (!root) return;
-    const { allOk } = validateAll(root);
-    setCanNext(allOk);
-  }, []);
-
-  const getPayload = useCallback(() => {
-    const root = rootRef.current;
-    if (!root) return null;
-    return buildPayload(root);
+    requestAnimationFrame(() => {
+      const { allOk } = validateAll(root);
+      setCanNext(allOk);
+    });
   }, []);
 
   useEffect(() => {
-    validate();
-  }, [validate]);
+    runValidate();
+    const el = rootRef.current;
+    if (!el) return;
+    el.addEventListener('change', runValidate);
+    el.addEventListener('input', runValidate);
+    return () => {
+      el.removeEventListener('change', runValidate);
+      el.removeEventListener('input', runValidate);
+    };
+  }, [runValidate]);
 
-  return { rootRef, canNext, validate, getPayload };
+  return { rootRef, canNext };
 }

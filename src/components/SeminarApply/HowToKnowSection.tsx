@@ -14,11 +14,8 @@ export const HowToKnowSection = ({ options }: HowToKnowSectionProps) => (
           <label key={id} htmlFor={id} className="group flex items-center gap-12 cursor-pointer">
             <input id={id} name="howtoknow" type="radio" value={opt} className="sr-only" />
 
-            {/* 아이콘 컨테이너 */}
             <span className="relative w-6 h-6 shrink-0">
-              {/* 빈 원: 항상 보임 */}
               <img src={emptycircle} alt="" className="w-6 h-6" />
-              {/* 찬 원: 기본 숨김, 선택 시 중앙에 표시 */}
               <img
                 src={chosencircle}
                 alt=""
