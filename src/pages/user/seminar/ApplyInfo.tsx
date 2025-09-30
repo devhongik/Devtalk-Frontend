@@ -14,7 +14,7 @@ const ApplyInfo = () => {
           <div className="flex flex-col gap-48">
             {/* Outline 영역 */}
             <div className="flex flex-col gap-20">
-              <Chip text="Outline" />
+              <Chip className="body-2-semibold" text="Outline" />
               <div className="flex flex-col gap-8">
                 <div className="flex flex-row gap-16">
                   <p className="body-1-medium text-grey-300">일시</p>
@@ -33,7 +33,7 @@ const ApplyInfo = () => {
 
             {/* 온라인 LIVE 안내 영역 */}
             <div className="flex flex-col gap-20">
-              <Chip text="온라인 LIVE 안내" />
+              <Chip className="body-2-semibold" text="온라인 LIVE 안내" />
               <div className="flex flex-col gap-8">
                 <div className="subhead-1-semibold text-white">
                   현장 참석이 어려운 분들을 위해
