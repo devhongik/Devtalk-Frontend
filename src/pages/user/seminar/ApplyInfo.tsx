@@ -3,7 +3,6 @@ import { Chip } from '../../../components/Chip/Chip';
 import SpeakerInfo from '../../../components/SeminarApply/SpeakerInfo';
 import LiveInfo from '../../../components/SeminarApply/LiveInfo';
 import ApplyForm from '../../../components/SeminarApply/ApplyForm';
-import { Button } from '../../../components/Button/Button';
 
 const ApplyInfo = () => {
   return (
@@ -54,7 +53,6 @@ const ApplyInfo = () => {
           {/* 신청폼 부분 */}
           <ApplyForm />
         </div>
-        <Button variant="disabled" text="다음" />
       </div>
     </div>
   );

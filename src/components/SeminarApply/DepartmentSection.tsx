@@ -12,7 +12,13 @@ export const DepartmentSection = ({ options }: DepartmentSectionProps) => (
         const id = `dept-${idx}`;
         return (
           <label key={id} htmlFor={id} className="flex items-center gap-12 cursor-pointer">
-            <input id={id} type="checkbox" className="sr-only peer" value={dept} />
+            <input
+              id={id}
+              type="checkbox"
+              name="department"
+              className="sr-only peer"
+              value={dept}
+            />
             <img src={emptybox} alt="" className="w-6 h-6 peer-checked:hidden" />
             <img src={checkbox} alt="" className="w-6 h-6 hidden peer-checked:block" />
             <span className="body-1-medium text-white">{dept}</span>
