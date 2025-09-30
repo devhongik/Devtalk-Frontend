@@ -22,7 +22,6 @@
 
     -webkit-background-clip: text;
     color: transparent;
-
   }
 
   .container-gradient {
@@ -40,6 +39,12 @@
     background-image: var(--styly-button-bg);
     backdrop-filter: blur(2px);
   }
+
+  .top-gradient {
+    background-image: var(--linear-top-gradient);
+  }
+
+  .bottom-gradient {
+    background-image: var(--linear-bottom-gradient);
+  }
 }
-
-

@@ -1,10 +1,10 @@
 import speakerEx from '../../assets/speakerEx.jpg';
 
-function SeminarDetailLectureCard() {
+const SeminarDetailLectureCard = () => {
   return (
     <div className="relative w-[335px] h-[1033px] rounded-[12px] overflow-hidden flex flex-col items-center justify-start">
-      <div className="absolute top-0 w-full h-[427px] bg-[linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(0,0,0,1)_100%)]" />
-      <div className="absolute bottom-0 w-full h-[200px] bg-[linear-gradient(to_bottom,_#000000_0%,_#3A4140_100%)]" />
+      <div className="absolute top-0 w-full h-[427px] top-gradient" />
+      <div className="absolute bottom-0 w-full h-[200px] bottom-gradient" />
       <img src={speakerEx} alt="연사 이미지" className="w-[335px] h-[427px] object-cover " />
       <div className="flex flex-col w-[295px] gap-[20px] items-center absolute top-[300px] ">
         <div className="flex flex-col gap-4 justify-center items-center">
@@ -49,6 +49,6 @@ function SeminarDetailLectureCard() {
       </div>
     </div>
   );
-}
+};
 
 export default SeminarDetailLectureCard;

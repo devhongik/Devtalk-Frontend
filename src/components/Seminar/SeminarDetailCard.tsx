@@ -1,4 +1,4 @@
-function SeminarDeailCard({ id }: { id: number }) {
+const SeminarDeailCard = ({ id }: { id: number }) => {
   return (
     <div className="w-[375px] h-[449px] gap-20 p-20 flex flex-col">
       <div className="w-[335px] h-[404px] gap-[31px] flex flex-col">
@@ -23,6 +23,6 @@ function SeminarDeailCard({ id }: { id: number }) {
       </div>
     </div>
   );
-}
+};
 
 export default SeminarDeailCard;

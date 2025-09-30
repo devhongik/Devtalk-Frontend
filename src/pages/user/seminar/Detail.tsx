@@ -5,7 +5,7 @@ import ReviewCard from '../../../components/common/ReviewCard';
 import Cta from '../../../components/common/Cta';
 import SeminarDetailLectureCard from '../../../components/Seminar/SeminarDetailLectureCard';
 
-function SeminarDetail() {
+const SeminarDetail = () => {
   const { id } = useParams();
   return (
     <div>
@@ -34,6 +34,6 @@ function SeminarDetail() {
       <div className="h-[250px]" />
     </div>
   );
-}
+};
 
 export default SeminarDetail;
