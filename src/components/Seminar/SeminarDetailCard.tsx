@@ -10,7 +10,7 @@ function SeminarDeailCard({ id }: { id: number }) {
         <div className="h-[54px] flex flex-col gap-8 body-1-medium">
           <div className="flex flex-row gap-28">
             <div className="text-grey-300">일정</div>
-            <div className="text-grey-400">2025/ 4/ 30(수) 오후 6:30</div>
+            <div className="text-grey-400">2025. 4. 30.(수) 오후 6:30</div>
           </div>
           <div className="flex flex-row gap-28">
             <div className="text-grey-300">장소</div>
