@@ -10,12 +10,12 @@ interface ReviewListItemCardProps {
   onDelete?: (reviewId: number) => void;
 }
 
-const ReviewListItemCard: React.FC<ReviewListItemCardProps> = ({
+const ReviewListItemCard = ({
   review,
   onRegisterToHome,
   onUnregisterFromHome,
   onDelete,
-}) => {
+}: ReviewListItemCardProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 

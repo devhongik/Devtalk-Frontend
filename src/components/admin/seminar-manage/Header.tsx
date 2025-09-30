@@ -4,7 +4,7 @@ interface HeaderProps {
   onDelete?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ title, showDeleteButton, onDelete }) => (
+const Header = ({ title, showDeleteButton, onDelete }: HeaderProps) => (
   <header className="sticky top-0 z-20 h-[70px] mb-10 bg-background/90">
     <div className="max-w-[1030px] min-w-[850px] h-full mx-auto flex justify-between items-center">
       <h1 className="heading-1-bold text-white">{title}</h1>

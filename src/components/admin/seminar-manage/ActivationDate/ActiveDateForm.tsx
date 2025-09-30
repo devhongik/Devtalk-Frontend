@@ -7,12 +7,7 @@ interface ActiveDateProps {
   error?: string;
 }
 
-const ActiveDateForm: React.FC<ActiveDateProps> = ({
-  seminarDate,
-  applicationDate,
-  onChange,
-  error,
-}) => {
+const ActiveDateForm = ({ seminarDate, applicationDate, onChange, error }: ActiveDateProps) => {
   return (
     <div className="space-y-6">
       {/* 현재 세미나 활성화 기간 */}

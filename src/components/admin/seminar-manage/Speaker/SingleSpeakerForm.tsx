@@ -8,11 +8,7 @@ interface SingleSpeakerFormProps {
   onChange: (field: keyof Speaker, value: string | File | null) => void;
 }
 
-const SingleSpeakerForm: React.FC<SingleSpeakerFormProps> = ({
-  partNumber,
-  speakerData,
-  onChange,
-}) => {
+const SingleSpeakerForm = ({ partNumber, speakerData, onChange }: SingleSpeakerFormProps) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     onChange(e.target.name as keyof Speaker, e.target.value);
   };

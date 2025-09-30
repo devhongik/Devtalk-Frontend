@@ -6,13 +6,7 @@ interface FooterProps {
   onCancel: () => void;
 }
 
-const Footer: React.FC<FooterProps> = ({
-  saveButtonText,
-  isDirty,
-  hasErrors,
-  onSave,
-  onCancel,
-}) => (
+const Footer = ({ saveButtonText, isDirty, hasErrors, onSave, onCancel }: FooterProps) => (
   <footer className="max-w-[1030px] min-w-[850px] mx-auto">
     <div className="flex justify-end gap-3 px-8">
       <button

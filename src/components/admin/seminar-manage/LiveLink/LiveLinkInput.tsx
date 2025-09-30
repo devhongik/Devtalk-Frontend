@@ -5,7 +5,7 @@ interface LiveLinkInputProps {
   onLinkChange: (newLink: string) => void;
 }
 
-const LiveLinkInput: React.FC<LiveLinkInputProps> = ({ link, onLinkChange }) => {
+const LiveLinkInput = ({ link, onLinkChange }: LiveLinkInputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onLinkChange(e.target.value);
     console.log(e.target.value);

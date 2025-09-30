@@ -8,12 +8,12 @@ interface ReviewListProps {
   onDelete?: (reviewId: number) => void;
 }
 
-const ReviewList: React.FC<ReviewListProps> = ({
+const ReviewList = ({
   reviews,
   onRegisterToHome,
   onUnregisterFromHome,
   onDelete,
-}) => {
+}: ReviewListProps) => {
   return (
     <div className="bg-grey-900 p-6 rounded-10">
       <h2 className="heading-2-bold text-white mb-6">후기 목록</h2>

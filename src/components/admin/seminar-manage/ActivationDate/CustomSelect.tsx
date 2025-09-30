@@ -13,7 +13,7 @@ interface CustomSelectProps {
   className?: string;
 }
 
-const CustomSelect: React.FC<CustomSelectProps> = ({ options, selectedValue, onSelect }) => {
+const CustomSelect = ({ options, selectedValue, onSelect }: CustomSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

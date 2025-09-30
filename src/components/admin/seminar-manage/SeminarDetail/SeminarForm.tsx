@@ -9,7 +9,7 @@ interface SeminarFormProps {
   onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
-const SeminarForm: React.FC<SeminarFormProps> = ({ data, onChange, errors, onBlur }) => {
+const SeminarForm = ({ data, onChange, errors, onBlur }: SeminarFormProps) => {
   // Input 이벤트 핸들러
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

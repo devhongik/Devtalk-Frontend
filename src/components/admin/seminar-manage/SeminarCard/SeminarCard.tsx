@@ -13,7 +13,7 @@ interface SeminarCardProps {
   seminar: Seminar;
 }
 
-const SeminarCard: React.FC<SeminarCardProps> = ({ seminar }) => {
+const SeminarCard = ({ seminar }: SeminarCardProps) => {
   return (
     <Link to={`/admin/seminars/${seminar.id}`}>
       <div className="bg-grey-700 max-w-[450px] rounded-lg p-3 cursor-pointer transition-colors border border-transparent hover:border-green-300 hover:bg-grey-600 duration-300">

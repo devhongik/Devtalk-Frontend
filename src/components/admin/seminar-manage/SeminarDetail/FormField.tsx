@@ -9,7 +9,7 @@ interface FormFieldProps {
   maxLength?: number;
 }
 
-const FormField: React.FC<FormFieldProps> = ({
+const FormField = ({
   label,
   id,
   placeholder,
@@ -18,7 +18,7 @@ const FormField: React.FC<FormFieldProps> = ({
   onBlur,
   error,
   maxLength,
-}) => {
+}: FormFieldProps) => {
   return (
     <div className="mb-7">
       <label className="block subhead-1-medium text-white mb-[16px]">{label}</label>

@@ -6,7 +6,7 @@ interface SpeakerFormProps {
   onChange: (updatedSpeakers: Speaker[]) => void;
 }
 
-const SpeakerForm: React.FC<SpeakerFormProps> = ({ speakers, onChange }) => {
+const SpeakerForm = ({ speakers, onChange }: SpeakerFormProps) => {
   const handleSpeakerChange = (
     index: number,
     field: keyof Speaker,

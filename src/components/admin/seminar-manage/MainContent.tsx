@@ -19,7 +19,7 @@ interface MainContentProps {
   handleDeleteReview?: (reviewId: number) => void;
 }
 
-const MainContent: React.FC<MainContentProps> = ({
+const MainContent = ({
   showReviewList,
   currentState,
   validationErrors,
@@ -29,7 +29,7 @@ const MainContent: React.FC<MainContentProps> = ({
   handleRegisterReviewToHome,
   handleUnregisterReviewFromHome,
   handleDeleteReview,
-}) => (
+}: MainContentProps) => (
   <main className="max-w-[1030px] min-w-[850px] mx-auto space-y-10 mb-[65px]">
     <AdminImageUpload
       title="세미나 썸네일 이미지"
