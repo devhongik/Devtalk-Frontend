@@ -31,6 +31,7 @@ function SeminarDetail() {
       <div className="fixed bottom-0">
         <Cta />
       </div>
+      <div className="h-[250px]" />
     </div>
   );
 }
