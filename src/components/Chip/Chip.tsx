@@ -14,7 +14,7 @@ export const Chip = ({ text, className = '' }: ChipProps) => {
         ${className}
       `}
     >
-      <p className="body-2-semibold text-gradient whitespace-nowrap">{text}</p>
+      <p className="text-gradient">{text}</p>
     </button>
   );
 };

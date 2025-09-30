@@ -22,6 +22,7 @@
 
     -webkit-background-clip: text;
     color: transparent;
+<<<<<<< HEAD
   }
 
   .text-gradient-light {
@@ -29,6 +30,8 @@
 
     -webkit-background-clip: text;
     color: transparent;
+=======
+>>>>>>> 5aa50d297149d0828846cadcffcbcde319b2b830
   }
 
   .container-gradient {
@@ -45,5 +48,13 @@
   .button-bg {
     background-image: var(--styly-button-bg);
     backdrop-filter: blur(2px);
+  }
+
+  .top-gradient {
+    background-image: var(--linear-top-gradient);
+  }
+
+  .bottom-gradient {
+    background-image: var(--linear-bottom-gradient);
   }
 }
