@@ -26,8 +26,7 @@ const FormField = ({
         type="text"
         id={id}
         name={id}
-        className="w-full h-[66px] px-6 py-5 rounded-8 bg-grey-700 text-grey-300  
-                   focus:outline-none focus:ring-2 focus:ring-green-300 border-transparent"
+        className="form-input-base form-input-text"
         placeholder={placeholder}
         value={value}
         onChange={onChange}

@@ -12,7 +12,6 @@ const Detail = () => {
   const { id } = useParams<{ id: string }>();
 
   const {
-    initialState,
     currentState,
     isLoading,
     error,
