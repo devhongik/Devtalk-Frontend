@@ -73,12 +73,9 @@
   );
 
   --styly-button-bg: linear-gradient(180deg, rgba(15, 17, 20, 0) 0%, rgba(9, 10, 12, 0.6) 100%);
-<<<<<<< HEAD
-=======
 
   --linear-top-gradient: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
   --linear-bottom-gradient: linear-gradient(180deg, #000000 0%, #3a4140 100%);
->>>>>>> 5aa50d297149d0828846cadcffcbcde319b2b830
 
   /* Spacing */
   --spacing-0: 0px;
