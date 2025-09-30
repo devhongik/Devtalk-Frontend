@@ -8,8 +8,8 @@ import { Button } from '../../../components/Button/Button';
 const ApplyInfo = () => {
   return (
     <div className="flex flex-col gap-16 items-center mb-64">
+      <ApplyHeader backTo="/seminar/:id" />
       <div className="flex flex-col gap-80 items-center">
-        <ApplyHeader backTo="/seminar/:id" />
         <div className="flex flex-col gap-14">
           <div className="flex flex-col gap-32">
             <h1 className="heading-2-bold text-white">제 10회 Devtalk Seminar</h1>
