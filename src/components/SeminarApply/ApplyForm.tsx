@@ -1,3 +1,6 @@
+import checkbox from '../../assets/icons/components/SeminarApply/checkbox.svg';
+import emptybox from '../../assets/icons/components/SeminarApply/empty.svg';
+
 const ApplyForm = () => {
   return (
     <>
