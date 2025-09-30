@@ -24,9 +24,7 @@ const Home = () => {
       <Cta />
       {/* 강연 소개 카드 */}
       <div className="flex flex-col pt-80 gap-32 px-20">
-        <div className="text-white heading-2-semibold">
-          다가오는 세미나 강연 소개
-        </div>
+        <div className="text-white heading-2-semibold">다가오는 세미나 강연 소개</div>
 
         <div className="-mx-20 flex flex-col gap-80">
           <Carousel>
@@ -41,7 +39,6 @@ const Home = () => {
           </Carousel>
         </div>
       </div>
-
 
       {/* 데브톡 소개 */}
       <div className="flex flex-col pt-[200px] px-20 pb-[92px]">
@@ -69,12 +66,32 @@ const Home = () => {
         <p className="text-white heading-2-bold">학우들의 후기</p>
         <div className="-mx-20">
           <InfiniteCarousel>
-            <ReviewCard session={9} rating={5} content="요즘 핫한 주제로 강연을 들어서 너무 좋았습니다 !" />
-            <ReviewCard session={6} rating={5} content="4학년인 만큼 진로에 고민과 걱정이 많았는데 삶의 경험이 풍부하신 분들의 연사를 들으니 마인드셋에 도움이 되었습니다."/>
-            <ReviewCard session={9} rating={5} content="부전공생이라서 정규수업 외에는 실무적인 정보들을 얻기가 어려웠는데 이렇게 좋은 자리 마련해주셔서 정말 재미있고 유익했습니다. 감사합니다."/>
-            <ReviewCard session={8} rating={5} content="라이브 코딩 재밌었어요 ㅋㅋㅋ"/>
-            <ReviewCard session={7} rating={5} content="생각해보지 못했던 주제들에 대한 이야기를 들을 수 있어서 좋았습니다."/>
-            <ReviewCard session={6} rating={5} content="한국뿐만이 아니라 보다 넓은 세상에서 활약하고 계시는 분들의 경험을 들을 수 있는 귀중한 기회를 얻을 수 있어서 좋았습니다."/>
+            <ReviewCard
+              session={9}
+              rating={2}
+              content="요즘 핫한 주제로 강연을 들어서 너무 좋았습니다 !"
+            />
+            <ReviewCard
+              session={6}
+              rating={4}
+              content="4학년인 만큼 진로에 고민과 걱정이 많았는데 삶의 경험이 풍부하신 분들의 연사를 들으니 마인드셋에 도움이 되었습니다."
+            />
+            <ReviewCard
+              session={9}
+              rating={3}
+              content="부전공생이라서 정규수업 외에는 실무적인 정보들을 얻기가 어려웠는데 이렇게 좋은 자리 마련해주셔서 정말 재미있고 유익했습니다. 감사합니다."
+            />
+            <ReviewCard session={8} rating={1} content="라이브 코딩 재밌었어요 ㅋㅋㅋ" />
+            <ReviewCard
+              session={7}
+              rating={5}
+              content="생각해보지 못했던 주제들에 대한 이야기를 들을 수 있어서 좋았습니다."
+            />
+            <ReviewCard
+              session={6}
+              rating={5}
+              content="한국뿐만이 아니라 보다 넓은 세상에서 활약하고 계시는 분들의 경험을 들을 수 있는 귀중한 기회를 얻을 수 있어서 좋았습니다."
+            />
           </InfiniteCarousel>
         </div>
       </div>
@@ -110,7 +127,11 @@ const Home = () => {
               <img src={Timer} alt="타이머 아이콘" className="w-[91px] h-[108px]" />
             </div>
           </div>
-          <Button variant="default" text="10회차 세미나 신청하기" onClick={() => navigate('/seminar/apply-info')}/>
+          <Button
+            variant="default"
+            text="10회차 세미나 신청하기"
+            onClick={() => navigate('/seminar/apply-info')}
+          />
         </div>
       </div>
 

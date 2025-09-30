@@ -1,10 +1,10 @@
 const ReviewStar = ({
   className = '',
-  onclick,
   isActive,
+  onclick,
 }: {
   className?: string;
-  onclick: () => void;
+  onclick?: () => void;
   isActive: boolean;
 }) => {
   return (
