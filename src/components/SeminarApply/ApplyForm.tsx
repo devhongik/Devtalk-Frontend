@@ -14,6 +14,16 @@ const DEPARTMENTS = [
 
 const GRADES = ['1학년', '2학년', '3학년', '4학년'];
 
+const HOWTOKNOW = [
+  '지인',
+  '교수님',
+  '에브리타임',
+  '학과 공지방',
+  '학회/동아리 공지방',
+  '교내 포스터 / X배너',
+  '인스타그램',
+];
+
 const ApplyForm = () => {
   return (
     <>
@@ -57,6 +67,7 @@ const ApplyForm = () => {
           />
         </div>
       </div>
+
       {/* 학과 선택란 */}
       <div className="flex flex-col gap-20">
         <div className="flex flex-col gap-4">
@@ -79,8 +90,6 @@ const ApplyForm = () => {
               </label>
             );
           })}
-
-          {/* 기타 */}
           <label htmlFor="dept-other" className="flex items-center gap-12 cursor-pointer">
             <input id="dept-other" type="checkbox" className="sr-only peer" />
 
@@ -134,10 +143,14 @@ const ApplyForm = () => {
               </label>
             );
           })}
-
-          {/* 기타 */}
           <label htmlFor="grade-other" className="group flex items-center gap-12 cursor-pointer">
-            <input id="grade-other" name="grade" type="radio" value="기타" className="sr-only" />
+            <input
+              id="grade-other"
+              name="grade"
+              type="radio"
+              value="기타"
+              className="peer sr-only"
+            />
 
             <span className="relative w-6 h-6 shrink-0">
               <img src={emptycircle} alt="" className="w-6 h-6" />
@@ -162,7 +175,75 @@ const ApplyForm = () => {
           </label>
         </div>
       </div>
+
       {/* 세미나 알게 된 경로 */}
+      <div className="flex flex-col gap-20">
+        <div className="flex flex-row gap-4">
+          <p className="heading-3-semibold text-white">이번 세미나를 어떻게 알게 되었나요?</p>
+          <p className="heading-3-semibold text-gradient">*</p>
+        </div>
+
+        <div className="flex flex-col gap-6">
+          {HOWTOKNOW.map((g, i) => {
+            const id = `howtoknow-${i}`;
+            return (
+              <label
+                key={id}
+                htmlFor={id}
+                className="group flex items-center gap-12 cursor-pointer"
+              >
+                <input id={id} name="howtoknow" type="radio" value={g} className="sr-only" />
+
+                <span className="relative w-6 h-6 shrink-0">
+                  <img src={emptycircle} alt="" className="w-6 h-6" />
+                  <img
+                    src={chosencircle}
+                    alt=""
+                    className="w-3 h-3
+                   absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                           hidden group-has-[:checked]:block"
+                  />
+                </span>
+
+                <span className="body-1-medium text-white">{g}</span>
+              </label>
+            );
+          })}
+          <label
+            htmlFor="howtoknow-other"
+            className="group flex items-center gap-12 cursor-pointer"
+          >
+            <input
+              id="howtoknow-other"
+              name="grade"
+              type="radio"
+              value="기타"
+              className="peer sr-only"
+            />
+
+            <span className="relative w-6 h-6 shrink-0">
+              <img src={emptycircle} alt="" className="w-6 h-6" />
+              <img
+                src={chosencircle}
+                alt=""
+                className="w-3 h-3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                       hidden group-has-[:checked]:block"
+              />
+            </span>
+
+            <span className="body-1-medium text-white shrink-0">기타:</span>
+            <input
+              type="text"
+              className="flex-1 bg-transparent outline-none
+             body-1-medium text-white
+             border-b border-grey-900
+             opacity-0 peer-checked:opacity-100 peer-checked:pointer-events-auto
+             pointer-events-none transition-opacity
+             focus:border-grey-600"
+            />
+          </label>
+        </div>
+      </div>
 
       {/* 참여 방식 */}
     </>
