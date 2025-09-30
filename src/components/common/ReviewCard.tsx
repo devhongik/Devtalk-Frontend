@@ -1,4 +1,4 @@
-import ReviewStar from '../../assets/icons/components/ReviewCard/Start';
+import ReviewStar from '../../assets/icons/components/ReviewCard/ReviewStart';
 
 type ReviewCardProps = {
   session: number;
@@ -15,11 +15,12 @@ const ReviewCard = ({ session, rating, content }: ReviewCardProps) => {
         </div>
         <div className="flex flex-row gap-8 h-[20px]">
           <div className="w-[100px] h-full flex flex-row">
-            {Array.from({ length: rating }).map((_, index) => (
-              <ReviewStar key={index} className="w-16 h-16" isActive={true} />
-            ))}
-            {Array.from({ length: 5 - rating }).map((_, index) => (
-              <ReviewStar key={index} className="w-16 h-16" isActive={false} />
+            {Array.from({ length: 5 }).map((_, index) => (
+              <ReviewStar
+                key={index}
+                className="w-16 h-16"
+                isActive={rating > index ? true : false}
+              />
             ))}
           </div>
           <div className="w-[26px] h-full gap-2 flex flex-row">
