@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ReviewStar from '../../assets/icons/components/ReviewCard/ReviewStart.svg?react';
+import ReviewStar from '../../assets/icons/components/ReviewCard/ReviewStar.svg?react';
 
 const ReviewRating = () => {
   const [rating, setRating] = useState(0);
@@ -14,7 +14,10 @@ const ReviewRating = () => {
         {Array.from({ length: 5 }).map((_, index) => (
           <ReviewStar
             key={index}
-            className={`w-8 h-8 cursor-pointer ${rating > index ? 'text-gradient' : 'text-[#4B5362]'}`}
+            className="w-[50px] h-[50px] cursor-pointer"
+            style={{
+              fill: rating > index ? 'url(#paint0_linear_524_3678)' : '#4B5362',
+            }}
             onClick={() => handleStarClick(index)}
           />
         ))}
