@@ -2,7 +2,7 @@ import Cta from '../../../components/common/Cta';
 import Footer from '../../../components/common/Footer';
 import Header from '../../../components/common/Header';
 import SeminarPoster from '../../../components/common/SeminarPoster';
-import IntroDevtalk from '../../../assets/introDevtalk.svg';
+import IntroDevtalk from '../../../assets/IntroDevtalk.svg';
 import ReviewCard from '../../../components/common/ReviewCard';
 import ExSeminar from '../../../assets/exSeminar.jpg';
 import { ButtonExSeminar } from '../../../components/Button/ButtonExSeminar';
