@@ -63,8 +63,10 @@ const initialData: SeminarDetails = {
       createdAt: '2025. 10. 4.(토) 오후 7:00',
     },
   ],
-  seminarDate: new Date(),
-  applicationDate: new Date(),
+  seminarStartDate: new Date(),
+  seminarEndDate: new Date(),
+  applicationStartDate: new Date(),
+  applicationEndDate: new Date(),
 };
 
 const blankSpeakerState: Speaker = {
@@ -86,8 +88,10 @@ const blankData: SeminarDetails = {
   speakers: [blankSpeakerState, blankSpeakerState],
   liveLink: '',
   reviews: [],
-  seminarDate: new Date(),
-  applicationDate: new Date(),
+  seminarStartDate: new Date(),
+  seminarEndDate: new Date(),
+  applicationStartDate: new Date(),
+  applicationEndDate: new Date(),
 };
 
 export const useSeminarState = (id: string | undefined) => {
@@ -154,7 +158,11 @@ export const useSeminarState = (id: string | undefined) => {
 
   // 활성화 날짜 검증
   useEffect(() => {
-    if (state.currentState && state.currentState.seminarDate < state.currentState.applicationDate) {
+    if (
+      state.currentState &&
+      (state.currentState.seminarStartDate > state.currentState.applicationStartDate ||
+        state.currentState.seminarEndDate < state.currentState.applicationEndDate)
+    ) {
       setState((prev) => ({
         ...prev,
         activationError: '※ 신청 활성화 시간은 세미나 활성화 시간보다 나중으로 설정할 수 없습니다.',
@@ -200,8 +208,18 @@ export const useSeminarState = (id: string | undefined) => {
   const validateRequiredFields = (): boolean => {
     if (!state.currentState) return false;
 
-    const { mainImageUrl, title, date, location, topic, speakers, seminarDate, applicationDate } =
-      state.currentState;
+    const {
+      mainImageUrl,
+      title,
+      date,
+      location,
+      topic,
+      speakers,
+      seminarStartDate,
+      seminarEndDate,
+      applicationStartDate,
+      applicationEndDate,
+    } = state.currentState;
 
     // 기본 필드 검증
     if (!title.trim() || !date.trim() || !location.trim() || !topic.trim()) {
@@ -232,7 +250,7 @@ export const useSeminarState = (id: string | undefined) => {
       return false;
     }
 
-    if (!seminarDate || !applicationDate) {
+    if (!seminarStartDate || !seminarEndDate || !applicationStartDate || !applicationEndDate) {
       return false;
     }
 

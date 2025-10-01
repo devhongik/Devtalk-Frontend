@@ -37,8 +37,10 @@ export interface SeminarDetails {
   speakers: Speaker[];
   liveLink: string;
   reviews: Review[];
-  seminarDate: Date;
-  applicationDate: Date;
+  seminarStartDate: Date;
+  seminarEndDate: Date;
+  applicationStartDate: Date;
+  applicationEndDate: Date;
 }
 
 export interface FormErrors {

@@ -64,8 +64,10 @@ const MainContent = ({
     />
 
     <ActiveDateForm
-      seminarDate={currentState.seminarDate}
-      applicationDate={currentState.applicationDate}
+      seminarStartDate={currentState.seminarStartDate}
+      seminarEndDate={currentState.seminarEndDate}
+      applicationStartDate={currentState.applicationStartDate}
+      applicationEndDate={currentState.applicationEndDate}
       onChange={(dateType, newDate) => updateSeminarData({ [dateType]: newDate })}
       error={activationError}
     />
