@@ -6,9 +6,9 @@ import ApplyForm from '../../../components/SeminarApply/ApplyForm';
 
 const ApplyInfo = () => {
   return (
-    <div className="flex flex-col gap-16 mb-64">
+    <div className="flex flex-col gap-16 justify-center items-center mb-64">
       <ApplyHeader backTo="/seminar/:id" />
-      <div className="flex flex-col gap-80 items-center">
+      <div className="flex flex-col w-[335px] gap-80">
         <div className="flex flex-col gap-14">
           <div className="flex flex-col gap-32">
             <h1 className="heading-2-bold text-white">제 10회 Devtalk Seminar</h1>
