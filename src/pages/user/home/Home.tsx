@@ -66,14 +66,14 @@ const Home = () => {
         <div className="flex flex-col pt-80 gap-32 px-20">
           <div className="text-white heading-2-semibold">다가오는 세미나 강연 소개</div>
 
-          <div className="-mx-20 flex flex-col snap-center">
+          <div className="-mx-20 flex flex-col snap-center pb-[80px]">
             <Carousel>
               <LectureCardMain />
               <LectureCardSpeaker />
               <LectureCardSession />
             </Carousel>
           </div>
-          <div className="-mx-20 flex flex-col pt-[80px] snap-center">
+          <div className="-mx-20 flex flex-col snap-center">
             <Carousel>
               <LectureCardMain />
               <LectureCardSpeaker />
