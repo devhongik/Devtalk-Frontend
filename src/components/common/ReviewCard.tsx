@@ -1,4 +1,4 @@
-import ReviewStar from '../../assets/icons/components/ReviewCard/ReviewStart';
+import ReviewStar from '../../assets/icons/components/ReviewCard/ReviewStart.svg?react';
 
 type ReviewCardProps = {
   session: number;
@@ -18,8 +18,7 @@ const ReviewCard = ({ session, rating, content }: ReviewCardProps) => {
             {Array.from({ length: 5 }).map((_, index) => (
               <ReviewStar
                 key={index}
-                className="w-16 h-16"
-                isActive={rating > index ? true : false}
+                className={`w-8 h-8 cursor-pointer ${rating > index ? 'text-gradient' : 'text-[#4B5362]'}`}
               />
             ))}
           </div>
