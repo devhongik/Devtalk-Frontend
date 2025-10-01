@@ -14,9 +14,38 @@ import { LectureCardSpeaker } from '../../../components/LectureCard/LectureCardS
 import { LectureCardSession } from '../../../components/LectureCard/LectureCardSession';
 import { useNavigate } from 'react-router-dom';
 import InfiniteCarousel from '../../../components/common/InfiniteCarousel';
+import { useEffect, useRef, useState } from 'react';
 
 const Home = () => {
   const navigate = useNavigate();
+  const exSeminarref = useRef<HTMLDivElement | null>(null);
+  const [hideCTA, setHideCTA] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setHideCTA(true);
+          } else {
+            setHideCTA(false);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    if (exSeminarref.current) {
+      observer.observe(exSeminarref.current);
+    }
+
+    return () => {
+      if (exSeminarref.current) {
+        observer.unobserve(exSeminarref.current);
+      }
+    };
+  }, []);
+
   return (
     <>
       <div className="snap-y snap-proximity overflow-y-scroll h-screen scrollbar-hide">
@@ -26,7 +55,13 @@ const Home = () => {
         <div className="snap-center">
           <SeminarPoster />
         </div>
-        <Cta />
+
+        {!hideCTA && (
+          <div className="fixed bottom-0 left-0 w-full z-50">
+            <Cta />
+          </div>
+        )}
+
         {/* 강연 소개 카드 */}
         <div className="flex flex-col pt-80 gap-32 px-20">
           <div className="text-white heading-2-semibold">다가오는 세미나 강연 소개</div>
@@ -104,7 +139,7 @@ const Home = () => {
         </div>
 
         {/* 이전 세미나 알아보기 */}
-        <div className="relative w-[375px] h-[196px] snap-center">
+        <div ref={exSeminarref} className="relative w-[375px] h-[196px] snap-center">
           {/* 이미지 */}
           <img src={ExSeminar} alt="이전 세미나" className="w-full h-full object-cover" />
 
