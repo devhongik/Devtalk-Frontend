@@ -5,7 +5,7 @@ interface StarRatingProps {
   maxRating?: number;
 }
 
-const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
+const StarRating = ({ rating }: StarRatingProps) => {
   return (
     <div className="flex items-center">
       {Array.from({ length: 5 }).map((_, index) => (

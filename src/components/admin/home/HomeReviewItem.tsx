@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import StarRating from './StarRating';
+import StarRating from '../seminar-manage/Review/StarRating';
 import moremenu from '../../../assets/icons/components/ReviewCard/moremenu.svg';
 
 export interface Review {
@@ -11,13 +11,22 @@ export interface Review {
   nextTopic: string;
   isPublic: boolean;
   createdAt: string;
+  rank: number;
 }
 
-interface ReviewListItemCardProps {
+interface HomeReviewItemProps {
   review: Review;
+  onMoveUp: (id: number) => void;
+  onMoveDown: (id: number) => void;
+  onDelete: (id: number) => void;
 }
 
-const ReviewListItemCard: React.FC<ReviewListItemCardProps> = ({ review }) => {
+const HomeReviewItem: React.FC<HomeReviewItemProps> = ({
+  review,
+  onMoveUp,
+  onMoveDown,
+  onDelete,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -68,22 +77,29 @@ const ReviewListItemCard: React.FC<ReviewListItemCardProps> = ({ review }) => {
             <img src={moremenu} className="cursor-pointer" />
           </button>
 
-          {isMenuOpen && (
+          {isMenuOpen && review.isPublic && (
             <div className="absolute bottom-0 right-0 translate-y-full w-[140px] bg-grey-800 rounded-md z-10">
               <ul className="caption-semibold flex flex-col">
-                {review.isPublic && (
-                  <li className="border-b-2 border-black">
-                    <button className="w-full text-center py-[6px] hover:bg-grey-600 rounded-t-md cursor-pointer">
-                      홈 화면 후기 등록
-                    </button>
-                  </li>
-                )}
-
-                <li className="flex-1">
+                <li className="border-b border-black">
                   <button
-                    className={`w-full text-center py-[6px] text-status-error hover:bg-grey-600 cursor-pointer
-                    ${review.isPublic ? 'rounded-b-md' : 'rounded-md'}
-                    `}
+                    onClick={() => onMoveUp(review.reviewId)}
+                    className="w-full text-center py-[6px] hover:bg-grey-600 rounded-t-md cursor-pointer"
+                  >
+                    순위 올리기
+                  </button>
+                </li>
+                <li className="border-b border-black">
+                  <button
+                    onClick={() => onMoveDown(review.reviewId)}
+                    className="w-full text-center py-[6px] hover:bg-grey-600 cursor-pointer"
+                  >
+                    순위 내리기
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => onDelete(review.reviewId)}
+                    className="w-full text-center py-[6px] text-status-error hover:bg-grey-600 rounded-b-md cursor-pointer"
                   >
                     삭제하기
                   </button>
@@ -97,4 +113,4 @@ const ReviewListItemCard: React.FC<ReviewListItemCardProps> = ({ review }) => {
   );
 };
 
-export default ReviewListItemCard;
+export default HomeReviewItem;

@@ -20,12 +20,13 @@ import Reviews from './pages/admin/home-manage/Reviews';
 import SeminarCards from './pages/admin/seminar-manage/Cards';
 import SeminarManageDetail from './pages/admin/seminar-manage/Detail';
 import SeminarAdd from './pages/admin/seminar-manage/Add';
-import SeminarApplicantsList from './pages/admin/seminar-manage/applicants/List'
-import SeminarApplicantsDetail from './pages/admin/seminar-manage/applicants/Detail'
+import SeminarApplicantsList from './pages/admin/seminar-manage/applicants/List';
+import SeminarApplicantsDetail from './pages/admin/seminar-manage/applicants/Detail';
 import SeminarApplicantsQuestions from './pages/admin/seminar-manage/applicants/Questions';
 import Attendance from './pages/admin/seminar-live/Attendance';
 import Accounts from './pages/admin/auth-manage/Accounts';
 import './App.css';
+import LiveVerification from './pages/user/seminar/LiveVerification';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Route path="/seminar/apply-question" element={<SeminarApplyQuestion />} />
           <Route path="/seminar" element={<SeminarHome />} />
           <Route path="/seminar/:id" element={<SeminarDetail />} />
+          <Route path="/seminar/live/verification" element={<LiveVerification />} />
           <Route path="/seminar/live" element={<SeminarLive />} />
           <Route path="/seminar/review" element={<SeminarReview />} />
           <Route path="/speakers" element={<SpeakersList />} />
@@ -60,7 +62,10 @@ function App() {
           <Route path="/admin/seminars/add" element={<SeminarAdd />} />
           <Route path="/admin/seminars/applicants" element={<SeminarApplicantsList />} />
           <Route path="/admin/seminars/applicants/:id" element={<SeminarApplicantsDetail />} />
-          <Route path="/admin/seminars/applicants/:id/questions" element={<SeminarApplicantsQuestions />} />
+          <Route
+            path="/admin/seminars/applicants/:id/questions"
+            element={<SeminarApplicantsQuestions />}
+          />
           <Route path="/admin/seminar-live/attendance" element={<Attendance />} />
           <Route path="/admin/admin-accounts" element={<Accounts />} />
         </Route>

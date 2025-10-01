@@ -7,13 +7,14 @@ export const Chip = ({ text, className = '' }: ChipProps) => {
   return (
     <button
       className={`
-        flex justify-center items-center gap-[8px]
+        inline-flex items-center gap-[8px]
         px-[12px] py-[8px]
         bg-grey-800 rounded-8
+        w-fit
         ${className}
       `}
     >
-      <p className="body-2-semibold text-gradient">{text}</p>
+      <p className="text-gradient">{text}</p>
     </button>
   );
 };
