@@ -51,41 +51,42 @@ export function validateAll(root: HTMLElement) {
   };
 }
 
-export function buildPayload(root: HTMLElement) {
-  const name = getInputValue(root, qs.name);
-  const phone = getInputValue(root, qs.phone);
-  const studentId = getInputValue(root, qs.studentId);
+// 추후 연동하면서 아래 사용 예정
+// export function buildPayload(root: HTMLElement) {
+//   const name = getInputValue(root, qs.name);
+//   const phone = getInputValue(root, qs.phone);
+//   const studentId = getInputValue(root, qs.studentId);
 
-  const departments = [
-    ...Array.from(root.querySelectorAll(qs.departmentsChecked))
-      .map((el) => (el as HTMLInputElement).value)
-      .filter((v) => v !== '기타'),
-    ...(isChecked(root, qs.deptOtherCheckbox) && getInputValue(root, qs.deptOtherText)
-      ? [getInputValue(root, qs.deptOtherText)]
-      : []),
-  ];
+//   const departments = [
+//     ...Array.from(root.querySelectorAll(qs.departmentsChecked))
+//       .map((el) => (el as HTMLInputElement).value)
+//       .filter((v) => v !== '기타'),
+//     ...(isChecked(root, qs.deptOtherCheckbox) && getInputValue(root, qs.deptOtherText)
+//       ? [getInputValue(root, qs.deptOtherText)]
+//       : []),
+//   ];
 
-  const gradeRadio = root.querySelector(qs.gradeChecked) as HTMLInputElement | null;
-  const grade =
-    gradeRadio?.value === '기타'
-      ? getInputValue(root, qs.gradeOtherText)
-      : (gradeRadio?.value ?? '');
+//   const gradeRadio = root.querySelector(qs.gradeChecked) as HTMLInputElement | null;
+//   const grade =
+//     gradeRadio?.value === '기타'
+//       ? getInputValue(root, qs.gradeOtherText)
+//       : (gradeRadio?.value ?? '');
 
-  const howRadio = root.querySelector(qs.howChecked) as HTMLInputElement | null;
-  const howToKnow =
-    howRadio?.value === '기타' ? getInputValue(root, qs.howOtherText) : (howRadio?.value ?? '');
+//   const howRadio = root.querySelector(qs.howChecked) as HTMLInputElement | null;
+//   const howToKnow =
+//     howRadio?.value === '기타' ? getInputValue(root, qs.howOtherText) : (howRadio?.value ?? '');
 
-  const participate =
-    (root.querySelector(qs.participateChecked) as HTMLInputElement | null)?.value ?? '';
+//   const participate =
+//     (root.querySelector(qs.participateChecked) as HTMLInputElement | null)?.value ?? '';
 
-  return {
-    name,
-    phone,
-    studentId,
-    departments,
-    grade,
-    howToKnow,
-    participate,
-    submittedAt: new Date().toISOString(),
-  };
-}
+//   return {
+//     name,
+//     phone,
+//     studentId,
+//     departments,
+//     grade,
+//     howToKnow,
+//     participate,
+//     submittedAt: new Date().toISOString(),
+//   };
+// }
