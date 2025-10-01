@@ -3,6 +3,7 @@
 export const qs = {
   name: 'input[placeholder="ex. 김홍익"]',
   phone: 'input[placeholder="ex. 010-0000-0000"]',
+  email: 'input[placeholder="ex. aaaa@g.hongik.ac.kr"]',
   studentId: 'input[placeholder="ex. C012345"]',
   departmentsChecked: 'input[name="department"]:checked',
   deptOtherCheckbox: '#dept-other',
@@ -25,7 +26,9 @@ export function validateAll(root: HTMLElement) {
   const name = getInputValue(root, qs.name);
   const phone = getInputValue(root, qs.phone);
   const studentId = getInputValue(root, qs.studentId);
-  const basicOk = !!name && !!phone && !!studentId;
+  const email = getInputValue(root, qs.email);
+  const emailOk = !!email && /\S+@\S+\.\S+/.test(email);
+  const basicOk = !!name && !!phone && !!studentId && emailOk;
 
   const deptCheckedCnt = root.querySelectorAll(qs.departmentsChecked).length;
   const deptOtherChecked = isChecked(root, qs.deptOtherCheckbox);
@@ -47,6 +50,7 @@ export function validateAll(root: HTMLElement) {
     gradeOk,
     howOk,
     participateOk,
+    emailOk,
     allOk: basicOk && deptOk && gradeOk && howOk && participateOk,
   };
 }
@@ -55,6 +59,7 @@ export function validateAll(root: HTMLElement) {
 // export function buildPayload(root: HTMLElement) {
 //   const name = getInputValue(root, qs.name);
 //   const phone = getInputValue(root, qs.phone);
+//   const email = getInputValue(root, qs.email);
 //   const studentId = getInputValue(root, qs.studentId);
 
 //   const departments = [
@@ -82,6 +87,7 @@ export function validateAll(root: HTMLElement) {
 //   return {
 //     name,
 //     phone,
+//     email,
 //     studentId,
 //     departments,
 //     grade,
