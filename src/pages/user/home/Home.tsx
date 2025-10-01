@@ -4,7 +4,7 @@ import Header from '../../../components/common/Header';
 import SeminarPoster from '../../../components/common/SeminarPoster';
 import IntroDevtalk from '../../../assets/IntroDevtalk.svg';
 import ReviewCard from '../../../components/common/ReviewCard';
-import ExSeminar from '../../../assets/exSeminar.jpg';
+import ExSeminar from '../../../assets/ExSeminar.jpg';
 import { ButtonExSeminar } from '../../../components/Button/ButtonExSeminar';
 import Timer from '../../../assets/icons/common/timer.svg';
 import { Button } from '../../../components/Button/Button';
