@@ -24,6 +24,13 @@
     color: transparent;
   }
 
+  .text-gradient-light {
+    background-image: var(--gradient-graphic-light);
+
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
   .container-gradient {
     background-image: var(--gradient-container);
   }
