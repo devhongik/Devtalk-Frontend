@@ -6,7 +6,7 @@ import ApplyForm from '../../../components/SeminarApply/ApplyForm';
 
 const ApplyInfo = () => {
   return (
-    <div className="flex flex-col gap-16 items-center mb-64">
+    <div className="flex flex-col gap-16 mb-64">
       <ApplyHeader backTo="/seminar/:id" />
       <div className="flex flex-col gap-80 items-center">
         <div className="flex flex-col gap-14">
