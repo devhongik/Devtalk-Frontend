@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import chevronDownIcon from '../../../assets/icons/common/chevrondown.svg';
+import chevronDownIcon from '../../../../assets/icons/common/chevrondown.svg';
 
 interface Option {
   value: number | string;
@@ -13,7 +13,7 @@ interface CustomSelectProps {
   className?: string;
 }
 
-const CustomSelect: React.FC<CustomSelectProps> = ({ options, selectedValue, onSelect }) => {
+const CustomSelect = ({ options, selectedValue, onSelect }: CustomSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

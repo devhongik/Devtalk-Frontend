@@ -1,23 +1,21 @@
 import { useState, useRef, useEffect } from 'react';
 import StarRating from './StarRating';
-import moremenu from '../../../assets/icons/components/ReviewCard/moremenu.svg';
-
-export interface Review {
-  reviewId: number;
-  score: number;
-  department: string;
-  grade: number;
-  content: string;
-  nextTopic: string;
-  isPublic: boolean;
-  createdAt: string;
-}
+import moremenu from '../../../../assets/icons/components/ReviewCard/moremenu.svg';
+import type { Review } from '../../../../types/SeminarManage/seminar';
 
 interface ReviewListItemCardProps {
   review: Review;
+  onRegisterToHome?: (reviewId: number) => void;
+  onUnregisterFromHome?: (reviewId: number) => void;
+  onDelete?: (reviewId: number) => void;
 }
 
-const ReviewListItemCard: React.FC<ReviewListItemCardProps> = ({ review }) => {
+const ReviewListItemCard = ({
+  review,
+  onRegisterToHome,
+  onUnregisterFromHome,
+  onDelete,
+}: ReviewListItemCardProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -31,6 +29,21 @@ const ReviewListItemCard: React.FC<ReviewListItemCardProps> = ({ review }) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const handleRegister = () => {
+    setIsMenuOpen(false);
+    onRegisterToHome?.(review.reviewId);
+  };
+
+  const handleUnregister = () => {
+    setIsMenuOpen(false);
+    onUnregisterFromHome?.(review.reviewId);
+  };
+
+  const handleDelete = () => {
+    setIsMenuOpen(false);
+    onDelete?.(review.reviewId);
+  };
 
   return (
     <div className="bg-grey-700 rounded-lg px-6 py-[15px] flex flex-col justify-between h-[220px] border-none">
@@ -73,8 +86,11 @@ const ReviewListItemCard: React.FC<ReviewListItemCardProps> = ({ review }) => {
               <ul className="caption-semibold flex flex-col">
                 {review.isPublic && (
                   <li className="border-b-2 border-black">
-                    <button className="w-full text-center py-[6px] hover:bg-grey-600 rounded-t-md cursor-pointer">
-                      홈 화면 후기 등록
+                    <button
+                      className="w-full text-center py-[6px] hover:bg-grey-600 rounded-t-md cursor-pointer"
+                      onClick={review.isFeatured ? handleUnregister : handleRegister}
+                    >
+                      {review.isFeatured ? '홈 화면 후기 해제' : '홈 화면 후기 등록'}
                     </button>
                   </li>
                 )}
@@ -84,6 +100,7 @@ const ReviewListItemCard: React.FC<ReviewListItemCardProps> = ({ review }) => {
                     className={`w-full text-center py-[6px] text-status-error hover:bg-grey-600 cursor-pointer
                     ${review.isPublic ? 'rounded-b-md' : 'rounded-md'}
                     `}
+                    onClick={handleDelete}
                   >
                     삭제하기
                   </button>

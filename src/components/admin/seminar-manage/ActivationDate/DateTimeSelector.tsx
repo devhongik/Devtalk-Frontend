@@ -1,9 +1,11 @@
 import CustomSelect from './CustomSelect';
 
-const DateTimeSelector: React.FC<{ date: Date; onDateChange: (newDate: Date) => void }> = ({
-  date,
-  onDateChange,
-}) => {
+interface DateTimeSelectorProps {
+  date: Date;
+  onDateChange: (newDate: Date) => void;
+}
+
+const DateTimeSelector = ({ date, onDateChange }: DateTimeSelectorProps) => {
   const handleSelectChange = (
     part: 'year' | 'month' | 'day' | 'hour' | 'minute',
     value: number

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import SeminarCard from '../../../components/admin/SeminarManage/SeminarCard';
+import SeminarCard from '../../../components/admin/seminar-manage/SeminarCard/SeminarCard';
 
 // mock data
 const mockSeminars = [
