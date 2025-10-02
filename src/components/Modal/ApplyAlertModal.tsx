@@ -1,11 +1,11 @@
 import React from 'react';
 
-interface ApplyInformModalProps {
+interface ApplyAlertModalProps {
   open: boolean;
   onClose: () => void;
 }
 
-const ApplyInformModal: React.FC<ApplyInformModalProps> = ({ open, onClose }) => {
+const ApplyAlertModal: React.FC<ApplyAlertModalProps> = ({ open, onClose }) => {
   if (!open) return null;
 
   return (
@@ -16,12 +16,12 @@ const ApplyInformModal: React.FC<ApplyInformModalProps> = ({ open, onClose }) =>
       {/* 팝업 박스 */}
       <div className="relative bg-grey-700 rounded-12 shadow-lg w-[343px] z-10 text-center">
         {/* 제목 */}
-        <div className="text-white subhead-1-semibold mt-40 mb-8">신청이 완료되었습니다.</div>
+        <div className="text-white subhead-1-semibold mt-40 mb-8">이미 신청 기록이 있습니다.</div>
 
         {/* 메시지 */}
         <p className="text-grey-300 body-1-medium mb-28">
-          온라인 접속 링크는 행사 전날 메일로 안내되며, <br />
-          당일 오프라인 참여로 전환 가능합니다 <span className="inline-block">😊</span>
+          데브톡 세미나는 한 회차에 한 번만 <br />
+          신청할 수 있습니다.
         </p>
 
         {/* 구분선 */}
@@ -39,4 +39,4 @@ const ApplyInformModal: React.FC<ApplyInformModalProps> = ({ open, onClose }) =>
   );
 };
 
-export default ApplyInformModal;
+export default ApplyAlertModal;
