@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSeminarState } from '../../../hooks/SeminarManage/useSeminarState';
 import { useReviewActions } from '../../../hooks/SeminarManage/useReviewActions';
@@ -5,11 +6,22 @@ import { useReviewActions } from '../../../hooks/SeminarManage/useReviewActions'
 import Header from '../../../components/admin/seminar-manage/Header';
 import MainContent from '../../../components/admin/seminar-manage/MainContent';
 import Footer from '../../../components/admin/seminar-manage/Footer';
+import AdminModal from '../../../components/admin/common/AdminModal';
 
 // 페이지
 const Detail = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+
+  const [modalConfig, setModalConfig] = useState<{
+    isOpen: boolean;
+    variant: 'deleteSeminar' | 'deleteReview' | 'cancel' | null;
+    reviewId: number | null;
+  }>({
+    isOpen: false,
+    variant: null,
+    reviewId: null,
+  });
 
   const {
     currentState,
@@ -32,35 +44,61 @@ const Detail = () => {
     });
 
   // 세미나 삭제
-  const handleDelete = () => {
-    if (!currentState) return;
+  const handleDeleteSeminar = () => {
+    setModalConfig({
+      isOpen: true,
+      variant: 'deleteSeminar',
+      reviewId: null,
+    });
+  };
 
-    if (window.confirm('해당 세미나를 정말로 삭제하시겠습니까?')) {
-      console.log(`${id}번 세미나 삭제`);
-      navigate(-1);
-    }
+  // 후기 삭제
+  const handleDeleteReviewModal = (reviewId: number) => {
+    setModalConfig({
+      isOpen: true,
+      variant: 'deleteReview',
+      reviewId,
+    });
   };
 
   // 저장
   const handleSave = () => {
     if (!currentState) return;
 
-    if (window.confirm('변경사항들을 저장하시겠습니까?')) {
-      console.log('저장할 데이터: ', currentState);
-
-      setInitialState(currentState);
-
-      alert('저장되었습니다.');
-    }
+    console.log('수정하기 클릭: ', currentState);
+    alert('세미나가 수정되었습니다.');
+    navigate('/admin/seminars');
   };
 
-  // 취소 (변경 사항이 있을 때는 사용자에게 확인을 받음)
+  // 취소
   const handleCancel = () => {
     if (!currentState) return;
 
-    if (isDirty && window.confirm('변경사항이 있습니다. 정말 취소하시겠습니까?')) {
+    if (isDirty) {
+      setModalConfig({
+        isOpen: true,
+        variant: 'cancel',
+        reviewId: null,
+      });
+    } else {
       navigate(-1);
     }
+  };
+
+  // 모달에서 삭제하기 클릭 시
+  const handleConfirm = () => {
+    if (modalConfig.variant === 'deleteSeminar') {
+      console.log(`${id}번 세미나 삭제`);
+      navigate(-1);
+    } else if (modalConfig.variant === 'deleteReview' && modalConfig.reviewId !== null) {
+      handleDeleteReview?.(modalConfig.reviewId);
+    } else if (modalConfig.variant === 'cancel') {
+      navigate(-1);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setModalConfig({ isOpen: false, variant: null, reviewId: null });
   };
 
   // 로딩 상태
@@ -80,7 +118,7 @@ const Detail = () => {
 
   return (
     <div className="p-[60px] min-h-screen">
-      <Header title="세미나 상세정보 관리" showDeleteButton={true} onDelete={handleDelete} />
+      <Header title="세미나 상세정보 관리" showDeleteButton={true} onDelete={handleDeleteSeminar} />
 
       <MainContent
         showReviewList={true}
@@ -91,7 +129,7 @@ const Detail = () => {
         handleBlur={handleBlur}
         handleRegisterReviewToHome={handleRegisterReviewToHome}
         handleUnregisterReviewFromHome={handleUnregisterReviewFromHome}
-        handleDeleteReview={handleDeleteReview}
+        handleDeleteReview={handleDeleteReviewModal}
       />
 
       <Footer
@@ -101,6 +139,15 @@ const Detail = () => {
         onSave={handleSave}
         onCancel={handleCancel}
       />
+
+      {modalConfig.variant && (
+        <AdminModal
+          isOpen={modalConfig.isOpen}
+          onClose={handleCloseModal}
+          onConfirm={handleConfirm}
+          variant={modalConfig.variant}
+        />
+      )}
     </div>
   );
 };
