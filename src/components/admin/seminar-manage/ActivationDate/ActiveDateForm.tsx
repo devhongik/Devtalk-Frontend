@@ -9,7 +9,8 @@ interface ActiveDateProps {
     dateType: 'seminarStartDate' | 'seminarEndDate' | 'applicationStartDate' | 'applicationEndDate',
     newDate: Date
   ) => void;
-  error?: string;
+  seminarDateError?: string;
+  applicationDateError?: string;
 }
 
 const ActiveDateForm = ({
@@ -18,12 +19,13 @@ const ActiveDateForm = ({
   applicationStartDate,
   applicationEndDate,
   onChange,
-  error,
+  seminarDateError,
+  applicationDateError,
 }: ActiveDateProps) => {
   return (
     <div className="space-y-6">
       {/* 현재 세미나 활성화 기간 */}
-      <div className="bg-grey-900 p-6 rounded-10 min-h-[250px]">
+      <div className="bg-grey-900 p-6 rounded-10 min-h-[240px]">
         <h2 className="heading-2-bold text-white mb-6">현재 세미나 활성화 기간</h2>
         <div className="flex flex-col gap-y-9">
           <DateTimeSelector
@@ -38,10 +40,13 @@ const ActiveDateForm = ({
             />
           </div>
         </div>
+        {seminarDateError && (
+          <p className="text-status-error text-sm text-right mt-3">{seminarDateError}</p>
+        )}
       </div>
 
       {/* 세미나 신청 활성화 기간 */}
-      <div className="bg-grey-900 p-6 rounded-10 min-h-[250px]">
+      <div className="bg-grey-900 p-6 rounded-10 min-h-[240px]">
         <h2 className="heading-2-bold text-white mb-6">세미나 신청 활성화 기간</h2>
         <div className="flex flex-col gap-y-9">
           <DateTimeSelector
@@ -56,7 +61,9 @@ const ActiveDateForm = ({
             />
           </div>
         </div>
-        {error && <p className="text-status-error text-sm mt-3">{error}</p>}
+        {applicationDateError && (
+          <p className="text-status-error text-sm text-right mt-3">{applicationDateError}</p>
+        )}
       </div>
     </div>
   );

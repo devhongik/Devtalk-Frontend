@@ -102,7 +102,7 @@ export const useSeminarState = (id: string | undefined) => {
     error: null,
     isDirty: false,
     validationErrors: {},
-    activationError: '',
+    activationError: { seminar: '', application: '' },
   });
 
   // 데이터 로딩
@@ -143,7 +143,7 @@ export const useSeminarState = (id: string | undefined) => {
         error: null,
         isDirty: false,
         validationErrors: {},
-        activationError: '',
+        activationError: { seminar: '', application: '' },
       });
     }
   }, [id]);
@@ -158,19 +158,40 @@ export const useSeminarState = (id: string | undefined) => {
 
   // 활성화 날짜 검증
   useEffect(() => {
-    if (
-      state.currentState &&
-      (state.currentState.seminarStartDate > state.currentState.applicationStartDate ||
-        state.currentState.seminarEndDate < state.currentState.applicationEndDate)
-    ) {
-      setState((prev) => ({
-        ...prev,
-        activationError: '※ 신청 활성화 시간은 세미나 활성화 시간보다 나중으로 설정할 수 없습니다.',
-      }));
-    } else {
-      setState((prev) => ({ ...prev, activationError: '' }));
+    if (!state.currentState) return;
+
+    const { seminarStartDate, seminarEndDate, applicationStartDate, applicationEndDate } =
+      state.currentState;
+
+    const newErrors = {
+      seminar: '',
+      application: '',
+    };
+
+    if (seminarStartDate > seminarEndDate) {
+      newErrors.seminar = '※ 시작일은 종료일보다 늦을 수 없습니다.';
+    } else if (seminarStartDate.getTime() == seminarEndDate.getTime()) {
+      newErrors.seminar = '※ 시작일과 종료일은 같을 수 없습니다.';
     }
-  }, [state.currentState]);
+
+    if (applicationStartDate > applicationEndDate) {
+      newErrors.application = '※ 시작일은 종료일보다 늦을 수 없습니다.';
+    } else if (applicationStartDate.getTime() == applicationEndDate.getTime()) {
+      newErrors.application = '※ 시작일과 종료일은 같을 수 없습니다.';
+    } else if (applicationStartDate < seminarStartDate || applicationEndDate > seminarEndDate) {
+      newErrors.application = '※ 현재 세미나 활성화 기간에서 벗어난 기간입니다.';
+    }
+
+    setState((prev) => ({
+      ...prev,
+      activationError: newErrors,
+    }));
+  }, [
+    state.currentState?.seminarStartDate,
+    state.currentState?.seminarEndDate,
+    state.currentState?.applicationStartDate,
+    state.currentState?.applicationEndDate,
+  ]);
 
   // 폼 데이터 업데이트
   const updateSeminarData = (updatedData: Partial<SeminarDetails>) => {
@@ -263,7 +284,8 @@ export const useSeminarState = (id: string | undefined) => {
   // 에러 상태 확인
   const hasErrors =
     Object.values(state.validationErrors).some((error) => !!error) ||
-    !!state.activationError ||
+    !!state.activationError.seminar ||
+    !!state.activationError.application ||
     !isRequiredFieldsFilled;
 
   // initialState 업데이트
