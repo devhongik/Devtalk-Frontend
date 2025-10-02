@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="relative flex justify-center items-center w-full h-[56px] z-60 bg-black">
+      <header className="relative flex justify-center items-center w-full h-[56px] z-56 bg-black">
         <div className="flex items-center justify-between w-[335px] h-[34px]">
           <img
             src={devlogo}
