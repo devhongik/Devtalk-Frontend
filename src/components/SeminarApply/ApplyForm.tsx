@@ -8,6 +8,7 @@ import { GradeSection } from './GradeSection';
 import { HowToKnowSection } from './HowToKnowSection';
 import { ParticipateSection } from './ParticipateSection';
 import { useApplyFormValidation } from '../../hooks/useApplyFormValidation';
+import { EmailSection } from './EmailSection';
 
 const DEPARTMENTS = [
   '컴퓨터공학과',
@@ -39,6 +40,7 @@ const ApplyForm = () => {
         <div className="flex flex-col gap-11">
           <NameSection />
           <PhoneSection />
+          <EmailSection />
           <StudentIdSection />
         </div>
 

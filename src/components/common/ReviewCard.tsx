@@ -1,5 +1,6 @@
 import ReviewStar from '../../assets/icons/components/ReviewCard/ReviewStar.svg?react';
 
+
 type ReviewCardProps = {
   session: number;
   rating: number;
