@@ -1,4 +1,4 @@
-import fillStar from '../../assets/icons/components/ReviewCard/fillStar.svg';
+import fillStar from '../../assets/icons/components/ReviewCard/fillstar.svg';
 import noneStar from '../../assets/icons/components/ReviewCard/nonestar.svg';
 
 type ReviewCardProps = {

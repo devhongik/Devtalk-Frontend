@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import Header from '../../../components/common/Header';
-import SeminarDeailCard from '../../../components/Seminar/SeminarDetailCard';
+import SeminarDetailCard from '../../../components/Seminar/SeminarDetailCard';
 import ReviewCard from '../../../components/common/ReviewCard';
 import Cta from '../../../components/common/Cta';
 import SeminarDetailLectureCard from '../../../components/Seminar/SeminarDetailLectureCard';
@@ -11,7 +11,7 @@ const SeminarDetail = () => {
     <div>
       <div className="flex flex-col gap-32 bg-balck">
         <Header />
-        <SeminarDeailCard id={Number(id)} />
+        <SeminarDetailCard id={Number(id)} />
         <div className="w-[375px] h-[2170px] flex flex-col gap-24 px-20">
           <div className="heading-3-semibold text-white">연사 소개</div>
           <div className="flex flex-col gap-10 justify-center items-center bg-black">
