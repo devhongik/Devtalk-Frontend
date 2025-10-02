@@ -57,7 +57,7 @@ const Home = () => {
         </div>
 
         {!hideCTA && (
-          <div className="fixed bottom-0 left-0 w-full z-50">
+          <div className="fixed bottom-0 w-full z-50">
             <Cta />
           </div>
         )}
