@@ -2,11 +2,15 @@ import ApplyHeader from '../../../components/SeminarApply/ApplyHeader';
 import SpeakerCard from '../../../components/SeminarApply/SpeakerCard';
 import AutoResizeTextarea from '../../../components/SeminarApply/AutoResizeTextarea';
 import { Button } from '../../../components/Button/Button';
+import { useState } from 'react';
+import ApplySuccessModal from '../../../components/Modal/ApplySuccessModal';
 
 const ApplyQuestion = () => {
+  const [open, setOpen] = useState(false);
   const handleClickApply = () => {
     console.log('신청하기 버튼 클릭');
     // 추후 API 연동
+    setOpen(true);
   };
 
   return (
@@ -47,6 +51,7 @@ const ApplyQuestion = () => {
         onClick={handleClickApply}
         className="fixed bottom-[64px] left-1/2 -translate-x-1/2 z-50"
       />
+      <ApplySuccessModal open={open} onClose={() => setOpen(false)} />
     </>
   );
 };
