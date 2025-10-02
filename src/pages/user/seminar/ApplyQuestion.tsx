@@ -3,7 +3,7 @@ import SpeakerCard from '../../../components/SeminarApply/SpeakerCard';
 import AutoResizeTextarea from '../../../components/SeminarApply/AutoResizeTextarea';
 import { Button } from '../../../components/Button/Button';
 import { useState } from 'react';
-import ApplyAlertModal from '../../../components/Modal/ApplyAlertModal';
+import ApplyExitModal from '../../../components/Modal/ApplyExitModal';
 
 const ApplyQuestion = () => {
   const [open, setOpen] = useState(false);
@@ -51,7 +51,14 @@ const ApplyQuestion = () => {
         onClick={handleClickApply}
         className="fixed bottom-[64px] left-1/2 -translate-x-1/2 z-50"
       />
-      <ApplyAlertModal open={open} onClose={() => setOpen(false)} />
+      <ApplyExitModal
+        open={open}
+        onConfirm={() => {
+          console.log('나가기');
+          setOpen(false);
+        }}
+        onCancel={() => setOpen(false)}
+      />
     </>
   );
 };
