@@ -11,7 +11,12 @@ const Header = () => {
   return (
     <header className="flex justify-center items-center w-full h-[56px] bg-black">
       <div className="flex items-center justify-between w-[335px] h-[34px]">
-        <img src={devlogo} alt="devlogo" className="w-[77px] h-[32px] cursor-pointer" onClick={() => navigate('/')}/>
+        <img
+          src={devlogo}
+          alt="devlogo"
+          className="w-[77px] h-[32px] cursor-pointer"
+          onClick={() => navigate('/')}
+        />
         <img
           src={hamburger}
           alt="hamburger"

@@ -38,7 +38,10 @@ const HamburgerBar = ({ isOpen, onClose }: HamburgerBarProps) => {
             >
               세미나
             </button>
-            <button className="w-[254px] py-[12px] pl-[16px] pr-[8px] rounded-8 text-left hover:bg-grey-800 cursor-pointer transition-all duration-200" onClick={() => navigate('/seminar/apply-info')}>
+            <button
+              className="w-[254px] py-[12px] pl-[16px] pr-[8px] rounded-8 text-left hover:bg-grey-800 cursor-pointer transition-all duration-200"
+              onClick={() => navigate('/seminar/apply-info')}
+            >
               <p className="text-gradient">n회차 데브톡 신청하기</p>
             </button>
             <hr className="border-gray-700 mt-[28px] mb-[8px]" />
