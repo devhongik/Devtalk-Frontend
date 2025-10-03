@@ -1,6 +1,6 @@
 import axios, { type AxiosInstance } from 'axios';
 
-export const axiosInstance: AxiosInstance = axios.create({
+export const adminInstance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_API_URL,
 });
 
@@ -8,7 +8,7 @@ export const refreshInstance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_API_URL,
 });
 
-axiosInstance.interceptors.request.use(
+adminInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('accessToken');
     if (token && config.headers) {
@@ -21,7 +21,7 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-axiosInstance.interceptors.response.use(
+adminInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const status = error.response?.status;
@@ -34,11 +34,11 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
       const refreshToken = localStorage.getItem('refreshToken');
 
-      //refreshToken이 없는 경우 홈으로 이동
+      //refreshToken이 없는 경우 어드민 로그인 페이지로 이동
       if (!refreshToken) {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-        window.location.href = '/';
+        window.location.href = '/admin/login';
         return Promise.reject(error);
       }
 
@@ -48,26 +48,26 @@ axiosInstance.interceptors.response.use(
         const newAccessToken = data?.accessToken;
         localStorage.setItem('accessToken', newAccessToken);
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-        return axiosInstance(originalRequest);
+        return adminInstance(originalRequest);
       } catch (error) {
-        //에러 발생시 홈으로 이동
+        //에러 발생시 로그인 페이지으로 이동
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-        window.location.replace('/');
+        window.location.replace('/admin/login');
       }
     }
 
     //토큰 오류
-    if (error.response.status === 401) {
-      //기존에 남아있던 토큰 삭제 후 홈으로 이동
+    if (status === 401) {
+      //기존에 남아있던 토큰 삭제 후 어드민 로그인 페이지로 이동
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
-      window.location.replace('/');
+      window.location.replace('/admin/login');
       return Promise.reject(error);
     }
 
     //접근 권한이 없는 경우
-    if (error.response.status === 403) {
+    if (status === 403) {
       //홈으로 이동
       window.location.replace('/');
       return Promise.reject(error);
