@@ -46,10 +46,10 @@ const AdminModal = ({ isOpen, onClose, onConfirm, variant }: ConfirmModalProps) 
         </div>
 
         {/* 버튼 */}
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 gap-5">
           <button
             onClick={onClose}
-            className="subhead-1-semibold py-3 px-6 text-white rounded-8 hover:bg-grey-600 transition-colors cursor-pointer"
+            className="subhead-1-semibold py-3 px-5 bg-grey-800 text-white rounded-8 hover:bg-grey-600 transition-colors cursor-pointer"
           >
             {variant === 'cancel' ? '돌아가기' : '취소하기'}
           </button>
@@ -58,7 +58,7 @@ const AdminModal = ({ isOpen, onClose, onConfirm, variant }: ConfirmModalProps) 
               onConfirm();
               onClose();
             }}
-            className="subhead-1-semibold py-3 px-6 rounded-8 transition-colors text-status-error cursor-pointer hover:text-white hover:bg-status-error/40"
+            className="subhead-1-semibold py-3 px-5 bg-status-error/15 rounded-8 transition-colors text-status-error cursor-pointer hover:text-white hover:bg-status-error/40"
           >
             {content.confirmText}
           </button>
