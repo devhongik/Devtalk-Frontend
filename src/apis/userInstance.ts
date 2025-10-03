@@ -1,5 +1,5 @@
 import axios, { type AxiosInstance } from 'axios';
-import { STORAGE_KEY } from '../constans/key';
+import { STORAGE_KEY } from '../constants/key';
 
 export const userInstance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_API_URL,
