@@ -34,9 +34,8 @@ const AdminModal = ({ isOpen, onClose, onConfirm, variant }: ConfirmModalProps) 
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/70" onClick={onClose} />
 
-      {/* Modal */}
       <div className="relative bg-grey-700 rounded-8 w-full max-w-[400px] min-h-[200px] mx-4 p-[32px] flex flex-col justify-between">
-        {/* Content */}
+        {/* 모달 내용 */}
         <div className="mb-[20px] text-center">
           <p className="heading-3-semibold text-white mb-[15px] whitespace-pre-line">
             {content.message}
@@ -46,11 +45,11 @@ const AdminModal = ({ isOpen, onClose, onConfirm, variant }: ConfirmModalProps) 
           </p>
         </div>
 
-        {/* Buttons */}
+        {/* 버튼 */}
         <div className="grid grid-cols-2">
           <button
             onClick={onClose}
-            className="subhead-1-semibold py-3 px-6 text-white rounded-8 hover:bg-grey-600 transition-colors scursor-pointer"
+            className="subhead-1-semibold py-3 px-6 text-white rounded-8 hover:bg-grey-600 transition-colors cursor-pointer"
           >
             {variant === 'cancel' ? '돌아가기' : '취소하기'}
           </button>

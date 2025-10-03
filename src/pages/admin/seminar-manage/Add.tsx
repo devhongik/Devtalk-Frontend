@@ -31,6 +31,7 @@ const Add = () => {
     navigate('/admin/seminars');
   };
 
+  // 취소하기
   const handleCancelClick = () => {
     if (isDirty) {
       setIsModalOpen(true);
@@ -39,6 +40,7 @@ const Add = () => {
     }
   };
 
+  // 모달 내에서 삭제하기
   const handleConfirm = () => {
     navigate('/admin/seminars');
   };
