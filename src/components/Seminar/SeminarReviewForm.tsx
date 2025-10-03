@@ -21,7 +21,7 @@ const SeminarReviewForm = ({ values, onChange }: ReviewFormProps) => {
           <div className="text-[20px] font-extrabold text-gradient">*</div>
         </div>
         <SeminarReviewInput
-          placeholder="ex. 000 부분이 유익햇어요, 진로 설계에 도움이 되었어요, ..."
+          placeholder="ex. 000 부분이 유익했어요, 진로 설계에 도움이 되었어요, ..."
           input={strength}
           onChange={(value) => onChange('strength', value)}
         />
