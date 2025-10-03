@@ -48,6 +48,7 @@ const Home = () => {
 
   return (
     <>
+
       <div className="snap-y snap-proximity overflow-y-scroll h-screen scrollbar-hide">
         <div className="snap-none">
           <Header />
@@ -103,6 +104,7 @@ const Home = () => {
           </div>
         </div>
 
+
         {/* 학우들의 후기 */}
         <div className="flex flex-col px-20 gap-16 pb-[200px] snap-none">
           <p className="text-white heading-2-bold">학우들의 후기</p>
@@ -136,6 +138,7 @@ const Home = () => {
               />
             </InfiniteCarousel>
           </div>
+
         </div>
 
         {/* 이전 세미나 알아보기 */}
