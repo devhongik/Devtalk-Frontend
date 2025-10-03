@@ -1,4 +1,5 @@
 import axios, { type AxiosInstance } from 'axios';
+import { STORAGE_KEY } from '../constans/key';
 
 export const userInstance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_API_URL,
@@ -6,7 +7,7 @@ export const userInstance: AxiosInstance = axios.create({
 
 userInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem(STORAGE_KEY.USER_ACCESS_TOKEN);
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -29,7 +30,7 @@ userInstance.interceptors.response.use(
     if (status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       //홈으로 이동
-      localStorage.removeItem('accessToken');
+      localStorage.removeItem(STORAGE_KEY.USER_ACCESS_TOKEN);
       window.location.href = '/';
       return Promise.reject(error);
     }
