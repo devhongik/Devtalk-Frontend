@@ -5,29 +5,49 @@ import ReviewCard from '../../../components/common/ReviewCard';
 import Cta from '../../../components/common/Cta';
 import SeminarDetailLectureCard from '../../../components/Seminar/SeminarDetailLectureCard';
 import { useIsVisible } from '../../../hooks/useIsVisible';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const SeminarDetail = () => {
   const { id } = useParams();
-  const ref = useRef<HTMLDivElement>(null);
-  const isVisible = useIsVisible(ref as React.RefObject<HTMLDivElement>);
+  const lectureRef = useRef<HTMLDivElement>(null);
+  const secondRef = useRef<HTMLDivElement>(null);
+  const reviewRef = useRef<HTMLDivElement>(null);
+
+  const lectureVisible = useIsVisible(lectureRef as React.RefObject<HTMLDivElement>);
+  const secondVisible = useIsVisible(secondRef as React.RefObject<HTMLDivElement>);
+  const reviewVisible = useIsVisible(reviewRef as React.RefObject<HTMLDivElement>);
+
+  useEffect(() => {
+    if (secondVisible && secondRef.current) {
+      secondRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [secondVisible]);
 
   return (
     <div>
       <div className="flex flex-col gap-32 bg-balck">
         <Header />
         <SeminarDetailCard id={Number(id)} />
-        <div className="w-[375px] h-[2170px] flex flex-col gap-24 px-20">
+        <div
+          ref={lectureRef}
+          className={`w-[375px] h-[2170px] flex flex-col gap-24 px-20 transition-all duration-500 ease-out transform ${
+            lectureVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
           <div className="heading-3-semibold text-white">연사 소개</div>
-          <div ref={ref} className="flex flex-col gap-10 justify-center items-center bg-black ">
-            <SeminarDetailLectureCard
-              ref={ref}
-              className={isVisible ? 'opacity-100 translate-y-0' : ''}
-            />
+          <div className="flex flex-col gap-10 justify-center items-center bg-black ">
             <SeminarDetailLectureCard />
+            <div ref={secondRef}>
+              <SeminarDetailLectureCard />{' '}
+            </div>
           </div>
         </div>
-        <div className="h-[475px] gap-12 px-20 flex flex-col">
+        <div
+          ref={reviewRef}
+          className={`transition-all duration-500 ease-out transform h-[475px] gap-12 px-20 flex flex-col ${
+            reviewVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
           <div className="heading-3-semibold test-white">후기</div>
           <div className="w-[335px] h-[435px] flex flex-col gap-12">
             <ReviewCard session={Number(id)} rating={4} content="재밌어요" />

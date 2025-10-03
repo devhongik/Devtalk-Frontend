@@ -18,7 +18,7 @@ export function useIsVisible<T extends HTMLElement>(ref: React.RefObject<T>): bo
     const options = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.5,
+      threshold: 0.1,
     };
 
     const observer = new IntersectionObserver(callback, options);
