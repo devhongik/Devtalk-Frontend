@@ -4,9 +4,14 @@ import SeminarDetailCard from '../../../components/Seminar/SeminarDetailCard';
 import ReviewCard from '../../../components/common/ReviewCard';
 import Cta from '../../../components/common/Cta';
 import SeminarDetailLectureCard from '../../../components/Seminar/SeminarDetailLectureCard';
+import { useIsVisible } from '../../../hooks/useIsVisible';
+import React, { useRef } from 'react';
 
 const SeminarDetail = () => {
   const { id } = useParams();
+  const ref = useRef<HTMLDivElement>(null);
+  const isVisible = useIsVisible(ref as React.RefObject<HTMLDivElement>);
+
   return (
     <div>
       <div className="flex flex-col gap-32 bg-balck">
@@ -14,8 +19,11 @@ const SeminarDetail = () => {
         <SeminarDetailCard id={Number(id)} />
         <div className="w-[375px] h-[2170px] flex flex-col gap-24 px-20">
           <div className="heading-3-semibold text-white">연사 소개</div>
-          <div className="flex flex-col gap-10 justify-center items-center bg-black">
-            <SeminarDetailLectureCard />
+          <div ref={ref} className="flex flex-col gap-10 justify-center items-center bg-black ">
+            <SeminarDetailLectureCard
+              ref={ref}
+              className={isVisible ? 'opacity-100 translate-y-0' : ''}
+            />
             <SeminarDetailLectureCard />
           </div>
         </div>
