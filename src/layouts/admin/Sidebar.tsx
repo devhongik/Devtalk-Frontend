@@ -8,28 +8,28 @@ const menuData = [
   {
     title: '홈 화면 관리',
     children: [
-      { name: '홍보 사진 관리', to: '/admin/home/promo' },
-      { name: '링크 관리', to: '/admin/home/links' },
-      { name: '후기 카드 갤러리', to: '/admin/home/reviews' },
+      { name: '홍보 사진 관리', to: '/admin/home/promo', end: true },
+      { name: '링크 관리', to: '/admin/home/links', end: true },
+      { name: '후기 카드 갤러리', to: '/admin/home/reviews', end: true },
     ],
   },
   {
     title: '세미나 관리',
     children: [
-      { name: '세미나 카드 조회', to: '/admin/seminars' },
-      { name: '세미나 추가하기', to: '/admin/seminars/add' },
-      { name: '세미나 신청자 관리', to: '/admin/seminars/applicants' },
+      { name: '세미나 카드 조회', to: '/admin/seminars', end: true },
+      { name: '세미나 추가하기', to: '/admin/seminars/add', end: true },
+      { name: '세미나 신청자 관리', to: '/admin/seminars/applicants', end: false },
     ],
   },
   {
     title: '세미나 Live 관리',
     children: [
-      { name: '출석 관리', to: '/admin/seminar-live/attendance' },
+      { name: '출석 관리', to: '/admin/seminar-live/attendance', end: true },
     ],
   },
   {
     title: '관리자 권한 관리',
-    children: [{ name: '관리자 아이디 관리', to: '/admin/admin-accounts' }],
+    children: [{ name: '관리자 아이디 관리', to: '/admin/admin-accounts', end: true }],
   },
 ];
 
@@ -81,7 +81,7 @@ export const Sidebar: React.FC = () => {
                     <li key={item.name}>
                       <NavLink
                         to={item.to}
-                        end // 정확히 일치하는 경로에서만 스타일 적용
+                        end={item.end}
                         className={({ isActive }) =>
                           `flex items-center h-[40px] py-3 px-[40px] cursor-pointer subhead-1-medium relative transition-colors ${
                             isActive ? activeLinkStyle : inactiveLinkStyle

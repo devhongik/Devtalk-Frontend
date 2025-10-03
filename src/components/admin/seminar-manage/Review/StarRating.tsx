@@ -1,5 +1,4 @@
-import Fillstar from '../../../../assets/icons/components/ReviewCard/fillstar.svg?react';
-import Nostar from '../../../../assets/icons/components/ReviewCard/nonestar.svg?react';
+import ReviewStar from '/src/assets/icons/components/ReviewCard/ReviewStar.svg?react';
 
 interface StarRatingProps {
   rating: number;
@@ -9,14 +8,14 @@ interface StarRatingProps {
 const StarRating = ({ rating }: StarRatingProps) => {
   return (
     <div className="flex items-center">
-      {Array.from({ length: 5 }, (_, index) => (
-        <span key={index}>
-          {index < rating ? (
-            <Fillstar className="w-[30px] h-[30px]" />
-          ) : (
-            <Nostar className="w-[30px] h-[30px]" />
-          )}
-        </span>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <ReviewStar
+          key={index}
+          className="w-[30px] h-[30px]"
+          style={{
+            fill: rating > index ? 'url(#paint0_linear_524_3678)' : '#4B5362',
+          }}
+        />
       ))}
     </div>
   );

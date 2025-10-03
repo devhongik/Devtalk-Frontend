@@ -37,16 +37,14 @@ export const useReviewActions = ({
   const handleDeleteReview = (reviewId: number) => {
     if (!currentState) return;
 
-    if (window.confirm(`${reviewId}번 후기를 정말 삭제하시겠습니까?`)) {
-      const updatedReviews = currentState.reviews.filter((review) => review.reviewId !== reviewId);
+    const updatedReviews = currentState.reviews.filter((review) => review.reviewId !== reviewId);
 
-      // 원본 데이터도 함께 업데이트해서 수정하기 버튼이 활성화되지 않도록
-      const newState = { ...currentState, reviews: updatedReviews };
-      updateSeminarData({ reviews: updatedReviews });
-      setInitialState(newState);
+    // 원본 데이터도 함께 업데이트해서 수정하기 버튼이 활성화되지 않도록
+    const newState = { ...currentState, reviews: updatedReviews };
+    updateSeminarData({ reviews: updatedReviews });
+    setInitialState(newState);
 
-      console.log(`${reviewId}번 후기가 삭제되었습니다.`);
-    }
+    console.log(`${reviewId}번 후기가 삭제되었습니다.`);
   };
 
   return {
