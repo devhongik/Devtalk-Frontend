@@ -73,7 +73,7 @@ const CustomSelect = ({ options, selectedValue, onSelect }: CustomSelectProps) =
         <ul
           ref={optionsListRef}
           className={`
-            absolute z-10 w-full max-h-[250px] overflow-y-auto bg-grey-700 border border-grey-600 rounded-8 scrollbar-hide
+            absolute z-10 w-full max-h-[200px] overflow-y-auto bg-grey-700 border border-grey-600 rounded-8 scrollbar-hide
             ${position === 'bottom' ? 'top-full mt-3' : 'bottom-full mb-3'}
           `}
         >
