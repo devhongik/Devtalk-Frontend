@@ -1,18 +1,31 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import devlogo from '../../../assets/logos/devlogo.svg';
+import { postAdminLogin } from '../../../apis/auth';
+import { STORAGE_KEY } from '../../../constants/key';
 
 const Login = () => {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // API 연동 후 수정 (임의값 넣어둠)
-    if (id !== 'admin' || pw !== '1234') {
-      setError(true);
-    } else {
+  const handleLogin = async () => {
+    try {
+      const res = await postAdminLogin({
+        loginId: id,
+        password: pw,
+      });
+      console.log('로그인 성공:', res);
+
+      localStorage.setItem(STORAGE_KEY.ACCESS_TOKEN, res.result.accessToken);
+      localStorage.setItem(STORAGE_KEY.REFRESH_TOKEN, res.result.refreshToken);
+
       setError(false);
-      // 로그인 처리 구현 - 화면 이동
+      navigate('/admin/seminars');
+    } catch (err) {
+      console.error('로그인 실패:', err);
+      setError(true);
     }
   };
 
