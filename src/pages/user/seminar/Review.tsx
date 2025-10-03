@@ -106,7 +106,7 @@ const Review = () => {
             />
           </div>
         </div>
-        <div className="h-[100px]"></div>
+        <div className="h-[91px]"></div>
       </div>
     </div>
   );
