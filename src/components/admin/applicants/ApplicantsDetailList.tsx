@@ -7,11 +7,9 @@ interface Applicant {
   grade: string;        // 학년
   name: string;         // 지원자 이름
   contact: string;      // 연락처
+  email: string;        // 이메일
   attendanceType: string; // 온/오프라인 참여 여부
   referralSource: string; // 이번 세미나를 알게 된 경로
-  eventParticipation: string; // 이벤트 참여 여부
-  sharedAccount: string; // 공유한 계정
-  invitedFriend: string; // 초대한 친구 이름
 }
 
 // 컴포넌트 props 타입 정의
@@ -27,14 +25,14 @@ const ApplicantsDetailList: React.FC<ApplicantsDetailListProps> = ({ applicants 
   const cellStyle = "border border-grey-400 px-5 py-3 text-center body-1-semibold text-white ";
 
   // 헤더 목록
-  const headers = ['세미나명', '학번', '학과', '학년', '이름', '연락처', '온/오프라인 참여 여부', '이번 세미나를 알게 된 경로', '이벤트 참여 여부', '공유한 계정', '초대한 친구 이름'];
+  const headers = ['세미나명', '학번', '학과', '학년', '이름', '연락처', '이메일', '온/오프라인 참여 여부', '이번 세미나를 알게 된 경로'];
 
   // 데이터 키 목록 (applicant 객체의 속성명과 매칭)
-  const dataKeys = ['seminarName', 'studentId', 'department', 'grade', 'name', 'contact', 'attendanceType', 'referralSource', 'eventParticipation', 'sharedAccount', 'invitedFriend'] as const;
+  const dataKeys = ['seminarName', 'studentId', 'department', 'grade', 'name', 'contact', 'email', 'attendanceType', 'referralSource'] as const;
   return (
     <div className="w-full">
       {/* 테이블이 화면보다 클 때 가로/세로 스크롤바 표시 */}
-      <div className="overflow-x-auto overflow-y-auto max-h-[calc(100vh-150px)]">
+      <div className={`overflow-x-auto overflow-y-auto max-h-[calc(100vh-150px)] ${applicants.length === 0 ? 'flex justify-center' : ''}`}>
         <table className="min-w-max border-collapse">
 
           {/* 테이블 헤더 */}
