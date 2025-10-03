@@ -22,7 +22,7 @@ const Login = () => {
       localStorage.setItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN, res.result.refreshToken);
 
       setError(false);
-      navigate('/admin/seminars');
+      navigate('/admin/home/promo');
     } catch (err) {
       console.error('로그인 실패:', err);
       setError(true);
