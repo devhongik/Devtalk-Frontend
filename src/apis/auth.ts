@@ -1,4 +1,4 @@
-import { axiosInstance } from './axios';
+import { adminInstance } from './adminInstance';
 
 interface LoginRequest {
   loginId: string;
@@ -18,6 +18,6 @@ interface LoginResponse {
 }
 
 export const postAdminLogin = async (data: LoginRequest): Promise<LoginResponse> => {
-  const res = await axiosInstance.post<LoginResponse>('/admin/login', data);
+  const res = await adminInstance.post<LoginResponse>('/admin/login', data);
   return res.data;
 };

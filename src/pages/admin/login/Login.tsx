@@ -18,8 +18,8 @@ const Login = () => {
       });
       console.log('로그인 성공:', res);
 
-      localStorage.setItem(STORAGE_KEY.ACCESS_TOKEN, res.result.accessToken);
-      localStorage.setItem(STORAGE_KEY.REFRESH_TOKEN, res.result.refreshToken);
+      localStorage.setItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN, res.result.accessToken);
+      localStorage.setItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN, res.result.refreshToken);
 
       setError(false);
       navigate('/admin/seminars');
