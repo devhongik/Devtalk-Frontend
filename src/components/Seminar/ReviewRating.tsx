@@ -1,11 +1,13 @@
-import { useState } from 'react';
 import ReviewStar from '../../assets/icons/components/ReviewCard/ReviewStar.svg?react';
 
-const ReviewRating = () => {
-  const [rating, setRating] = useState(0);
+interface ReviewRatingProps {
+  rating: number;
+  onChange: (value: number) => void;
+}
 
+const ReviewRating = ({ rating, onChange }: ReviewRatingProps) => {
   const handleStarClick = (index: number) => {
-    setRating(index + 1);
+    onChange(index + 1);
   };
 
   return (
