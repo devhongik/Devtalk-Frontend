@@ -4,9 +4,12 @@ import { useSeminarState } from '../../../hooks/SeminarManage/useSeminarState';
 import Header from '../../../components/admin/seminar-manage/Header';
 import MainContent from '../../../components/admin/seminar-manage/MainContent';
 import Footer from '../../../components/admin/seminar-manage/Footer';
+import { useState } from 'react';
+import AdminModal from '../../../components/admin/common/AdminModal';
 
 const Add = () => {
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // id 없이 훅을 호출하여 add 모드
   const {
@@ -23,20 +26,23 @@ const Add = () => {
   const handleSave = () => {
     if (!currentState) return;
 
-    if (window.confirm('세미나를 추가하시겠습니까?')) {
-      console.log('저장할 데이터: ', currentState);
-      alert('추가되었습니다.');
+    console.log('저장하기 클릭: ', currentState);
+    alert('세미나가 추가되었습니다.');
+    navigate('/admin/seminars');
+  };
+
+  // 취소하기
+  const handleCancelClick = () => {
+    if (isDirty) {
+      setIsModalOpen(true);
+    } else {
       navigate('/admin/seminars');
     }
   };
 
-  // 취소 (변경 사항이 있을 때는 사용자에게 확인을 받음)
-  const handleCancel = () => {
-    if (!currentState) return;
-
-    if (isDirty && window.confirm('변경사항이 있습니다. 정말 취소하시겠습니까?')) {
-      navigate(-1);
-    }
+  // 모달 내에서 삭제하기
+  const handleConfirm = () => {
+    navigate('/admin/seminars');
   };
 
   if (!currentState) {
@@ -61,7 +67,14 @@ const Add = () => {
         isDirty={isDirty}
         hasErrors={hasErrors}
         onSave={handleSave}
-        onCancel={handleCancel}
+        onCancel={handleCancelClick}
+      />
+
+      <AdminModal
+        isOpen={isModalOpen}
+        variant="cancel"
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleConfirm}
       />
     </div>
   );

@@ -1,18 +1,42 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import devlogo from '../../../assets/logos/devlogo.svg';
+import { postAdminLogin } from '../../../apis/auth.api';
+import { STORAGE_KEY } from '../../../constants/key';
 
 const Login = () => {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // API 연동 후 수정 (임의값 넣어둠)
-    if (id !== 'admin' || pw !== '1234') {
+  useEffect(() => {
+    const token = localStorage.getItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN);
+    if (token) {
+      console.log('로그인 되어 있음(토큰 존재)');
+      navigate('/admin/home/promo', { replace: true });
+    }
+  }, [navigate]);
+
+  const handleLogin = async () => {
+    try {
+      const res = await postAdminLogin({
+        loginId: id,
+        password: pw,
+      });
+
+      if (res.isSuccess && res.result) {
+        console.log('로그인 성공:', res);
+
+        localStorage.setItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN, res.result.accessToken);
+        localStorage.setItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN, res.result.refreshToken);
+
+        setError(false);
+        navigate('/admin/home/promo');
+      }
+    } catch (err) {
+      console.error('로그인 실패:', err);
       setError(true);
-    } else {
-      setError(false);
-      // 로그인 처리 구현 - 화면 이동
     }
   };
 
