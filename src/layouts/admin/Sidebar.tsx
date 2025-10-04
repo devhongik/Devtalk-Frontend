@@ -23,9 +23,7 @@ const menuData = [
   },
   {
     title: '세미나 Live 관리',
-    children: [
-      { name: '출석 관리', to: '/admin/seminar-live/attendance', end: true },
-    ],
+    children: [{ name: '출석 관리', to: '/admin/seminar-live/attendance', end: true }],
   },
   {
     title: '관리자 권한 관리',
@@ -51,7 +49,7 @@ export const Sidebar: React.FC = () => {
   const inactiveLinkStyle = 'text-grey-300';
 
   return (
-    <aside className="w-[290px] text-white bg-grey-900 flex flex-col">
+    <aside className="w-[290px] text-white bg-grey-900 flex flex-col flex-shrink-0">
       {/* 로고 */}
       <Link className="flex items-center justify-center gap-5 h-[80px]" to="/admin/home/promo">
         <img src={devlogo} alt="devlogo" className="w-80 h-9" />
