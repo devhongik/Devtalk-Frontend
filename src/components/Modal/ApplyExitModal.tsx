@@ -26,7 +26,10 @@ const ApplyExitModal: React.FC<ApplyExitModalProps> = ({ open, onConfirm, onCanc
           >
             나가기
           </button>
-          <button onClick={onCancel} className="flex-1 py-20 subhead-1-semibold text-gradient">
+          <button
+            onClick={onCancel}
+            className="flex-1 py-20 subhead-1-semibold text-gradient cursor-pointer"
+          >
             취소
           </button>
         </div>
