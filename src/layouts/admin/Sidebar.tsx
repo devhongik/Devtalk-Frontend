@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, matchPath, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import chevronup from '../../assets/icons/common/chevronup.svg';
 import chevrondown from '../../assets/icons/common/chevrondown.svg';
 import devlogo from '../../assets/logos/devlogo.svg';
