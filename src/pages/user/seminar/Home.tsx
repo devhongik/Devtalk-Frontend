@@ -38,8 +38,8 @@ function SeminarHome() {
 
   return (
     <div>
-      <div className="flex flex-col justify-center gap-16 px-20">
-        <Header />
+      <Header />
+      <div className="flex flex-col justify-center gap-16 px-20 pt-16">
         <div className="heading-1-bold text-white">세미나</div>
         <div className="flex flex-col gap-28 items-center ">
           {seminarListData.map((seminar) => (
