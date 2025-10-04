@@ -22,7 +22,7 @@ const ApplyExitModal: React.FC<ApplyExitModalProps> = ({ open, onConfirm, onCanc
         <div className="border-t border-grey-500 flex">
           <button
             onClick={onConfirm}
-            className="flex-1 py-20 subhead-1-semibold text-white border-r border-grey-500"
+            className="flex-1 py-20 subhead-1-semibold text-white border-r border-grey-500 cursor-pointer"
           >
             나가기
           </button>
