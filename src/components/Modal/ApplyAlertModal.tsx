@@ -22,7 +22,7 @@ const ApplyAlertModal: React.FC<ApplyAlertModalProps> = ({ open, onClose }) => {
         <div className="border-t border-grey-500"></div>
         <button
           onClick={onClose}
-          className="w-full py-20 text-gradient subhead-1-semibold rounded-12"
+          className="w-full py-20 text-gradient subhead-1-semibold rounded-12 cursor-pointer"
         >
           닫기
         </button>

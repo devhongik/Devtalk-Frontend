@@ -4,12 +4,15 @@ import AutoResizeTextarea from '../../../components/SeminarApply/AutoResizeTexta
 import { Button } from '../../../components/Button/Button';
 import { useState } from 'react';
 import ApplySuccessModal from '../../../components/Modal/ApplySuccessModal';
+import ApplyAlertModal from '../../../components/Modal/ApplyAlertModal';
 
 const ApplyQuestion = () => {
-  const [open, setOpen] = useState(false);
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
   const handleClickApply = () => {
     console.log('신청하기 버튼 클릭');
-    setOpen(true);
+    setOpenSuccess(true);
+    // setOpenAlert(true); -> 중복 신청 모달 용 로직 추가 필요
     // 추후 API 연동
   };
 
@@ -51,7 +54,9 @@ const ApplyQuestion = () => {
         onClick={handleClickApply}
         className="fixed bottom-[64px] left-1/2 -translate-x-1/2 z-50"
       />
-      <ApplySuccessModal open={open} onClose={() => setOpen(false)} type="online" />
+      <ApplySuccessModal open={openSuccess} onClose={() => setOpenSuccess(false)} type="online" />
+      {/* type = "offline" 으로 하면 오프라인 신청 완료 모달 열림 - api 연동 시 participationType에 맞게 */}
+      <ApplyAlertModal open={openAlert} onClose={() => setOpenAlert(false)} />
     </>
   );
 };
