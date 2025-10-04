@@ -10,15 +10,14 @@ export function useIsVisible<T extends HTMLElement>(ref: React.RefObject<T>): bo
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-        } else {
-          setIsVisible(false);
+          console.log('Visible');
         }
       });
     };
     const options = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.1,
+      threshold: 0.2,
     };
 
     const observer = new IntersectionObserver(callback, options);

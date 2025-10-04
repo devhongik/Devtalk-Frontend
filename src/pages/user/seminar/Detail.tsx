@@ -25,7 +25,7 @@ const SeminarDetail = () => {
 
   return (
     <div>
-      <div className="flex flex-col gap-32 bg-balck">
+      <div className="flex flex-col gap-32 bg-black">
         <Header />
         <SeminarDetailCard id={Number(id)} />
         <div
@@ -48,7 +48,7 @@ const SeminarDetail = () => {
             reviewVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <div className="heading-3-semibold test-white">후기</div>
+          <div className="heading-3-semibold text-white">후기</div>
           <div className="w-[335px] h-[435px] flex flex-col gap-12">
             <ReviewCard session={Number(id)} rating={4} content="재밌어요" />
             <ReviewCard session={Number(id)} rating={5} content="유익한 세미나였습니다." />
