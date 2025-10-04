@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, matchPath, NavLink, useLocation } from 'react-router-dom';
 import chevronup from '../../assets/icons/common/chevronup.svg';
 import chevrondown from '../../assets/icons/common/chevrondown.svg';
 import devlogo from '../../assets/logos/devlogo.svg';
@@ -16,7 +16,12 @@ const menuData = [
   {
     title: '세미나 관리',
     children: [
-      { name: '세미나 카드 조회', to: '/admin/seminars', end: true },
+      {
+        name: '세미나 카드 조회',
+        to: '/admin/seminars',
+        end: true,
+        matchPaths: ['/admin/seminars/:id'],
+      },
       { name: '세미나 추가하기', to: '/admin/seminars/add', end: true },
       { name: '세미나 신청자 관리', to: '/admin/seminars/applicants', end: false },
     ],
@@ -35,6 +40,19 @@ export const Sidebar: React.FC = () => {
   const [openSections, setOpenSections] = useState<string[]>(() =>
     menuData.map((section) => section.title)
   );
+
+  const { pathname } = useLocation();
+
+  // pathname이 matchPaths 패턴과 일치하는지 확인
+  const isPathMatching = (matchPaths?: string[]) => {
+    if (!matchPaths) return;
+
+    return matchPaths.some((pattern) => {
+      const regexPattern = `^${pattern.replace(/:id/g, '\\d+')}$`;
+      const regex = new RegExp(regexPattern);
+      return regex.test(pathname);
+    });
+  };
 
   const handleSectionClick = (title: string) => {
     if (openSections?.includes(title)) {
@@ -80,11 +98,13 @@ export const Sidebar: React.FC = () => {
                       <NavLink
                         to={item.to}
                         end={item.end}
-                        className={({ isActive }) =>
-                          `flex items-center h-[40px] py-3 px-[40px] cursor-pointer subhead-1-medium relative transition-colors ${
-                            isActive ? activeLinkStyle : inactiveLinkStyle
-                          }`
-                        }
+                        className={({ isActive }) => {
+                          let finalIsActive = isActive || isPathMatching(item.matchPaths);
+
+                          return `flex items-center h-[40px] py-3 px-[40px] cursor-pointer subhead-1-medium relative transition-colors ${
+                            finalIsActive ? activeLinkStyle : inactiveLinkStyle
+                          }`;
+                        }}
                       >
                         {item.name}
                       </NavLink>
