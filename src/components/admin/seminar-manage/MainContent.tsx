@@ -11,7 +11,7 @@ interface MainContentProps {
   showReviewList: boolean;
   currentState: SeminarDetails;
   validationErrors: FormErrors;
-  activationError: string;
+  activationError: { seminar: string; application: string };
   updateSeminarData: (data: Partial<SeminarDetails>) => void;
   handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
   handleRegisterReviewToHome?: (reviewId: number) => void;
@@ -64,10 +64,13 @@ const MainContent = ({
     />
 
     <ActiveDateForm
-      seminarDate={currentState.seminarDate}
-      applicationDate={currentState.applicationDate}
+      seminarStartDate={currentState.seminarStartDate}
+      seminarEndDate={currentState.seminarEndDate}
+      applicationStartDate={currentState.applicationStartDate}
+      applicationEndDate={currentState.applicationEndDate}
       onChange={(dateType, newDate) => updateSeminarData({ [dateType]: newDate })}
-      error={activationError}
+      seminarDateError={activationError.seminar}
+      applicationDateError={activationError.application}
     />
   </main>
 );

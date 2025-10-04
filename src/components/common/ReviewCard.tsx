@@ -1,11 +1,11 @@
-import fillStar from '../../assets/icons/components/ReviewCard/fillstar.svg';
-import noneStar from '../../assets/icons/components/ReviewCard/nonestar.svg';
+import ReviewStar from '../../assets/icons/components/ReviewCard/ReviewStar.svg?react';
+
 
 type ReviewCardProps = {
   session: number;
   rating: number;
   content: string;
-}
+};
 
 const ReviewCard = ({ session, rating, content }: ReviewCardProps) => {
   return (
@@ -16,11 +16,15 @@ const ReviewCard = ({ session, rating, content }: ReviewCardProps) => {
         </div>
         <div className="flex flex-row gap-8 h-[20px]">
           <div className="w-[100px] h-full flex flex-row">
-            <img src={fillStar} alt="fillStar" />
-            <img src={fillStar} alt="fillStar" />
-            <img src={fillStar} alt="fillStar" />
-            <img src={fillStar} alt="fillStar" />
-            <img src={noneStar} alt="noneStar" />
+            {Array.from({ length: 5 }).map((_, index) => (
+              <ReviewStar
+                key={index}
+                className="w-[20px] h-[20px]"
+                style={{
+                  fill: rating > index ? 'url(#paint0_linear_524_3678)' : '#4B5362',
+                }}
+              />
+            ))}
           </div>
           <div className="w-[26px] h-full gap-2 flex flex-row">
             <div className="body-2-semibold text-white">{rating}</div>
@@ -28,9 +32,7 @@ const ReviewCard = ({ session, rating, content }: ReviewCardProps) => {
           </div>
         </div>
       </div>
-      <div className="w-full h-60 body-2-medium text-grey-100">
-        {content}
-      </div>
+      <div className="w-full h-60 body-2-medium text-grey-100">{content}</div>
     </div>
   );
 };

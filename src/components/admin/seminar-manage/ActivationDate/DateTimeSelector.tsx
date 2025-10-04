@@ -19,22 +19,31 @@ const DateTimeSelector = ({ date, onDateChange }: DateTimeSelectorProps) => {
     onDateChange(newDate);
   };
 
+  const getDayInMonth = (year: number, month: number) => {
+    return new Date(year, month, 0).getDate();
+  };
+
   // CustomSelect에 맞는 {value, label} 형태의 배열로 변환
   const yearOptions = Array.from({ length: 3 }, (_, i) => new Date().getFullYear() + i).map(
     (y) => ({ value: y, label: String(y) })
   );
+
   const monthOptions = Array.from({ length: 12 }, (_, i) => i + 1).map((m) => ({
     value: m,
     label: String(m).padStart(2, '0'),
   }));
-  const dayOptions = Array.from({ length: 31 }, (_, i) => i + 1).map((d) => ({
+
+  const daysInSelctedMonth = getDayInMonth(date.getFullYear(), date.getMonth() + 1);
+  const dayOptions = Array.from({ length: daysInSelctedMonth }, (_, i) => i + 1).map((d) => ({
     value: d,
     label: String(d).padStart(2, '0'),
   }));
+
   const hourOptions = Array.from({ length: 24 }, (_, i) => i).map((h) => ({
     value: h,
     label: String(h).padStart(2, '0'),
   }));
+
   const minuteOptions = [0, 15, 30, 45].map((m) => ({
     value: m,
     label: String(m).padStart(2, '0'),

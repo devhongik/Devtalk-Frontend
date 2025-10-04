@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import HomeReviewItem from '../../../components/admin/home/HomeReviewItem';
 import type { Review } from '../../../components/admin/home/HomeReviewItem';
+import AdminModal from '../../../components/admin/common/AdminModal';
 
 const Reviews = () => {
   // rank 추가한 mock 데이터 넣어둠
@@ -41,6 +42,9 @@ const Reviews = () => {
     },
   ]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [reviewToRemove, setReviewToRemove] = useState<number | null>();
+
   const updateRanks = (list: Review[]): Review[] => list.map((r, i) => ({ ...r, rank: i + 1 }));
 
   const moveUp = (id: number) => {
@@ -67,8 +71,18 @@ const Reviews = () => {
     });
   };
 
-  const removeReview = (id: number) => {
-    setReviews((prev) => prev.filter((r) => r.reviewId !== id));
+  // 삭제하기 버튼을 클릭하면, 모달을 연다
+  const handleRemoveClick = (id: number) => {
+    setReviewToRemove(id);
+    setIsModalOpen(true);
+  };
+
+  // 모달에서 '후기 삭제하기' 클릭 시
+  const handleConfirmRemove = () => {
+    if (reviewToRemove !== null) {
+      setReviews((prev) => prev.filter((r) => r.reviewId !== reviewToRemove));
+      setReviewToRemove(null);
+    }
   };
 
   return (
@@ -85,11 +99,18 @@ const Reviews = () => {
               review={review}
               onMoveUp={moveUp}
               onMoveDown={moveDown}
-              onDelete={removeReview}
+              onDelete={handleRemoveClick}
             />
           </div>
         ))}
       </div>
+
+      <AdminModal
+        isOpen={isModalOpen}
+        variant="deleteReview"
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleConfirmRemove}
+      />
     </div>
   );
 };
