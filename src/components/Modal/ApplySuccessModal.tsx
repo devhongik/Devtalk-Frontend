@@ -3,10 +3,16 @@ import React from 'react';
 interface ApplySuccessModalProps {
   open: boolean;
   onClose: () => void;
+  type: 'online' | 'offline';
 }
 
-const ApplySuccessModal: React.FC<ApplySuccessModalProps> = ({ open, onClose }) => {
+const ApplySuccessModal: React.FC<ApplySuccessModalProps> = ({ open, onClose, type }) => {
   if (!open) return null;
+
+  const message =
+    type === 'online'
+      ? '온라인 접속 링크는 행사 전날 메일로 안내되며, \n당일 오프라인 참여로 전환 가능합니다 😊'
+      : '즐겁고 유익한 시간이 되실 수 있도록 \n열심히 준비하겠습니다 😊';
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -14,15 +20,12 @@ const ApplySuccessModal: React.FC<ApplySuccessModalProps> = ({ open, onClose }) 
 
       <div className="relative bg-grey-700 rounded-12 shadow-lg w-[343px] z-10 text-center">
         <div className="text-white subhead-1-semibold mt-40 mb-8">신청이 완료되었습니다.</div>
-        <p className="text-grey-300 body-1-medium mb-28">
-          즐겁고 유익한 시간이 되실 수 있도록 <br />
-          열심히 준비하겠습니다 <span className="inline-block">😊</span>
-        </p>
+        <p className="text-grey-300 body-1-medium mb-28 whitespace-pre-line">{message}</p>
 
         <div className="border-t border-grey-500"></div>
         <button
           onClick={onClose}
-          className="w-full py-20 text-gradient subhead-1-semibold rounded-12"
+          className="w-full py-20 text-gradient subhead-1-semibold rounded-12 cursor-pointer"
         >
           닫기
         </button>
