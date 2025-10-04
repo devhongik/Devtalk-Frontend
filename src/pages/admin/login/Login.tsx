@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import devlogo from '../../../assets/logos/devlogo.svg';
-import { postAdminLogin } from '../../../apis/auth';
+import { postAdminLogin } from '../../../apis/auth.api';
 import { STORAGE_KEY } from '../../../constants/key';
 
 const Login = () => {
