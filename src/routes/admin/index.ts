@@ -4,6 +4,7 @@ import { STORAGE_KEY } from '../../constants/key';
 import { adminPublicRoutes } from './AdminPublicRoutes';
 import { adminProtectedRoutes } from './AdminProtectedRoutes';
 
+// 토큰 없이 접근 시 로그인 페이지로
 const AdminProtectedWrapper = () => {
   const token = localStorage.getItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN);
   return token
@@ -11,6 +12,7 @@ const AdminProtectedWrapper = () => {
     : React.createElement(Navigate, { to: '/admin/login', replace: true });
 };
 
+// 토큰 있는 채로 로그인 페이지 접근 시 home/promo로
 const AdminPublicWrapper = () => {
   const token = localStorage.getItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN);
   return token
@@ -20,12 +22,12 @@ const AdminPublicWrapper = () => {
 
 export const adminRoutes = [
   {
-    path: '/admin/login', // 공개 경로
+    path: '/admin/login',
     element: React.createElement(AdminPublicWrapper),
     children: adminPublicRoutes,
   },
   {
-    path: '/admin', // 보호된 경로
+    path: '/admin',
     element: React.createElement(AdminProtectedWrapper),
     children: adminProtectedRoutes,
   },
