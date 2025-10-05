@@ -2,9 +2,23 @@ import { SectionHeader } from '../../components/SeminarApply/SectionHeader';
 import emptycircle from '../../assets/icons/components/SeminarApply/emptycircle.svg';
 import chosencircle from '../../assets/icons/components/SeminarApply/chosencircle.svg';
 
-type HowToKnowSectionProps = { options: string[] };
+type HowToKnowSectionProps = {
+  options: string[];
+  selected: string | null; // 선택된 항목
+  etcValue: string | null; // '기타' 입력값
+  onSelect: (option: string) => void; // 항목 선택 시
+  onSelectEtc: (checked: boolean) => void; // '기타' 선택 토글
+  onChangeEtc: (value: string) => void; // 기타 입력 변경
+};
 
-export const HowToKnowSection = ({ options }: HowToKnowSectionProps) => (
+export const HowToKnowSection = ({
+  options,
+  selected,
+  etcValue,
+  onSelect,
+  onSelectEtc,
+  onChangeEtc,
+}: HowToKnowSectionProps) => (
   <div className="flex flex-col gap-20">
     <SectionHeader title="이번 세미나를 어떻게 알게 되었나요?" required />
     <div className="flex flex-col gap-6">
@@ -12,7 +26,15 @@ export const HowToKnowSection = ({ options }: HowToKnowSectionProps) => (
         const id = `howtoknow-${i}`;
         return (
           <label key={id} htmlFor={id} className="group flex items-center gap-12 cursor-pointer">
-            <input id={id} name="howtoknow" type="radio" value={opt} className="sr-only" />
+            <input
+              id={id}
+              name="howtoknow"
+              type="radio"
+              value={opt}
+              className="sr-only"
+              checked={selected === opt}
+              onChange={() => onSelect(opt)}
+            />
 
             <span className="relative w-6 h-6 shrink-0">
               <img src={emptycircle} alt="" className="w-6 h-6" />
@@ -38,6 +60,8 @@ export const HowToKnowSection = ({ options }: HowToKnowSectionProps) => (
           type="radio"
           value="기타"
           className="sr-only"
+          checked={etcValue !== null}
+          onChange={(e) => onSelectEtc(e.target.checked)}
         />
 
         <span className="relative w-6 h-6 shrink-0">
@@ -54,6 +78,8 @@ export const HowToKnowSection = ({ options }: HowToKnowSectionProps) => (
         <span className="body-1-medium text-white shrink-0">기타:</span>
         <input
           type="text"
+          value={etcValue ?? ''}
+          onChange={(e) => onChangeEtc(e.target.value)}
           className="flex-1 bg-transparent outline-none
                      body-1-medium text-white
                      border-b border-grey-900
