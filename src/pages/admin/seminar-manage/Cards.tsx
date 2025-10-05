@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import SeminarCard from '../../../components/admin/seminar-manage/SeminarCard/SeminarCard';
 import { useSeminarCards } from '../../../hooks/SeminarManage/useSeminarCards';
+import LoadingSpinner from '../../../components/common/LoadingSpinner';
 
 const Cards = () => {
   const { data: seminarData, isLoading, isError } = useSeminarCards();
 
   if (isLoading) {
-    return <div className="text-white text-center p-20">데이터를 불러오는 중입니다...</div>;
+    return <LoadingSpinner />;
   }
 
   if (isError) {
