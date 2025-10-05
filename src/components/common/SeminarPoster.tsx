@@ -1,10 +1,10 @@
-import seminarPoster from '../../assets/seminarPoster.svg';
+import mainPoster from '../../assets/videos/mainPoster.mp4';
 
 const SeminarPoster = () => {
   return (
     <div className="relative w-[376px] h-[585px]">
-      {/* 배경 이미지 */}
-      <img src={seminarPoster} alt="세미나 포스터" className="w-full h-full object-cover" />
+      {/* 배경 영상 */}
+      <video src={mainPoster} autoPlay loop muted playsInline className="object-over" />
 
       {/* 텍스트 */}
       <div className="absolute top-0 pt-32 pl-20 flex flex-col justify-center w-[335px] h-[196px]">
