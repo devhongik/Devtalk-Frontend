@@ -1,60 +1,23 @@
 import { Link } from 'react-router-dom';
 import SeminarCard from '../../../components/admin/seminar-manage/SeminarCard/SeminarCard';
-
-// mock data
-const mockSeminars = [
-  {
-    id: 10,
-    title: '제 10회 Devtalk Seminar',
-    date: '2025-10-04T19:00:00',
-    location: '가나다라마바사',
-    topic: '아자차카타파하에이비씨디이에프지에이치아이엘엠엔오피',
-  },
-  {
-    id: 9,
-    title: '제 9회 Devtalk Seminar',
-    date: '2025-10-04T19:00:00',
-    location: '가나다라마바사',
-    topic: '아자차카타파하에이비씨디이에프지에이치아이엘엠엔오피',
-  },
-  {
-    id: 8,
-    title: '제 8회 Devtalk Seminar',
-    date: '2025-10-04T19:00:00',
-    location: '가나다라마바사',
-    topic: '아자차카타파하에이비씨디이에프지에이치아이엘엠엔오피',
-  },
-  {
-    id: 7,
-    title: '제 7회 Devtalk Seminar',
-    date: '2025-10-04T19:00:00',
-    location: '가나다라마바사',
-    topic: '아자차카타파하에이비씨디이에프지에이치아이엘엠엔오피',
-  },
-  {
-    id: 6,
-    title: '제 6회 Devtalk Seminar',
-    date: '2025-10-04T19:00:00',
-    location: '가나다라마바사',
-    topic: '아자차카타파하에이비씨디이에프지에이치아이엘엠엔오피',
-  },
-  {
-    id: 5,
-    title: '제 5회 Devtalk Seminar',
-    date: '2025-10-04T19:00:00',
-    location: '가나다라마바사',
-    topic: '아자차카타파하에이비씨디이에프지에이치아이엘엠엔오피',
-  },
-  {
-    id: 4,
-    title: '제 4회 Devtalk Seminar',
-    date: '2025-10-04T19:00:00',
-    location: '가나다라마바사',
-    topic: '아자차카타파하에이비씨디이에프지에이치아이엘엠엔오피',
-  },
-];
+import { useSeminarCards } from '../../../hooks/SeminarManage/useSeminarCards';
+import LoadingSpinner from '../../../components/common/LoadingSpinner';
 
 const Cards = () => {
+  const { data: seminarData, isLoading, isError } = useSeminarCards();
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (isError) {
+    return (
+      <div className="text-status-error text-center p-20">데이터를 불러오는 데 실패했습니다.</div>
+    );
+  }
+
+  const seminars = seminarData?.result?.seminarList || [];
+
   return (
     <div className="min-w-[900px] max-w-[950px] py-[60px] px-[30px]">
       {/* 헤더 */}
@@ -67,8 +30,8 @@ const Cards = () => {
 
       {/* 세미나 카드 */}
       <div className="grid grid-cols-2 gap-[25px]">
-        {mockSeminars.map((seminar) => (
-          <SeminarCard key={seminar.id} seminar={seminar} />
+        {seminars.map((seminar) => (
+          <SeminarCard key={seminar.seminarNum} seminar={seminar} />
         ))}
       </div>
     </div>
