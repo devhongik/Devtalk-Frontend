@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import arrow from "../../assets/icons/components/SeminarApply/arrow.svg";
+import arrow from '../../assets/icons/components/SeminarApply/arrow.svg';
 
 type ApplyHeaderProps = {
   backTo: string;
