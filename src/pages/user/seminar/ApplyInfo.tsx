@@ -3,8 +3,32 @@ import { Chip } from '../../../components/Chip/Chip';
 import SpeakerInfo from '../../../components/SeminarApply/SpeakerInfo';
 import LiveInfo from '../../../components/SeminarApply/LiveInfo';
 import ApplyForm from '../../../components/SeminarApply/ApplyForm';
+import { useState, useEffect } from 'react';
+import { useBlocker } from 'react-router-dom';
+import ApplyExitModal from '../../../components/Modal/ApplyExitModal';
 
 const ApplyInfo = () => {
+  const [exitOpen, setExitOpen] = useState(false);
+  const [proceed, setProceed] = useState<null | (() => void)>(null);
+
+  // 페이지 이동 시 모달 창 띄우기
+  const blocker = useBlocker(({ currentLocation, nextLocation }) => {
+    if (
+      currentLocation.pathname === '/seminar/apply-info' &&
+      nextLocation.pathname !== '/seminar/apply-question'
+    ) {
+      return true;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (blocker.state === 'blocked') {
+      setExitOpen(true);
+      setProceed(() => blocker.proceed);
+    }
+  }, [blocker]);
+
   return (
     <div className="flex flex-col gap-16 justify-center items-center mb-64">
       <ApplyHeader backTo="/seminar/:id" />
@@ -54,6 +78,17 @@ const ApplyInfo = () => {
           <ApplyForm />
         </div>
       </div>
+      <ApplyExitModal
+        open={exitOpen}
+        onConfirm={() => {
+          setExitOpen(false);
+          proceed?.();
+        }}
+        onCancel={() => {
+          setExitOpen(false);
+          blocker.reset?.();
+        }}
+      />
     </div>
   );
 };
