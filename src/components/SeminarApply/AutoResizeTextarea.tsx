@@ -1,8 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
-export default function AutoResizeTextarea() {
+type AutoResizeTextareaProps = {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+};
+
+export default function AutoResizeTextarea({ value, onChange }: AutoResizeTextareaProps) {
   const ref = useRef<HTMLTextAreaElement>(null);
-  const [value, setValue] = useState('');
 
   const resize = () => {
     const el = ref.current;
@@ -28,7 +32,7 @@ export default function AutoResizeTextarea() {
         <textarea
           ref={ref}
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={onChange}
           onInput={resize}
           placeholder={`[김데브] 연사님께 드리고 싶은 질문을
 자유롭게 남겨주세요.`}
