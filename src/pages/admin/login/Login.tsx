@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import devlogo from '../../../assets/logos/devlogo.svg';
 import { postAdminLogin } from '../../../apis/auth.api';
@@ -9,14 +9,6 @@ const Login = () => {
   const [pw, setPw] = useState('');
   const [error, setError] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN);
-    if (token) {
-      console.log('로그인 되어 있음(토큰 존재)');
-      navigate('/admin/home/promo', { replace: true });
-    }
-  }, [navigate]);
 
   const handleLogin = async () => {
     try {
