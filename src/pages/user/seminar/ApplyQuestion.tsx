@@ -1,4 +1,3 @@
-// src/pages/user/seminar/ApplyQuestion.tsx
 import ApplyHeader from '../../../components/SeminarApply/ApplyHeader';
 import SpeakerCard from '../../../components/SeminarApply/SpeakerCard';
 import AutoResizeTextarea from '../../../components/SeminarApply/AutoResizeTextarea';
@@ -37,7 +36,6 @@ const mapInflowPath = (
       return 'CLUB';
     case '에브리타임':
       return 'EVERYTIME';
-    // UI가 "교내 포스터 / X배너"로 합쳐져 있으면 우선 배너로 매핑
     case '교내 포스터 / X배너':
       return 'CAMPUS_BANNER';
     case '지인':
@@ -47,7 +45,6 @@ const mapInflowPath = (
     case '학과 공지방':
       return 'DEPARTMENT';
     default:
-      // '기타' 등 enum에 없는 값 → 백엔드와 합의된 폴백으로 보냄
       return 'DEPARTMENT';
   }
 };
@@ -88,8 +85,8 @@ const ApplyQuestion = () => {
       phone: draft.phone,
       departments: draft.departments,
       departmentEtc: draft.departmentEtc,
-      participationType: participationEnum, // ← enum으로 전송
-      inflowPath: inflowEnum, // ← enum으로 전송
+      participationType: participationEnum, //enum으로 전송
+      inflowPath: inflowEnum, // enum으로 전송
       inflowPathEtc: draft.inflowPathEtc, // 기타 설명 (있으면)
       questions,
     };
@@ -99,8 +96,6 @@ const ApplyQuestion = () => {
       console.log(res);
       if (res.isSuccess) {
         setOpenSuccess(true);
-        // 필요하면 성공 시 초기화
-        // draft.reset();
       } else {
         setOpenAlert(true);
       }
@@ -111,7 +106,6 @@ const ApplyQuestion = () => {
     }
   };
 
-  // 성공 모달 표시용 (프론트 UI는 한국어 라벨 유지)
   const successType = draft.participationType?.startsWith('온라인') ? 'online' : 'offline';
 
   return (
