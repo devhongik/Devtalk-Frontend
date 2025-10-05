@@ -4,11 +4,11 @@ import type { CommonResponse } from '../common';
 export type SeminarApplyRequest = {
   studentNum: string;
   name: string;
-  grade: number;
+  grade: number | null;
   gradeEtc: string | null;
   email: string;
   phone: string;
-  departments: string[];
+  departments: string[] | null;
   departmentEtc: string | null;
   participationType: string;
   inflowPath: string;
