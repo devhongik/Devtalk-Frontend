@@ -7,6 +7,7 @@ import ReviewCard from '../../../components/common/ReviewCard';
 import ExSeminar from '../../../assets/images/exSeminar.jpg';
 import { ButtonExSeminar } from '../../../components/Button/ButtonExSeminar';
 import Timer from '../../../assets/icons/common/devtalkTimer.png';
+import Ticket from '../../../assets/icons/common/devtalkTicket.png';
 import { Button } from '../../../components/Button/Button';
 import Carousel from '../../../components/LectureCard/Carousel';
 import { LectureCardMain } from '../../../components/LectureCard/LectureCardMain';
@@ -16,10 +17,24 @@ import { useNavigate } from 'react-router-dom';
 import InfiniteCarousel from '../../../components/common/InfiniteCarousel';
 import { useEffect, useRef, useState } from 'react';
 
+// 임시 하드코딩
+type SeminarInfo = {
+  activeStartDate: string;
+  activeEndDate: string;
+};
+
+const seminar: SeminarInfo = {
+  activeStartDate: '2025-10-05T23:53:51.927Z',
+  activeEndDate: '2025-10-05T23:53:51.927Z',
+};
+
 const Home = () => {
   const navigate = useNavigate();
   const exSeminarref = useRef<HTMLDivElement | null>(null);
   const [hideCTA, setHideCTA] = useState(false);
+
+  const now = new Date();
+  const isActive = now > new Date(seminar.activeStartDate) && now < new Date(seminar.activeEndDate);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -57,7 +72,21 @@ const Home = () => {
 
           {!hideCTA && (
             <div className="fixed bottom-0 w-full z-50">
-              <Cta />
+              {isActive ? (
+                <Cta
+                  bodyText="지금 바로 입장해 주세요!"
+                  buttonText="10회차 세미나 입장하기"
+                  onClick={() => navigate('seminar/live/verification')}
+                  isActive={isActive}
+                />
+              ) : (
+                <Cta
+                  bodyText="데브톡에 빠져보세요!"
+                  buttonText="10회차 세미나 신청하기"
+                  onClick={() => navigate('/seminar/apply-info')}
+                  isActive={isActive}
+                />
+              )}
             </div>
           )}
 
@@ -162,19 +191,35 @@ const Home = () => {
           </div>
 
           {/* 신청하기 */}
-          <div className="flex flex-col items-center pt-[120px] px-20 pb-[100px] gap-16">
-            <p className="text-white heading-2-bold">지금 바로 신청하세요!</p>
-            <div className="flex flex-col w-[335px] gap-28">
-              <div className="flex flex-col items-center gap-16">
-                <img src={Timer} alt="타이머 아이콘" className="w-[240px] h-[153px]" />
+          {isActive ? (
+            <div className="flex flex-col items-center pt-[120px] px-20 pb-[100px] gap-16">
+              <p className="text-white heading-2-bold">지금 바로 입장하세요!</p>
+              <div className="flex flex-col w-[335px] gap-28">
+                <div className="flex flex-col items-center gap-16">
+                  <img src={Ticket} alt="티켓 아이콘" className="w-[240px] h-[153px]" />
+                </div>
+                <Button
+                  variant="default"
+                  text="10회차 세미나 입장하기"
+                  onClick={() => navigate('seminar/live/verification')}
+                />
               </div>
-              <Button
-                variant="default"
-                text="10회차 세미나 신청하기"
-                onClick={() => navigate('/seminar/apply-info')}
-              />
             </div>
-          </div>
+          ) : (
+            <div className="flex flex-col items-center pt-[120px] px-20 pb-[100px] gap-16">
+              <p className="text-white heading-2-bold">지금 바로 신청하세요!</p>
+              <div className="flex flex-col w-[335px] gap-28">
+                <div className="flex flex-col items-center gap-16">
+                  <img src={Timer} alt="타이머 아이콘" className="w-[240px] h-[153px]" />
+                </div>
+                <Button
+                  variant="default"
+                  text="10회차 세미나 신청하기"
+                  onClick={() => navigate('/seminar/apply-info')}
+                />
+              </div>
+            </div>
+          )}
 
           <Footer />
         </div>
