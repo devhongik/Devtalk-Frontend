@@ -2,9 +2,13 @@ import { SectionHeader } from '../../components/SeminarApply/SectionHeader';
 import emptycircle from '../../assets/icons/components/SeminarApply/emptycircle.svg';
 import chosencircle from '../../assets/icons/components/SeminarApply/chosencircle.svg';
 
-type ParticipateSectionProps = { options: string[] };
+type ParticipateSectionProps = {
+  options: string[];
+  selected: string | null;
+  onSelect: (label: string) => void;
+};
 
-export const ParticipateSection = ({ options }: ParticipateSectionProps) => (
+export const ParticipateSection = ({ options, selected, onSelect }: ParticipateSectionProps) => (
   <div className="flex flex-col gap-5">
     <SectionHeader
       title="어떤 방식으로 참여하시겠어요?"
@@ -14,9 +18,19 @@ export const ParticipateSection = ({ options }: ParticipateSectionProps) => (
     <div className="flex flex-col gap-16">
       {options.map((opt, i) => {
         const id = `participate-${i}`;
+        const checked = selected === opt;
+
         return (
           <label key={id} htmlFor={id} className="group flex items-center gap-12 cursor-pointer">
-            <input id={id} name="participate" type="radio" value={opt} className="sr-only" />
+            <input
+              id={id}
+              name="participate"
+              type="radio"
+              value={opt}
+              className="sr-only"
+              checked={checked}
+              onChange={() => onSelect(opt)}
+            />
 
             <span className="relative w-6 h-6 shrink-0">
               <img src={emptycircle} alt="" className="w-6 h-6" />
