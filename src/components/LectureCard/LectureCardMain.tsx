@@ -1,4 +1,4 @@
-import speakerEx from '../../assets/speakerEx.jpg';
+import speakerEx from '../../assets/images/speakerEx.jpg';
 
 export const LectureCardMain = () => {
   return (

@@ -14,12 +14,12 @@ const LiveVerification = () => {
           <input
             type="text"
             placeholder="학번"
-            className="w-[335px] h-[54px] px-16 py-8 bg-grey-800 rounded-8 placeholder:text-grey-300 focus:outline-none"
+            className="w-[335px] h-[54px] px-16 py-8 text-grey-50 bg-grey-800 rounded-8 placeholder:text-grey-300 border border-transparent focus:border-grey-300 focus:outline-none"
           />
           <input
             type="text"
             placeholder="이름"
-            className="w-[335px] h-[54px] px-16 py-8 bg-grey-800 rounded-8 placeholder:text-grey-300 focus:outline-none"
+            className="w-[335px] h-[54px] px-16 py-8 text-grey-50 bg-grey-800 rounded-8 placeholder:text-grey-300 border border-transparent focus:border-grey-300 focus:outline-none"
           />
         </div>
       </div>

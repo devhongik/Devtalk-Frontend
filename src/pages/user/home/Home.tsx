@@ -2,11 +2,11 @@ import Cta from '../../../components/common/Cta';
 import Footer from '../../../components/common/Footer';
 import Header from '../../../components/common/Header';
 import SeminarPoster from '../../../components/common/SeminarPoster';
-import IntroDevtalk from '../../../assets/IntroDevtalk.svg';
+import IntroDevtalk from '../../../assets/images/introDevtalk.svg';
 import ReviewCard from '../../../components/common/ReviewCard';
-import ExSeminar from '../../../assets/ExSeminar.jpg';
+import ExSeminar from '../../../assets/images/exSeminar.jpg';
 import { ButtonExSeminar } from '../../../components/Button/ButtonExSeminar';
-import Timer from '../../../assets/icons/common/Timer.svg';
+import Timer from '../../../assets/icons/common/devtalkTimer.png';
 import { Button } from '../../../components/Button/Button';
 import Carousel from '../../../components/LectureCard/Carousel';
 import { LectureCardMain } from '../../../components/LectureCard/LectureCardMain';
@@ -164,11 +164,9 @@ const Home = () => {
           {/* 신청하기 */}
           <div className="flex flex-col items-center pt-[120px] px-20 pb-[100px] gap-16">
             <p className="text-white heading-2-bold">지금 바로 신청하세요!</p>
-            <div className="flex flex-col w-[335px]  gap-28">
+            <div className="flex flex-col w-[335px] gap-28">
               <div className="flex flex-col items-center gap-16">
-                <div className="px-40 py-8 w-[160px] h-[137px]">
-                  <img src={Timer} alt="타이머 아이콘" className="w-[91px] h-[108px]" />
-                </div>
+                <img src={Timer} alt="타이머 아이콘" className="w-[240px] h-[153px]" />
               </div>
               <Button
                 variant="default"
