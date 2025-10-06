@@ -21,6 +21,7 @@ const ApplyQuestion = () => {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [successType, setSuccessType] = useState<'online' | 'offline' | null>(null);
 
   const handleChangeQuestion = (sessionId: number, value: string) => {
     draft.setQuestion(sessionId, value);
@@ -39,6 +40,10 @@ const ApplyQuestion = () => {
     const participationEnum = mapParticipation(draft.participationType);
     const inflowEnum = mapInflowPath(draft.inflowPath || '');
 
+    const nextSuccessType: 'online' | 'offline' =
+      participationEnum === 'ONLINE' ? 'online' : 'offline';
+    setSuccessType(nextSuccessType);
+
     const body: SeminarApplyRequest = {
       studentNum: draft.studentNum,
       name: draft.name,
@@ -56,7 +61,6 @@ const ApplyQuestion = () => {
 
     try {
       const res: SeminarApplyResponse = await postApplySeminar(body);
-      console.log(res);
       if (res.isSuccess) {
         try {
           useApplyDraft.getState().reset();
@@ -76,8 +80,6 @@ const ApplyQuestion = () => {
       setSubmitting(false);
     }
   };
-
-  const successType = draft.participationType?.startsWith('온라인') ? 'online' : 'offline';
 
   return (
     <>
@@ -127,7 +129,7 @@ const ApplyQuestion = () => {
       <ApplySuccessModal
         open={openSuccess}
         onClose={() => setOpenSuccess(false)}
-        type={successType} // 'online' | 'offline'
+        type={successType ?? 'offline'}
       />
       <ApplyAlertModal open={openAlert} onClose={() => setOpenAlert(false)} />
     </>
