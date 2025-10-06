@@ -12,7 +12,7 @@ export const NameSection = ({ value, onChange }: NameSectionProps) => (
       value={value}
       onChange={(e) => onChange(e.target.value)}
       className="bg-grey-800 w-full h-14 rounded-8 placeholder:text-grey-300 px-16
-                 outline-none border border-transparent focus:border-grey-500 text-white"
+                 outline-none border border-transparent focus:border-grey-300 text-grey-50"
       placeholder="ex. 김홍익"
       name="name"
       autoComplete="name"

@@ -30,8 +30,8 @@ export const StudentIdSection = ({ value, onChange }: StudentIdSectionProps) => 
           onChange={handleChange}
           placeholder="ex. C012345"
           className={`bg-grey-800 w-full h-14 rounded-8 placeholder:text-grey-300 px-16
-                      outline-none border text-white
-                      ${error ? 'border-status-error focus:border-status-error' : 'border-transparent focus:border-grey-500'}`}
+                      outline-none border text-grey-50
+                      ${error ? 'border-status-error focus:border-status-error' : 'border-transparent focus:border-grey-300'}`}
           name="student-id"
           autoComplete="off"
         />

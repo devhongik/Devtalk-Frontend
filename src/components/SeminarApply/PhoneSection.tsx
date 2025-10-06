@@ -18,7 +18,7 @@ export const PhoneSection = ({ value, onChange }: PhoneSectionProps) => {
         value={value}
         onChange={handleChange}
         className="bg-grey-800 w-full h-14 rounded-8 placeholder:text-grey-300 px-16
-                   outline-none border border-transparent focus:border-grey-500 text-white"
+                   outline-none border border-transparent focus:border-grey-300 text-grey-50"
         placeholder="ex. 010-0000-0000"
         maxLength={13} // 010-1234-5678
         inputMode="numeric"
