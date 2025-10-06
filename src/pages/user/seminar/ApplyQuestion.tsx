@@ -59,7 +59,16 @@ const ApplyQuestion = () => {
     try {
       const res: SeminarApplyResponse = await postApplySeminar(body);
       console.log(res);
+
       if (res.isSuccess) {
+        try {
+          useApplyDraft.getState().reset();
+          (useApplyDraft as any).persist?.clearStorage?.();
+          sessionStorage.removeItem('apply-draft');
+          (useApplyDraft as any).persist?.rehydrate?.();
+        } catch (err) {
+          console.error('Failed to clear apply-draft:', err);
+        }
         setOpenSuccess(true);
       } else {
         setOpenAlert(true);
