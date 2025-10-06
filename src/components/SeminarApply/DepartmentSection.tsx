@@ -59,14 +59,15 @@ export const DepartmentSection = ({
         <span className="body-1-medium text-white shrink-0">기타:</span>
         <input
           type="text"
-          value={etcValue ?? ''} // 값은 문자열로 렌더
+          value={etcValue ?? ''}
           onChange={(e) => onChangeEtc(e.target.value)}
+          data-other-for="department"
           className="flex-1 bg-transparent outline-none
-                     body-1-medium text-white
-                     border-b border-grey-900
-                     opacity-0 pointer-events-none transition-opacity
-                     peer-checked:opacity-100 peer-checked:pointer-events-auto
-                     focus:border-grey-600"
+             body-1-medium text-white
+             border-b border-grey-900
+             opacity-0 pointer-events-none transition-opacity
+             peer-checked:opacity-100 peer-checked:pointer-events-auto
+             focus:border-grey-600"
         />
       </label>
     </div>

@@ -80,12 +80,13 @@ export const GradeSection = ({
           type="text"
           value={etcValue ?? ''}
           onChange={(e) => onChangeEtc(e.target.value)}
+          data-other-for="grade"
           className="flex-1 bg-transparent outline-none
-                     body-1-medium text-white
-                     border-b border-grey-900
-                     opacity-0 pointer-events-none transition-opacity
-                     group-has-[:checked]:opacity-100 group-has-[:checked]:pointer-events-auto
-                     focus:border-grey-600"
+             body-1-medium text-white
+             border-b border-grey-900
+             opacity-0 pointer-events-none transition-opacity
+             group-has-[:checked]:opacity-100 group-has-[:checked]:pointer-events-auto
+             focus:border-grey-600"
         />
       </label>
     </div>
