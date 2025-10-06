@@ -57,15 +57,15 @@ userInstance.interceptors.response.use(
         const newAccessToken = data?.accessToken;
         const newRefreshToken = data?.refreshToken;
 
-        localStorage.setItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN, newAccessToken);
-        localStorage.setItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN, newRefreshToken);
+        localStorage.setItem(STORAGE_KEY.USER_ACCESS_TOKEN, newAccessToken);
+        localStorage.setItem(STORAGE_KEY.USER_REFRESH_TOKEN, newRefreshToken);
 
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return userInstance(originalRequest);
       } catch (error) {
         //에러 발생시 세미나 인증 페이지으로 이동
-        localStorage.removeItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN);
-        localStorage.removeItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN);
+        localStorage.removeItem(STORAGE_KEY.USER_ACCESS_TOKEN);
+        localStorage.removeItem(STORAGE_KEY.USER_REFRESH_TOKEN);
         window.location.replace('/seminar/live/verification');
       }
     }
