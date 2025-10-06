@@ -14,7 +14,7 @@ const PromoImage = () => {
 
   useEffect(() => {
     if (data) {
-      console.log('📦 GET /admin/home/images 응답:', data);
+      console.log('GET /admin/home/images 응답:', data);
     }
   }, [data]);
 
@@ -30,44 +30,48 @@ const PromoImage = () => {
       <h1 className="mt-60 heading-1-bold text-white">홍보 사진 관리</h1>
       <AdminImageUpload
         title="Devtalk 소개 사진"
+        serverFileName={data?.result?.intro?.fileName}
+        serverFileCount={data?.result?.intro ? 1 : 0}
         onUpload={(files) => {
-          console.log('📤 [업로드 요청 - INTRO]:', files[0]);
+          console.log('업로드 요청 - INTRO:', files[0]);
           uploadMutation.mutate(
             { type: 'INTRO', file: files[0] },
             {
               onSuccess: (data) => {
-                console.log('✅ [업로드 성공 - INTRO]:', data);
+                console.log('업로드 성공 - INTRO:', data);
               },
               onError: (error) => {
-                console.error('❌ [업로드 실패 - INTRO]:', error);
+                console.error('업로드 실패 - INTRO:', error);
               },
             }
           );
         }}
         onRemove={() => {
-          console.log('🗑 [삭제 요청 - INTRO]');
+          console.log('삭제 요청 - INTRO');
           deleteMutation.mutate({ type: 'INTRO' });
         }}
       />
 
       <AdminImageUpload
         title="이전 세미나 보러가기 사진"
+        serverFileName={data?.result?.previousSeminar?.fileName}
+        serverFileCount={data?.result?.previousSeminar ? 1 : 0}
         onUpload={(files) => {
-          console.log('📤 [업로드 요청 - PREVIOUS_SEMINAR]:', files[0]);
+          console.log('업로드 요청 - PREVIOUS_SEMINAR:', files[0]);
           uploadMutation.mutate(
             { type: 'PREVIOUS_SEMINAR', file: files[0] },
             {
               onSuccess: (data) => {
-                console.log('✅ [업로드 성공 - PREVIOUS_SEMINAR]:', data);
+                console.log('업로드 성공 - PREVIOUS_SEMINAR:', data);
               },
               onError: (error) => {
-                console.error('❌ [업로드 실패 - PREVIOUS_SEMINAR]:', error);
+                console.error('업로드 실패 - PREVIOUS_SEMINAR:', error);
               },
             }
           );
         }}
         onRemove={() => {
-          console.log('🗑 [삭제 요청 - PREVIOUS_SEMINAR]');
+          console.log('삭제 요청 - PREVIOUS_SEMINAR');
           deleteMutation.mutate({ type: 'PREVIOUS_SEMINAR' });
         }}
       />
