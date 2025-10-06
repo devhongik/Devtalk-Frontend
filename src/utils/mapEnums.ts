@@ -4,15 +4,7 @@ export const mapParticipation = (label: string): 'ONLINE' | 'OFFLINE' => {
 
 export const mapInflowPath = (
   label: string
-):
-  | 'INSTAGRAM'
-  | 'CLUB'
-  | 'EVERYTIME'
-  | 'CAMPUS_BANNER'
-  | 'CAMPUS_POSTER'
-  | 'FRIEND'
-  | 'PROFESSOR'
-  | 'DEPARTMENT' => {
+): 'INSTAGRAM' | 'CLUB' | 'EVERYTIME' | 'CAMPUS' | 'FRIEND' | 'PROFESSOR' | 'DEPARTMENT' => {
   switch (label) {
     case '인스타그램':
       return 'INSTAGRAM';
@@ -21,7 +13,7 @@ export const mapInflowPath = (
     case '에브리타임':
       return 'EVERYTIME';
     case '교내 포스터 / X배너':
-      return 'CAMPUS_BANNER';
+      return 'CAMPUS';
     case '지인':
       return 'FRIEND';
     case '교수님':
