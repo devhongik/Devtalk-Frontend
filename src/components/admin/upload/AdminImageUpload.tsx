@@ -5,8 +5,9 @@ import LoadingSpinner from '../../common/LoadingSpinner';
 interface AdminImageUploadProps {
   title: string;
   serverFileName?: string; // 서버에서 받아온 파일 이름
+  serverFileUrl?: string; // 미리보기 이미지 url
   serverFileCount?: number; // 현재 서버에 등록된 파일 개수
-  isUploading?: boolean;
+  isUploading?: boolean; // 업로딩
   onUpload: (files: File[]) => void; // 서버 업로드 요청
   onRemove: () => void; // 서버 삭제 요청
 }
@@ -14,6 +15,7 @@ interface AdminImageUploadProps {
 const AdminImageUpload: React.FC<AdminImageUploadProps> = ({
   title,
   serverFileName,
+  serverFileUrl,
   serverFileCount = 0,
   isUploading = false,
   onUpload,
@@ -75,8 +77,18 @@ const AdminImageUpload: React.FC<AdminImageUploadProps> = ({
       {/* 파일 정보 박스 */}
       <div className="space-y-2">
         {serverFileName ? (
-          <div className="bg-grey-700 rounded-8 p-24 flex justify-between items-center">
-            <span className="text-grey-200 subhead-2-medium">{serverFileName}</span>
+          <div className="bg-grey-700 rounded-8 px-24 py-20 flex justify-between items-center">
+            <div className="flex items-center gap-12">
+              {/* 썸네일 */}
+              {serverFileUrl && (
+                <img
+                  src={serverFileUrl}
+                  alt={serverFileName}
+                  className="w-[26px] h-[26px] object-cover rounded-6 border border-grey-600"
+                />
+              )}
+              <span className="text-grey-200 subhead-2-medium">{serverFileName}</span>
+            </div>
             <button onClick={onRemove} className="cursor-pointer">
               <img src={deleteIcon} alt="삭제" />
             </button>
