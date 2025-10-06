@@ -6,6 +6,7 @@ import ApplyForm from '../../../components/SeminarApply/ApplyForm';
 import { useState, useEffect } from 'react';
 import { useBlocker } from 'react-router-dom';
 import ApplyExitModal from '../../../components/Modal/ApplyExitModal';
+import { useApplyDraft } from '../../../stores/useApplyDraft'; // 상단 import 추가
 
 const ApplyInfo = () => {
   const [exitOpen, setExitOpen] = useState(false);
@@ -81,6 +82,8 @@ const ApplyInfo = () => {
       <ApplyExitModal
         open={exitOpen}
         onConfirm={() => {
+          useApplyDraft.getState().reset();
+          sessionStorage.removeItem('apply-draft');
           setExitOpen(false);
           proceed?.();
         }}
