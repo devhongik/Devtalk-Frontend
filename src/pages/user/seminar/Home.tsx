@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../../../components/common/Header';
 import SeminarListCard from '../../../components/Seminar/SeminarListCard';
 import { useQuery } from '@tanstack/react-query';
-import { getSeminarList } from '../../../apis/Seminar/seminarList';
+import { getSeminarList } from '../../../apis/seminarList';
 import type { SeminarListResponse } from '../../../types/SeminarManage/seminarCard.api';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
 
@@ -20,22 +20,20 @@ function SeminarHome() {
 
   const seminarList = data?.result?.seminarList || [];
 
-  if (isLoading) {
-    <LoadingSpinner />;
-  }
-
   return (
     <div>
       <Header />
       <div className="flex flex-col justify-center gap-16 px-20 pt-16">
         <div className="heading-1-bold text-white">세미나</div>
+        {isLoading && <LoadingSpinner />}
         <div className="flex flex-col gap-28 items-center ">
           {seminarList.map((seminar) => (
             <div
+              key={seminar.seminarNum}
               className="border-t border-grey-700"
               onClick={() => handleCardClick(seminar.seminarNum)}
             >
-              <SeminarListCard key={seminar.seminarNum} seminar={seminar} />
+              <SeminarListCard seminar={seminar} />
             </div>
           ))}
         </div>
