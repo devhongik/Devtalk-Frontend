@@ -15,8 +15,7 @@ export interface HomeImageListResult {
 }
 export type HomeImageListResponse = CommonResponse<HomeImageListResult>;
 
-// POST: /admin/home/images 요청
-// FormData 형식
+// POST: /admin/home/images 요청 (FormData 형식)
 export interface PostHomeImageParams {
   type: 'INTRO' | 'PREVIOUS_SEMINAR';
   file: File;

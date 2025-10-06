@@ -5,18 +5,11 @@ import {
   useUploadHomeImage,
   useDeleteHomeImage,
 } from '../../../hooks/HomeManage/useHomeImage';
-import { useEffect } from 'react';
 
 const PromoImage = () => {
   const { data, isLoading, isError } = useHomeImages();
   const uploadMutation = useUploadHomeImage();
   const deleteMutation = useDeleteHomeImage();
-
-  useEffect(() => {
-    if (data) {
-      console.log('GET 응답:', data);
-    }
-  }, [data]);
 
   if (isLoading) return <LoadingSpinner />;
   if (isError)
@@ -30,6 +23,7 @@ const PromoImage = () => {
         serverFileName={data?.result?.intro?.fileName}
         serverFileUrl={data?.result?.intro?.url}
         serverFileCount={data?.result?.intro ? 1 : 0}
+        isUploading={uploadMutation.isPending}
         onUpload={(files) => {
           console.log('소개 사진 업로드 요청:', files[0]);
           uploadMutation.mutate(
@@ -55,6 +49,7 @@ const PromoImage = () => {
         serverFileName={data?.result?.previousSeminar?.fileName}
         serverFileUrl={data?.result?.previousSeminar?.url}
         serverFileCount={data?.result?.previousSeminar ? 1 : 0}
+        isUploading={uploadMutation.isPending}
         onUpload={(files) => {
           console.log('이전 세미나 사진 업로드 요청:', files[0]);
           uploadMutation.mutate(
@@ -70,7 +65,7 @@ const PromoImage = () => {
           );
         }}
         onRemove={() => {
-          console.log('삭제 요청 - 이전 세미나');
+          console.log('이전 세미나 사진 삭제 요청');
           deleteMutation.mutate({ type: 'PREVIOUS_SEMINAR' });
         }}
       />
