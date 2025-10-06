@@ -34,7 +34,7 @@ const ApplyForm = () => {
           <DepartmentSection
             options={DEPARTMENTS}
             selected={draft.departments}
-            etcValue={draft.departmentEtc} // string | null
+            etcValue={draft.departmentEtc}
             onToggle={(dept) => {
               const next = draft.departments.includes(dept)
                 ? draft.departments.filter((d) => d !== dept)
@@ -57,7 +57,7 @@ const ApplyForm = () => {
               }
               etcValue={draft.gradeEtc}
               onSelect={(g) => {
-                draft.setField('grade', parseInt(g[0])); // "1학년" → 1
+                draft.setField('grade', parseInt(g[0]));
                 draft.setField('gradeEtc', null);
               }}
               onSelectEtc={(checked) => {
@@ -83,7 +83,7 @@ const ApplyForm = () => {
             />
             <ParticipateSection
               options={PARTICIPATE}
-              selected={draft.participationType || null} // '오프라인' | '온라인 Live (Q&A, 이벤트 참여 불가)'
+              selected={draft.participationType || null}
               onSelect={(label) => draft.setField('participationType', label)}
             />
           </div>

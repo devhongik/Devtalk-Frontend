@@ -4,8 +4,8 @@ import chosencircle from '../../assets/icons/components/SeminarApply/chosencircl
 
 type ParticipateSectionProps = {
   options: string[];
-  selected: string | null; // 현재 선택된 라벨
-  onSelect: (label: string) => void; // 선택 변경 콜백
+  selected: string | null;
+  onSelect: (label: string) => void;
 };
 
 export const ParticipateSection = ({ options, selected, onSelect }: ParticipateSectionProps) => (

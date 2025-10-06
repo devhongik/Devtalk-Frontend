@@ -4,11 +4,11 @@ import chosencircle from '../../assets/icons/components/SeminarApply/chosencircl
 
 type HowToKnowSectionProps = {
   options: string[];
-  selected: string | null; // 선택된 항목
-  etcValue: string | null; // '기타' 입력값
-  onSelect: (option: string) => void; // 항목 선택 시
-  onSelectEtc: (checked: boolean) => void; // '기타' 선택 토글
-  onChangeEtc: (value: string) => void; // 기타 입력 변경
+  selected: string | null;
+  etcValue: string | null;
+  onSelect: (option: string) => void;
+  onSelectEtc: (checked: boolean) => void;
+  onChangeEtc: (value: string) => void;
 };
 
 export const HowToKnowSection = ({

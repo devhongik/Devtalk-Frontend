@@ -6,7 +6,7 @@ import ApplyForm from '../../../components/SeminarApply/ApplyForm';
 import { useState, useEffect } from 'react';
 import { useBlocker } from 'react-router-dom';
 import ApplyExitModal from '../../../components/Modal/ApplyExitModal';
-import { useApplyDraft } from '../../../stores/useApplyDraft'; // 상단 import 추가
+import { useApplyDraft } from '../../../stores/useApplyDraft';
 
 const ApplyInfo = () => {
   const [exitOpen, setExitOpen] = useState(false);

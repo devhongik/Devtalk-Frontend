@@ -4,11 +4,11 @@ import chosencircle from '../../assets/icons/components/SeminarApply/chosencircl
 
 type GradeSectionProps = {
   options: string[];
-  selected: string | null; // 선택된 학년
-  etcValue: string | null; // '기타' 입력값
-  onSelect: (grade: string) => void; // 학년 선택 시 실행
-  onSelectEtc: (checked: boolean) => void; // '기타' 선택 토글
-  onChangeEtc: (value: string) => void; // 기타 입력 변경
+  selected: string | null;
+  etcValue: string | null;
+  onSelect: (grade: string) => void;
+  onSelectEtc: (checked: boolean) => void;
+  onChangeEtc: (value: string) => void;
 };
 
 export const GradeSection = ({

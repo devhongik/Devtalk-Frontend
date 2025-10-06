@@ -22,12 +22,10 @@ const ApplyQuestion = () => {
   const [openAlert, setOpenAlert] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  // 질문 입력 시 draft에 바로 반영
   const handleChangeQuestion = (sessionId: number, value: string) => {
     draft.setQuestion(sessionId, value);
   };
 
-  // 신청하기 버튼 클릭
   const handleClickApply = async () => {
     if (submitting) return;
     setSubmitting(true);
@@ -44,22 +42,21 @@ const ApplyQuestion = () => {
     const body: SeminarApplyRequest = {
       studentNum: draft.studentNum,
       name: draft.name,
-      grade: draft.grade, // 1~4, 기타면 0
-      gradeEtc: draft.gradeEtc, // 기타면 문자열, 아니면 null
+      grade: draft.grade,
+      gradeEtc: draft.gradeEtc,
       email: draft.email,
       phone: draft.phone,
       departments: draft.departments,
       departmentEtc: draft.departmentEtc,
-      participationType: participationEnum, //enum으로 전송
-      inflowPath: inflowEnum, // enum으로 전송
-      inflowPathEtc: draft.inflowPathEtc, // 기타 설명 (있으면)
+      participationType: participationEnum,
+      inflowPath: inflowEnum,
+      inflowPathEtc: draft.inflowPathEtc,
       questions,
     };
 
     try {
       const res: SeminarApplyResponse = await postApplySeminar(body);
       console.log(res);
-
       if (res.isSuccess) {
         try {
           useApplyDraft.getState().reset();

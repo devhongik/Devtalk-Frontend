@@ -4,11 +4,11 @@ import checkbox from '../../assets/icons/components/SeminarApply/checkbox.svg';
 
 type DepartmentSectionProps = {
   options: string[];
-  selected: string[]; // 선택된 학과
-  etcValue: string | null; // 기타 값(null이면 미선택)
-  onToggle: (dept: string) => void; // 학과 체크 토글
-  onToggleEtc: (checked: boolean) => void; // 기타 체크 토글
-  onChangeEtc: (value: string) => void; // 기타 입력 변경
+  selected: string[];
+  etcValue: string | null;
+  onToggle: (dept: string) => void;
+  onToggleEtc: (checked: boolean) => void;
+  onChangeEtc: (value: string) => void;
 };
 
 export const DepartmentSection = ({
@@ -51,7 +51,7 @@ export const DepartmentSection = ({
           type="checkbox"
           className="sr-only peer"
           value="기타"
-          checked={etcValue !== null} // 선택 여부: null이 아니면 체크
+          checked={etcValue !== null}
           onChange={(e) => onToggleEtc(e.target.checked)}
         />
         <img src={emptybox} alt="" className="w-6 h-6 peer-checked:hidden" />
