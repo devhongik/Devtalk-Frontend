@@ -12,7 +12,7 @@ const Cta = ({ bodyText, buttonText, onClick, isActive }: CtaProps) => {
     <div className="w-[375px] h-[152px] flex flex-col justify-center items-center gap-16 px-20 pt-20 pb-24 button-bg">
       <div>
         {isActive ? (
-          <div>{bodyText}</div>
+          <div className="body-2-semibold text-grey-100">{bodyText}</div>
         ) : (
           <div className="flex flex-col items-center gap-4 w-[256px] h-[44px] body-2-semibold text-grey-100">
             {bodyText}

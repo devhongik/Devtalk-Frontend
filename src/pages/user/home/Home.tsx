@@ -25,7 +25,7 @@ type SeminarInfo = {
 
 const seminar: SeminarInfo = {
   activeStartDate: '2025-10-05T23:53:51.927Z',
-  activeEndDate: '2025-10-05T23:53:51.927Z',
+  activeEndDate: '2025-10-07T23:53:51.927Z',
 };
 
 const Home = () => {
