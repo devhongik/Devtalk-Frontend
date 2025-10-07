@@ -12,7 +12,7 @@ const SeminarListCard = ({ seminar }: SeminarItem) => {
   const [date, time] = formDate.split(/(?=오전|오후)/);
 
   return (
-    <div className="w-[335px] pt-20 gap-[20px] flex flex-col cursor-pointer">
+    <div className="w-[335px] pt-20 pb-24 gap-[20px] flex flex-col cursor-pointer">
       <div className="flex flex-col gap-12">
         <Chip
           text={`${seminarNum}회차 세미나`}
