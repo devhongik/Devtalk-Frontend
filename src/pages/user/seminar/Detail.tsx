@@ -5,7 +5,7 @@ import ReviewCard from '../../../components/common/ReviewCard';
 import Cta from '../../../components/common/Cta';
 import SeminarDetailLectureCard from '../../../components/Seminar/SeminarDetailLectureCard';
 import { useIsVisible } from '../../../hooks/useIsVisible';
-import React, { use, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const SeminarDetail = () => {
   const { id } = useParams();
