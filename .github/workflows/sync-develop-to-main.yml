@@ -17,11 +17,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. 저장소 체크아웃 (기본 GITHUB_TOKEN 사용)
+      # 1. 저장소 체크아웃 (PAT 사용하여 다른 워크플로우 트리거 가능)
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # 전체 히스토리 가져오기 (머지에 필요)
+          token: ${{ secrets.AUTO_ACTIONS }} # PAT 사용으로 push 이벤트 트리거 가능
 
       # 2. 모든 브랜치를 강제로 최신 상태로 fetch
       - name: Fetch all branches
