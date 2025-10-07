@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../../components/common/Header';
 import SeminarDetailCard from '../../../components/Seminar/SeminarDetailCard';
 import ReviewCard from '../../../components/common/ReviewCard';
@@ -17,6 +17,7 @@ const SeminarDetail = () => {
   const secondVisible = useIsVisible(secondRef as React.RefObject<HTMLDivElement>);
   const reviewVisible = useIsVisible(reviewRef as React.RefObject<HTMLDivElement>);
 
+  const navigate = useNavigate();
   useEffect(() => {
     if (secondVisible && secondRef.current) {
       secondRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -57,7 +58,11 @@ const SeminarDetail = () => {
         </div>
       </div>
       <div className="fixed bottom-0">
-        <Cta />
+        <Cta
+          bodyText="데브톡에 빠져보세요!"
+          buttonText="10회차 데브톡 신청하기"
+          onClick={() => navigate('/seminar/apply-info')}
+        />
       </div>
       <div className="h-[250px]" />
     </div>
