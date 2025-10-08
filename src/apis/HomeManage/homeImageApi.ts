@@ -5,7 +5,7 @@ import type {
   PostHomeImageResponse,
   DeleteHomeImageRequest,
   DeleteHomeImageResponse,
-} from '../../types/HomeManage/homeImage.api';
+} from '../../types/HomeManage/homeImage';
 
 export const getHomeImages = async (): Promise<HomeImageListResponse> => {
   const res = await adminInstance.get<HomeImageListResponse>('/admin/home/images');

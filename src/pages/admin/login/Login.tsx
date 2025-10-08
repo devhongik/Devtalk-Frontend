@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import devlogo from '../../../assets/logos/devlogo.svg';
-import { postAdminLogin } from '../../../apis/auth.api';
+import { postAdminLogin } from '../../../apis/authApi';
 import { STORAGE_KEY } from '../../../constants/key';
 
 const Login = () => {
@@ -16,10 +16,7 @@ const Login = () => {
         loginId: id,
         password: pw,
       });
-
       if (res.isSuccess && res.result) {
-        console.log('로그인 성공:', res);
-
         localStorage.setItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN, res.result.accessToken);
         localStorage.setItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN, res.result.refreshToken);
 
@@ -27,7 +24,6 @@ const Login = () => {
         navigate('/admin/home/promo');
       }
     } catch (err) {
-      console.error('로그인 실패:', err);
       setError(true);
     }
   };

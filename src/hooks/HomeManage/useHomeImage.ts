@@ -4,7 +4,7 @@ import type {
   HomeImageListResponse,
   PostHomeImageParams,
   DeleteHomeImageRequest,
-} from '../../types/HomeManage/homeImage.api';
+} from '../../types/HomeManage/homeImage';
 import { QUERY_KEYS } from '../../constants/queryKey';
 
 export const useHomeImages = () => {

@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import chevronup from '../../assets/icons/common/chevronup.svg';
 import chevrondown from '../../assets/icons/common/chevrondown.svg';
 import devlogo from '../../assets/logos/devlogo.svg';
+import { postAdminLogout } from '../../apis/authApi';
 
 const menuData = [
   {
@@ -118,10 +119,18 @@ export const Sidebar: React.FC = () => {
       </div>
 
       {/* 로그아웃 버튼 */}
-      <div className="h-[52px] pl-14">
-        <Link className="w-full" to="/">
+      <div className="h-[52px]">
+        <button
+          onClick={async () => {
+            const confirmLogout = window.confirm('정말 로그아웃하시겠습니까?');
+            if (confirmLogout) {
+              await postAdminLogout();
+            }
+          }}
+          className="cursor-pointer heading-3-semibold px-[40px]"
+        >
           로그아웃
-        </Link>
+        </button>
       </div>
     </aside>
   );

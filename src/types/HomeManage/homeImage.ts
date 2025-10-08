@@ -8,14 +8,12 @@ export interface HomeImageItem {
   updatedAt: string;
 }
 
-// GET: /admin/home/images 응답 구조
 export interface HomeImageListResult {
   intro: HomeImageItem | null;
   previousSeminar: HomeImageItem | null;
 }
 export type HomeImageListResponse = CommonResponse<HomeImageListResult>;
 
-// POST: /admin/home/images 요청 (FormData 형식)
 export interface PostHomeImageParams {
   type: 'INTRO' | 'PREVIOUS_SEMINAR';
   file: File;
@@ -23,7 +21,6 @@ export interface PostHomeImageParams {
 
 export type PostHomeImageResponse = CommonResponse;
 
-// DELETE: /admin/home/iages 요청
 export interface DeleteHomeImageRequest {
   type: 'INTRO' | 'PREVIOUS_SEMINAR';
 }

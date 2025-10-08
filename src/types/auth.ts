@@ -12,3 +12,9 @@ export interface LoginResult {
 }
 
 export type LoginResponse = CommonResponse<LoginResult>;
+
+export interface LogoutRequest {
+  refreshToken: string;
+}
+
+export type LogoutResponse = CommonResponse<null>;
