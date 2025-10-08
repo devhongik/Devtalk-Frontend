@@ -98,20 +98,20 @@ const ApplyQuestion = () => {
           </div>
 
           {/* 연사별 질문 */}
-          <div className="flex flex-col gap-32">
+          <div className="flex flex-col">
             {SESSION_IDS.map((id, idx) => (
-              <div key={id} className="flex flex-col gap-16">
-                <SpeakerCard />
-                <AutoResizeTextarea
-                  value={draft.questions[id] ?? ''}
-                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                    handleChangeQuestion(id, e.target.value)
-                  }
-                />
+              <div key={id}>
+                <div className="flex flex-col gap-16">
+                  <SpeakerCard />
+                  <AutoResizeTextarea
+                    value={draft.questions[id] ?? ''}
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                      handleChangeQuestion(id, e.target.value)
+                    }
+                  />
+                </div>
                 {idx < SESSION_IDS.length - 1 && (
-                  <div className="flex justify-center">
-                    <hr className="text-grey-700 w-[335px]" />
-                  </div>
+                  <hr className="border-t border-grey-700 w-[335px] mx-auto my-32" />
                 )}
               </div>
             ))}

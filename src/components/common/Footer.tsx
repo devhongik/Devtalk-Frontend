@@ -4,20 +4,31 @@ import messagecircle from '../../assets/icons/components/Footer/messagecircle.sv
 import devlogo from '../../assets/logos/devlogo.svg';
 
 const Footer = () => {
+  const handlePrivacyClick = () => {
+    window.open(
+      'https://noiseless-anaconda-297.notion.site/DevTalk-285aaa6ed13f80558981fb69645223c0?source=copy_link',
+      '_self'
+    );
+  };
+
+  const handleInquiryClick = () => {
+    window.open('http://pf.kakao.com/_Gxbrwn/chat', '_self');
+  };
+
   return (
     <footer className="flex justify-center items-center w-full h-[122px] bg-grey-800">
       <div className="flex flex-row justify-between items-center w-[327px] h-[62px]">
         {/* 왼쪽 정보 영역 */}
         <div className="flex flex-col gap-[5px]">
-          <div className="flex items-center gap-[8px]">
+          <div className="flex items-center gap-[8px] cursor-pointer" onClick={handlePrivacyClick}>
             <img src={link} alt="link" className="w-[18px] h-[18px]" />
-            <span className="caption-medium text-grey-200">개인정보 처리 방침 링크</span>
+            <span className="caption-medium text-grey-200">개인정보 처리 방침</span>
           </div>
-          <div className="flex items-center gap-[8px]">
+          <div className="flex items-center gap-[8px] cursor-pointer">
             <img src={mail} alt="mail" className="w-[18px] h-[18px]" />
-            <span className="caption-medium text-grey-200">devtalk11@gmail.com</span>
+            <span className="caption-medium text-grey-200">dev.hongik@gmail.com</span>
           </div>
-          <div className="flex items-center gap-[8px]">
+          <div className="flex items-center gap-[8px] cursor-pointer" onClick={handleInquiryClick}>
             <img src={messagecircle} alt="messagecircle" className="w-[18px] h-[18px]" />
             <span className="caption-medium text-grey-200">문의하기</span>
           </div>

@@ -3,6 +3,7 @@ import { Navigate, Outlet, type RouteObject } from 'react-router-dom';
 import { STORAGE_KEY } from '../../constants/key';
 import { adminPublicRoutes } from './AdminPublicRoutes';
 import { adminProtectedRoutes } from './AdminProtectedRoutes';
+import AdminErrorPage from '../../pages/admin/AdminErrorPage';
 
 // 토큰 없이 접근 시 로그인 페이지로
 const AdminProtectedWrapper = () => {
@@ -31,4 +32,5 @@ export const adminRoutes = [
     element: React.createElement(AdminProtectedWrapper),
     children: adminProtectedRoutes,
   },
+  { path: '/admin/*', element: React.createElement(AdminErrorPage) },
 ] satisfies RouteObject[];

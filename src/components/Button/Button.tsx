@@ -1,5 +1,5 @@
 type ButtonProps = {
-  variant?: 'home' | 'default' | 'sub' | 'disabled';
+  variant?: 'home' | 'default' | 'sub' | 'disabled' | 'custom';
   text: string;
   onClick?: () => void;
   className?: string;
@@ -12,6 +12,7 @@ export const Button = ({ variant = 'default', text, onClick, className }: Button
     default: 'graphic-gradient-light text-black',
     sub: 'bg-grey-700 text-white',
     disabled: 'bg-grey-700 text-grey-500',
+    custom: '',
   };
   return (
     <button

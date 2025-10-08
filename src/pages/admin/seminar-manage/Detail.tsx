@@ -7,6 +7,7 @@ import Header from '../../../components/admin/seminar-manage/Header';
 import MainContent from '../../../components/admin/seminar-manage/MainContent';
 import Footer from '../../../components/admin/seminar-manage/Footer';
 import AdminModal from '../../../components/admin/common/AdminModal';
+import LoadingSpinner from '../../../components/common/LoadingSpinner';
 
 // 페이지
 const Detail = () => {
@@ -103,7 +104,7 @@ const Detail = () => {
 
   // 로딩 상태
   if (isLoading) {
-    return <div className="text-white text-center p-20">데이터를 불러오는 중입니다...</div>;
+    return <LoadingSpinner />;
   }
 
   // 에러 상태
