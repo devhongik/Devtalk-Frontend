@@ -2,9 +2,12 @@ import { useState } from 'react';
 import BackButton from '../../../components/Button/BackButton';
 import { Button } from '../../../components/Button/Button';
 import ReviewRating from '../../../components/Seminar/ReviewRating';
-import SeminarReviewFrom from '../../../components/Seminar/SeminarReviewForm';
+import SeminarReviewForm from '../../../components/Seminar/SeminarReviewForm';
 import emptybox from '../../../assets/icons/components/SeminarApply/emptybox.svg';
 import checkbox from '../../../assets/icons/components/SeminarApply/checkbox.svg';
+import { useMutation } from '@tanstack/react-query';
+import { postSeminarReview } from '../../../apis/seminarReview';
+import LoadingSpinner from '../../../components/common/LoadingSpinner';
 
 type ReviewValues = {
   strength: string;
@@ -14,7 +17,10 @@ type ReviewValues = {
 
 const Review = () => {
   //별점
-  const [rating, setRating] = useState(0);
+  const [score, setScore] = useState(0);
+
+  //비공개 여부
+  const [isPublic, setIsPublic] = useState(true);
 
   //리뷰
   const [values, setValues] = useState<ReviewValues>({
@@ -24,20 +30,38 @@ const Review = () => {
   });
   const { strength, improvement, nextTopic } = values;
 
-  //비공개 여부
-  const [isPublic, setIsPublic] = useState(false);
-
   //모든 칸 입력 확인
   const isAllFilled =
-    strength.trim() !== '' && improvement.trim() !== '' && nextTopic.trim() !== '' && rating !== 0;
+    strength.trim() !== '' && improvement.trim() !== '' && nextTopic.trim() !== '' && score !== 0;
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: postSeminarReview,
+    onSuccess: () => {
+      alert('소중한 후기 감사합니다!');
+      setValues({
+        strength: '',
+        improvement: '',
+        nextTopic: '',
+      });
+      setScore(0);
+      setIsPublic(true);
+    },
+    onError: () => {
+      alert('후기 제출에 실패했습니다. 다시 시도해주세요.');
+    },
+  });
 
   //리뷰 제출 함수
   function handleSubmit() {
+    if (isPending) return;
     if (!isAllFilled) return;
-
-    console.log('제출 리뷰', values);
-    console.log('제출 별점', rating);
-    console.log('비공개 여부', isPublic);
+    mutate({
+      strength,
+      improvement,
+      nextTopic,
+      score,
+      isPublic,
+    });
   }
 
   //작성한 리뷰 받아오는 함수
@@ -59,17 +83,17 @@ const Review = () => {
       <div className="w-[375px] flex flex-col gap-48">
         {/**별점 매기기 */}
         <div className="w-[375px] h-[112px] flex flex-col gap-28 items-center justify-center">
-          <div className="w-full px-20 gap-4 text-white heading-2-bold">
+          <div className="w-full px-20 text-white heading-2-bold">
             세미나에 대한 후기를 남겨주세요!
           </div>
           <div className="w-full h-[50px] flex flex-row justify-center">
-            <ReviewRating rating={rating} onChange={setRating} />
+            <ReviewRating rating={score} onChange={setScore} />
           </div>
         </div>
 
         {/**리뷰 작성 폼 */}
         <div className="w-[375px] h-[863px] flex flex-col items-center gap-40">
-          <SeminarReviewFrom values={values} onChange={handleChange} />
+          <SeminarReviewForm values={values} onChange={handleChange} />
 
           <div className="w-[335px] h-[169px] flex flex-col gap-32">
             {/**비공개 여부 선택 */}
@@ -80,19 +104,17 @@ const Review = () => {
               </div>
               <div className="w-full h-[24px] flex flex-row gap-8 px-8">
                 <div className="text-white body-1-medium">비공개 요청</div>
-                {!isPublic ? (
+                {isPublic ? (
                   <img
                     src={emptybox}
-                    alt=""
                     className="w-[24px] h-[24px] cursor-pointer"
-                    onClick={() => setIsPublic(true)}
+                    onClick={() => setIsPublic(false)}
                   />
                 ) : (
                   <img
                     src={checkbox}
-                    alt=""
                     className="w-[24px] h-[24px] cursor-pointer"
-                    onClick={() => setIsPublic(false)}
+                    onClick={() => setIsPublic(true)}
                   />
                 )}
               </div>
@@ -100,11 +122,16 @@ const Review = () => {
 
             {/**제출 버튼 */}
             <Button
-              variant={!isAllFilled ? 'disabled' : 'default'}
+              variant={!isAllFilled || isPending ? 'disabled' : 'default'}
               text="후기 제출하기"
               onClick={handleSubmit}
             />
           </div>
+          {isPending && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+              <LoadingSpinner />
+            </div>
+          )}
         </div>
         <div className="h-[91px]"></div>
       </div>

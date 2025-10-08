@@ -10,14 +10,20 @@ const SeminarReviewInput = ({ placeholder, input, onChange }: SeminarReviewInput
   };
 
   return (
-    <>
+    <div className="relative w-[335px] h-[174px]">
       <textarea
-        className="w-[335px] h-[149px] p-16 rounded-8 bg-grey-800 text-grey-300 body-1-medium outline-none resize-none required"
+        className="w-full h-full p-16 rounded-8 bg-grey-800 
+        text-grey-50 placeholder:text-grey-300 whitespace-pre-wrap break-keep body-1-medium
+        outline-none border border-transparent focus:border-grey-300 resize-none required"
         placeholder={placeholder}
         value={input}
         onChange={handleReviewChange}
+        maxLength={80}
       />
-    </>
+      <span className="absolute right-[16px] bottom-[16px] text-grey-400 caption-medium">
+        최대 80자(공백 포함)
+      </span>
+    </div>
   );
 };
 

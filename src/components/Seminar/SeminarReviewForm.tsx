@@ -21,7 +21,7 @@ const SeminarReviewForm = ({ values, onChange }: ReviewFormProps) => {
           <div className="text-[20px] font-extrabold text-gradient">*</div>
         </div>
         <SeminarReviewInput
-          placeholder="ex. 000 부분이 유익했어요, 진로 설계에 도움이 되었어요, ..."
+          placeholder="이번 회차 데브톡 세미나에 대해 좋았던 점을 자유롭게 입력해주세요."
           input={strength}
           onChange={(value) => onChange('strength', value)}
         />
@@ -31,7 +31,7 @@ const SeminarReviewForm = ({ values, onChange }: ReviewFormProps) => {
         <div className="heading-3-semibold text-white ">세미나의 아쉬웠던 점을 남겨주세요</div>
 
         <SeminarReviewInput
-          placeholder="ex. 강의실이 추웠어요, 주제가 어려웠어요, ..."
+          placeholder="이번 회차 데브톡 세미나에 대해 아쉬웠던 점을 자유롭게 입력해주세요."
           input={improvement}
           onChange={(value) => onChange('improvement', value)}
         />
@@ -41,7 +41,7 @@ const SeminarReviewForm = ({ values, onChange }: ReviewFormProps) => {
         <div className="heading-3-semibold text-white ">다음 회차에서 듣고 싶은 주제가 있나요?</div>
 
         <SeminarReviewInput
-          placeholder="ex. 인공지능, 보안, 게임, 커리어, 이력서, ..."
+          placeholder="다음 회차 데브톡 세미나에서 다뤘으면 하는 주제가 있다면 자유롭게 입력해주세요."
           input={nextTopic}
           onChange={(value) => onChange('nextTopic', value)}
         />
