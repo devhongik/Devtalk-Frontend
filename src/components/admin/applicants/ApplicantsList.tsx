@@ -1,34 +1,32 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSeminarNums } from '../../../hooks/Applicants/useSeminarNums';
 
 // 세미나 데이터 타입 정의
 interface SeminarData {
-  id: number;
+  seminarId: number;
+  seminarNum: number;
 }
 
 const ApplicantsList = () => {
   const navigate = useNavigate();
+  const { data: seminarNumsData } = useSeminarNums();
 
-  // 세미나 목록 목데이터 (API 연동 시 이 부분을 fetch로 교체)
-  const seminars: SeminarData[] = [
-    { id: 10 },
-    { id: 9 },
-    { id: 8 },
-    { id: 7 },
-    { id: 6 },
-    { id: 5 },
-    { id: 4 },
-  ];
+  // API 응답에서 세미나 정보 추출 및 내림차순 정렬
+  const seminars: SeminarData[] =
+    seminarNumsData?.result
+      ?.map((item) => ({ seminarId: item.seminarId, seminarNum: item.seminarNum }))
+      .sort((a, b) => b.seminarNum - a.seminarNum) || [];
 
   // 세미나 제목 생성 함수
-  const getSeminarTitle = (id: number) => `제 ${id}회 Devtalk Seminar`;
+  const getSeminarTitle = (seminarNum: number) => `제 ${seminarNum}회 Devtalk Seminar`;
 
-  // 현재 펼쳐진 세미나 ID를 관리
-  const [expandedSeminarId, setExpandedSeminarId] = useState<number | null>(null);
+  // 현재 펼쳐진 세미나 번호를 관리
+  const [expandedSeminarNum, setExpandedSeminarNum] = useState<number | null>(null);
 
   // 세미나 항목 클릭 시 펼침/접힘 처리
-  const toggleExpanded = (id: number) => {
-    setExpandedSeminarId(expandedSeminarId === id ? null : id);
+  const toggleExpanded = (seminarNum: number) => {
+    setExpandedSeminarNum(expandedSeminarNum === seminarNum ? null : seminarNum);
   };
 
   // 신청자 개인정보 페이지로 이동
@@ -44,24 +42,24 @@ const ApplicantsList = () => {
   return (
     <div className="space-y-0">
       {seminars.map((seminar, index) => (
-        <div key={seminar.id}>
+        <div key={seminar.seminarId}>
           {/* 세미나 제목 */}
           <div
             className="cursor-pointer py-5 ml-[39px]"
-            onClick={() => toggleExpanded(seminar.id)}
+            onClick={() => toggleExpanded(seminar.seminarNum)}
           >
             <h3 className="text-white heading-2-semibold">
-              {getSeminarTitle(seminar.id)}
+              {getSeminarTitle(seminar.seminarNum)}
             </h3>
           </div>
 
           {/* 펼쳐진 상태일 때 하위 메뉴 표시 */}
-          {expandedSeminarId === seminar.id && (
+          {expandedSeminarNum === seminar.seminarNum && (
               <div className="ml-[39px]">
                 {/* 신청자 개인정보 */}
                 <div
                   className="flex items-center cursor-pointer text-gray-500 subhead-1-medium hover:opacity-70"
-                  onClick={() => handlePersonalInfo(seminar.id)}
+                  onClick={() => handlePersonalInfo(seminar.seminarId)}
                 >
                   <span className="mr-4">•</span>
                   <span>신청자 개인정보</span>
@@ -71,7 +69,7 @@ const ApplicantsList = () => {
                 {/* 연사별 질문 */}
                 <div
                   className="flex items-center cursor-pointer text-gray-500 subhead-1-medium hover:opacity-70"
-                  onClick={() => handleQuestions(seminar.id)}
+                  onClick={() => handleQuestions(seminar.seminarId)}
                 >
                   <span className="mr-4">•</span>
                   <span>연사별 질문</span>

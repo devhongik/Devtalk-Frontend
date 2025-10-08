@@ -2,255 +2,42 @@ import { useParams } from 'react-router-dom';
 import ApplicantsDetailList from './../../../../components/admin/applicants/ApplicantsDetailList';
 import BackButton from './../../../../components/Button/BackButton';
 import ExcelDownloadButton from './../../../../components/Button/ExcelDownloadButton';
+import { useSeminarApplicantsDetail } from '../../../../hooks/Applicants/useSeminarApplicantsDetail';
 
 const Detail = () => {
   const { id } = useParams<{ id: string }>();
+  const { data: applicantsData } = useSeminarApplicantsDetail(id!);
 
-  // 세미나 ID별 신청자 데이터 가져오기
-  const getMockApplicantsBySeminarId = (seminarId: string) => {
-    const mockData: { [key: string]: any[] } = {
-      '10': [
-        {
-          id: 1,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C11111',
-          department: '컴퓨터공학과',
-          grade: '3',
-          name: '홍길동',
-          contact: '010-1234-5678',
-          email: 'hong@example.com',
-          attendanceType: '온라인',
-          referralSource: '인스타그램',
-        },
-        {
-          id: 2,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        },
-        {
-          id: 2,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        },
-        {
-          id: 2,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        },
-        {
-          id: 2,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        },
-        {
-          id: 2,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        },
-        {
-          id: 2,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        },
-        {
-          id: 2,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        },
-        {
-          id: 2,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        },
-        {
-          id: 2,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        },
-        {
-          id: 2,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        },
-        {
-          id: 2,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        },
-        {
-          id: 2,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        },
-        {
-          id: 2,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        },
-        {
-          id: 2,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        },
-        {
-          id: 2,
-          seminarName: '제 10회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        }
-      ],
-      '9': [
-        {
-          id: 1,
-          seminarName: '제 9회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        },
-        {
-          id: 2,
-          seminarName: '제 9회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        }
-      ],
-      '7': [
-        {
-          id: 1,
-          seminarName: '제 7회 devtalk seminar',
-          studentId: 'C22222',
-          department: '소프트웨어학부',
-          grade: '2',
-          name: '김영희',
-          contact: '010-2345-6789',
-          email: 'kim@example.com',
-          attendanceType: '오프라인',
-          referralSource: '에브리타임',
-        }
-      ]
+  // inflowPath 매핑 함수
+  const getInflowPathLabel = (inflowPath: string) => {
+    const inflowPathMap: { [key: string]: string } = {
+      FRIEND: '지인',
+      PROFESSOR: '교수님 추천',
+      EVERYTIME: '에브리타임',
+      DEPARTMENT: '학과 공지방',
+      CLUB: '학회/동아리 공지방',
+      CAMPUS: '교내 포스터 / X배너',
+      INSTAGRAM: '인스타그램',
     };
-
-    return mockData[seminarId] || [];
+    return inflowPathMap[inflowPath] || inflowPath;
   };
 
-  const mockApplicants = getMockApplicantsBySeminarId(id!);
+  // API 응답 데이터를 컴포넌트에서 사용하는 형식으로 변환
+  const applicants =
+    applicantsData?.result?.students?.map((applicant, index) => ({
+      id: index + 1,
+      seminarName: applicant.topic,
+      studentId: applicant.studentNum,
+      department: applicant.department,
+      grade: applicant.grade,
+      name: applicant.name,
+      contact: applicant.phone,
+      email: applicant.email,
+      attendanceType: applicant.participationType === 'ONLINE' ? '온라인' : '오프라인',
+      referralSource: getInflowPathLabel(applicant.inflowPath),
+    })) || [];
 
-  const getSeminarTitle = (id: string) => `제 ${id}회 Devtalk Seminar`;
+  const seminarTitle = `제 ${applicantsData?.result?.seminarNum}회 Devtalk Seminar`;
 
   // 엑셀 다운로드용 헤더 매핑
   const excelHeaders = {
@@ -270,17 +57,17 @@ const Detail = () => {
       <div className="flex items-center justify-between ml-[39px] mr-7 mb-[23px]">
         <div className="flex items-center">
           <BackButton className="w-7 h-7 flex-shrink-0 mr-[39px]" />
-          <h1 className="text-white heading-1-bold">{getSeminarTitle(id!)}-신청자 개인정보</h1>
+          <h1 className="text-white heading-1-bold">{seminarTitle}-신청자 개인정보</h1>
         </div>
         <ExcelDownloadButton
-          data={mockApplicants}
-          fileName={`${getSeminarTitle(id!)}_신청자_개인정보.xlsx`}
+          data={applicants}
+          fileName={`${seminarTitle}_신청자_개인정보.xlsx`}
           className="subhead-1-semibold"
           headers={excelHeaders}
         />
       </div>
       <div className="ml-[21.5px]">
-        <ApplicantsDetailList applicants={mockApplicants} />
+        <ApplicantsDetailList applicants={applicants} />
       </div>
     </div>
   );
