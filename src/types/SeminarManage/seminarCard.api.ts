@@ -1,6 +1,7 @@
 import type { CommonResponse } from '../common';
 
 export interface SeminarCardData {
+  seminarId: number;
   seminarNum: number;
   seminarTopic: string;
   seminarDate: string;

@@ -1,6 +1,5 @@
 import ReviewStar from '../../assets/icons/components/ReviewCard/ReviewStar.svg?react';
 
-
 type ReviewCardProps = {
   session: number;
   rating: number;
@@ -9,7 +8,7 @@ type ReviewCardProps = {
 
 const ReviewCard = ({ session, rating, content }: ReviewCardProps) => {
   return (
-    <div className="w-[335px] h-[157px] bg-grey-800 rounded-8 px-20 py-16 flex flex-col gap-12 flex-shrink-0">
+    <div className="w-[335px] h-[157px] bg-grey-800 rounded-8 px-20 py-16 flex flex-col gap-12">
       <div className="flex flex-col gap-8">
         <div className="w-[79px] h-[25px] px-8 py-4 rounded-4 bg-grey-900 caption-semibold text-gradient border border-black whitespace-nowrap text-center">
           {session}회차 세미나

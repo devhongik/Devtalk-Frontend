@@ -29,9 +29,9 @@ function SeminarHome() {
         <div className="flex flex-col gap-28 items-center ">
           {seminarList.map((seminar) => (
             <div
-              key={seminar.seminarNum}
+              key={seminar.seminarId}
               className="border-t border-grey-700"
-              onClick={() => handleCardClick(seminar.seminarNum)}
+              onClick={() => handleCardClick(seminar.seminarId)}
             >
               <SeminarListCard seminar={seminar} />
             </div>
