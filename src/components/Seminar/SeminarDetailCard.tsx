@@ -42,7 +42,7 @@ const SeminarDetailCard = ({ id }: { id: number }) => {
     }
   };
 
-  return (
+  return data ? (
     <div className="w-[375px] gap-20 p-20 flex flex-col transition-all duration-500 ease-out">
       {isLoading && <LoadingSpinner />}
       <div className="w-[335px] gap-[31px] flex flex-col">
@@ -69,7 +69,7 @@ const SeminarDetailCard = ({ id }: { id: number }) => {
         <span className="text-gradient caption-semibold ">발표자료 다운로드</span>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default SeminarDetailCard;

@@ -8,6 +8,7 @@ import checkbox from '../../../assets/icons/components/SeminarApply/checkbox.svg
 import { useMutation } from '@tanstack/react-query';
 import { postSeminarReview } from '../../../apis/seminarReview';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
+import { useNavigate } from 'react-router-dom';
 
 type ReviewValues = {
   strength: string;
@@ -16,6 +17,8 @@ type ReviewValues = {
 };
 
 const Review = () => {
+  const navigation = useNavigate();
+
   //별점
   const [score, setScore] = useState(0);
 
@@ -36,16 +39,20 @@ const Review = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: postSeminarReview,
-    onSuccess: () => {
-      alert('소중한 후기 감사합니다!');
-      setValues({
-        strength: '',
-        improvement: '',
-        nextTopic: '',
-      });
-      setScore(0);
-      setIsPublic(true);
+    onSuccess: (data) => {
+      if (data.isSuccess === false) {
+        alert(data.message);
+        navigation('/seminar');
+        return;
+      }
+      if (data.result?.seminarId) {
+        alert('소중한 후기 감사합니다!');
+        navigation(`/seminar/${data.result?.seminarId}`);
+      } else {
+        navigation('/seminar');
+      }
     },
+
     onError: () => {
       alert('후기 제출에 실패했습니다. 다시 시도해주세요.');
     },

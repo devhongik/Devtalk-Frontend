@@ -1,12 +1,15 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import hamburger from '../../assets/icons/components/Header/hamburger.svg';
 import devlogo from '../../assets/logos/devlogo.svg';
 import HamburgerBar from './HamburgerBar';
 
-const Header = () => {
+type HeaderProps = {
+  hamburgerOpen: boolean;
+  setHamburgerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Header = ({ hamburgerOpen, setHamburgerOpen }: HeaderProps) => {
   const navigate = useNavigate();
-  const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
   return (
     <>

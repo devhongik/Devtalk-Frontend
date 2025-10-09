@@ -32,6 +32,7 @@ const Home = () => {
   const navigate = useNavigate();
   const exSeminarref = useRef<HTMLDivElement | null>(null);
   const [hideCTA, setHideCTA] = useState(false);
+  const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
   const now = new Date();
   const isActive = now > new Date(seminar.activeStartDate) && now < new Date(seminar.activeEndDate);
@@ -64,13 +65,13 @@ const Home = () => {
   return (
     <>
       <div>
-        <Header />
+        <Header hamburgerOpen={hamburgerOpen} setHamburgerOpen={setHamburgerOpen} />
         <div className="snap-y snap-proximity overflow-y-scroll h-screen scrollbar-hide overflow-x-hidden">
           <div className="snap-center">
             <SeminarPoster />
           </div>
 
-          {!hideCTA && (
+          {!hideCTA && !hamburgerOpen && (
             <div className="fixed bottom-0 w-full z-50">
               {isActive ? (
                 <Cta

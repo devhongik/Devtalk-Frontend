@@ -5,7 +5,7 @@ import ReviewCard from '../../../components/common/ReviewCard';
 import Cta from '../../../components/common/Cta';
 import SeminarDetailLectureCard from '../../../components/Seminar/SeminarDetailLectureCard';
 import { useIsVisible } from '../../../hooks/useIsVisible';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getSeminarReview } from '../../../apis/seminarDetail';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
@@ -20,6 +20,8 @@ const SeminarDetail = () => {
   const lectureVisible = useIsVisible(lectureRef as React.RefObject<HTMLDivElement>);
   const secondVisible = useIsVisible(secondRef as React.RefObject<HTMLDivElement>);
   const reviewVisible = useIsVisible(reviewRef as React.RefObject<HTMLDivElement>);
+
+  const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -37,8 +39,8 @@ const SeminarDetail = () => {
 
   return (
     <div>
+      <Header hamburgerOpen={hamburgerOpen} setHamburgerOpen={setHamburgerOpen} />
       <div className="flex flex-col gap-32 bg-black">
-        <Header />
         <SeminarDetailCard id={seminarId} />
         <div
           ref={lectureRef}

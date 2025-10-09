@@ -4,6 +4,7 @@ export interface SeminarReview {
   reviewId: number;
   studentNum: string;
   seminarNum: number;
+  seminarId: number;
 }
 export type SeminarReviewResponse = CommonResponse<SeminarReview>;
 

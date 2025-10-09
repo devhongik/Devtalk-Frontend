@@ -4,6 +4,7 @@ import Header from '../../../components/common/Header';
 import { useSeminarAttend } from '../../../hooks/SeminarLive/useSeminarAttend';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
+import { useState } from 'react';
 
 const Live = () => {
   const { mutate, isPending } = useSeminarAttend();
@@ -21,9 +22,11 @@ const Live = () => {
     });
   };
 
+  const [hamburgerOpen, setHamburgerOpen] = useState(false);
+
   return (
     <>
-      <Header />
+      <Header hamburgerOpen={hamburgerOpen} setHamburgerOpen={setHamburgerOpen} />
       {isPending && <LoadingSpinner />}
       <div className="flex flex-col pt-28 px-20 gap-24 pb-[10px]">
         <p className="text-white heading-2-bold">제 10회 Devtalk Seminar</p>
