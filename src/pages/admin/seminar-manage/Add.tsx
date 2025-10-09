@@ -21,8 +21,8 @@ const Add = () => {
     updatePendingFiles,
     updateSpeakerProfile,
     hasErrors,
-    validationErrors,
-    activationError,
+    dateFormatError,
+    validateActivationDates,
     pendingFiles,
     getError,
   } = useSeminarState(undefined);
@@ -31,12 +31,6 @@ const Add = () => {
 
   const handleSave = async () => {
     if (!currentState) return;
-
-    if (hasErrors) {
-      const firstError = getError();
-      alert(firstError || '입력 내용을 확인해주세요.');
-      return;
-    }
 
     try {
       const addRequest = mapStateToAddRequest(currentState);
@@ -81,14 +75,17 @@ const Add = () => {
         updateSeminarData={updateSeminarData}
         updatePendingFiles={updatePendingFiles}
         updateSpeakerProfile={updateSpeakerProfile}
-        validationErrors={validationErrors}
-        activationError={activationError}
+        dateFormatError={dateFormatError}
+        validateActivationDates={validateActivationDates}
       />
 
       <Footer
         saveButtonText="추가하기"
         isDirty={isDirty}
         hasErrors={hasErrors}
+        dateFormatError={dateFormatError}
+        validateActivationDates={validateActivationDates}
+        getError={getError}
         onSave={handleSave}
         onCancel={handleCancelClick}
       />

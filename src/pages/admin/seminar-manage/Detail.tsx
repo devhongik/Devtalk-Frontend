@@ -31,13 +31,14 @@ const Detail = () => {
     isLoading: isSeminarLoading,
     error,
     isDirty,
-    validationErrors,
-    activationError,
+    dateFormatError,
+    validateActivationDates,
     updateSeminarData,
     updatePendingFiles,
     updateSpeakerProfile,
     hasErrors,
     pendingFiles,
+    getError,
   } = useSeminarState(id);
 
   const {
@@ -148,8 +149,8 @@ const Detail = () => {
         currentState={currentState}
         reviews={reviews ?? []}
         pendingFiles={pendingFiles}
-        validationErrors={validationErrors}
-        activationError={activationError}
+        dateFormatError={dateFormatError}
+        validateActivationDates={validateActivationDates}
         updateSeminarData={updateSeminarData}
         updatePendingFiles={updatePendingFiles}
         updateSpeakerProfile={updateSpeakerProfile}
@@ -162,6 +163,9 @@ const Detail = () => {
         saveButtonText="수정하기"
         isDirty={isDirty}
         hasErrors={hasErrors}
+        dateFormatError={dateFormatError}
+        validateActivationDates={validateActivationDates}
+        getError={getError}
         onSave={handleSave}
         onCancel={handleCancel}
       />

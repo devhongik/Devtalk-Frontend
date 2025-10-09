@@ -19,7 +19,7 @@ const Cards = () => {
   const seminars = seminarData?.result?.seminarList || [];
 
   return (
-    <div className="min-w-[900px] max-w-[950px] py-60 px-60">
+    <div className="min-w-[960px] max-w-[1010px] py-60 px-60">
       {/* 헤더 */}
       <div className="flex justify-between items-center mb-40">
         <h1 className="heading-1-bold text-white">세미나 카드 조회</h1>

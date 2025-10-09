@@ -1,8 +1,4 @@
-import type {
-  SeminarState,
-  SeminarDetailState,
-  FormErrors,
-} from '../../../types/SeminarManage/seminar.state';
+import type { SeminarState, SeminarDetailState } from '../../../types/SeminarManage/seminar.state';
 import type { ReviewData } from '../../../types/SeminarManage/seminarReview.api';
 
 import AdminImageUpload from '../../../components/admin/upload/AdminImageUpload';
@@ -17,8 +13,8 @@ interface MainContentProps {
   currentState: SeminarDetailState;
   reviews?: ReviewData[];
   pendingFiles: SeminarState['pendingFiles'];
-  validationErrors: FormErrors;
-  activationError: { seminar: string; application: string };
+  dateFormatError: string | undefined;
+  validateActivationDates: { seminar: string; application: string };
   updateSeminarData: (data: Partial<SeminarDetailState>) => void;
   updatePendingFiles: (files: Partial<SeminarState['pendingFiles']>) => void;
   updateSpeakerProfile: (key: number, value: File | null) => void;
@@ -32,8 +28,8 @@ const MainContent = ({
   currentState,
   reviews,
   pendingFiles,
-  validationErrors,
-  activationError,
+  dateFormatError,
+  validateActivationDates,
   updateSeminarData,
   updatePendingFiles,
   updateSpeakerProfile,
@@ -60,7 +56,7 @@ const MainContent = ({
       pendingFiles={pendingFiles}
       updateSeminarData={updateSeminarData}
       updatePendingFiles={updatePendingFiles}
-      errors={validationErrors}
+      errors={{ date: dateFormatError }}
     />
 
     <SpeakersForm
@@ -89,8 +85,8 @@ const MainContent = ({
       applicationStartDate={currentState.applicationStartDate}
       applicationEndDate={currentState.applicationEndDate}
       onChange={(dateType, newDate) => updateSeminarData({ [dateType]: newDate })}
-      seminarDateError={activationError.seminar}
-      applicationDateError={activationError.application}
+      seminarDateError={validateActivationDates.seminar}
+      applicationDateError={validateActivationDates.application}
     />
   </main>
 );

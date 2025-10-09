@@ -45,7 +45,7 @@ export interface SeminarState {
   error: string | null;
   isDirty: boolean; // 수정 여부
   validationErrors: FormErrors;
-  activationError: {
+  validateActivationDates: {
     seminar: string;
     application: string;
   };
