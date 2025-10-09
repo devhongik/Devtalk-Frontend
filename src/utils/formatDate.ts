@@ -21,3 +21,44 @@ export const formatDate = (isoString: string) => {
 
   return `${year}. ${month}. ${day} (${dayOfWeek}) ${ampm} ${hours}:${paddedMinutes}`;
 };
+
+// YYY-MM-DDTHH:mm:ss -> YYYY.MM.DD.HH:mm
+export const formatIsoToInput = (isoString: string): string => {
+  if (!isoString) return '';
+
+  const date = new Date(isoString);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${year}.${month}.${day}.${hours}:${minutes}`;
+};
+
+// YYYY.MM.DD.HH:mm -> YYYY-MM-DDTHH:mm:ss
+export const formatInputToIso = (inputString: string): string => {
+  if (!inputString) return '';
+
+  const regex = /^(\d{4})\.(\d{2})\.(\d{2})\.(\d{2}):(\d{2})$/;
+  const match = inputString.match(regex);
+
+  if (!match) {
+    return inputString;
+  }
+
+  const [, year, month, day, hours, minutes] = match;
+  return `${year}-${month}-${day}T${hours}:${minutes}:00`;
+};
+
+// Date 객체 -> YYYY-MM-DDTHH:mm:ss
+export const formatDateToIso = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${year}-${month}-${day}T${hours}:${minutes}:00`;
+};

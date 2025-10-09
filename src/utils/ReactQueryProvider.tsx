@@ -8,8 +8,7 @@ export default function ReactQueryProvider({ children }: React.PropsWithChildren
     new QueryClient({
       defaultOptions: {
         queries: {
-          refetchOnWindowFocus: false,
-          refetchOnMount: false,
+          staleTime: 1000 * 30, // 30초
           retry: 2,
         },
       },

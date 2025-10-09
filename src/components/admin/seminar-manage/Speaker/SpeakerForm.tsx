@@ -1,21 +1,27 @@
 import SingleSpeakerForm from './SingleSpeakerForm';
-import type { Speaker } from '../../../../types/SeminarManage/seminar';
+import type { SpeakerState } from '../../../../types/SeminarManage/seminar.state';
 
 interface SpeakerFormProps {
-  speakers: Speaker[];
-  onChange: (updatedSpeakers: Speaker[]) => void;
+  speakers: SpeakerState[];
+  onChange: (updatedSpeakers: SpeakerState[]) => void;
+  updateSpeakerProfile: (key: number, value: File | null) => void;
 }
 
-const SpeakerForm = ({ speakers, onChange }: SpeakerFormProps) => {
+const SpeakerForm = ({ speakers, onChange, updateSpeakerProfile }: SpeakerFormProps) => {
   const handleSpeakerChange = (
     index: number,
-    field: keyof Speaker,
+    field: keyof SpeakerState,
     value: string | File | null
   ) => {
     const updatedSpeakers = speakers.map((speaker, i) =>
       i === index ? { ...speaker, [field]: value } : speaker
     );
     onChange(updatedSpeakers);
+
+    if (field === 'profileUrl') {
+      const key = speakers[index].speakerId ?? index;
+      updateSpeakerProfile(key, value instanceof File ? value : null);
+    }
   };
 
   return (

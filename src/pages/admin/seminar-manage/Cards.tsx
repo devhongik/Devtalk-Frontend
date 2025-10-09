@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import SeminarCard from '../../../components/admin/seminar-manage/SeminarCard/SeminarCard';
-import { useSeminarCards } from '../../../hooks/SeminarManage/useSeminarCards';
+import { useSeminarCards } from '../../../hooks/SeminarManage/data/useSeminarCards';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
 
 const Cards = () => {

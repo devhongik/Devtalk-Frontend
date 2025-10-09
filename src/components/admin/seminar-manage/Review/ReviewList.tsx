@@ -1,15 +1,15 @@
 import ReviewListItemCard from './ReivewItem';
-import type { Review } from '../../../../types/SeminarManage/seminar';
+import type { ReviewData } from '../../../../types/SeminarManage/seminarReview.api';
 
 interface ReviewListProps {
-  reviews: Review[];
+  reviews: ReviewData[];
   onRegisterToHome?: (reviewId: number) => void;
   onUnregisterFromHome?: (reviewId: number) => void;
   onDelete?: (reviewId: number) => void;
 }
 
 const ReviewList = ({
-  reviews,
+  reviews = [],
   onRegisterToHome,
   onUnregisterFromHome,
   onDelete,

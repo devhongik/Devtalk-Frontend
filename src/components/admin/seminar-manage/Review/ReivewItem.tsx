@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import StarRating from './StarRating';
 import moremenu from '../../../../assets/icons/components/ReviewCard/moremenu.svg';
-import type { Review } from '../../../../types/SeminarManage/seminar';
+import type { ReviewData } from '../../../../types/SeminarManage/seminarReview.api';
+import { formatDate } from '../../../../utils/formatDate';
 
 interface ReviewListItemCardProps {
-  review: Review;
+  review: ReviewData;
   onRegisterToHome?: (reviewId: number) => void;
   onUnregisterFromHome?: (reviewId: number) => void;
   onDelete?: (reviewId: number) => void;
@@ -46,7 +47,7 @@ const ReviewListItemCard = ({
   };
 
   return (
-    <div className="bg-grey-700 rounded-lg px-6 py-[15px] flex flex-col justify-between h-[220px] border-none">
+    <div className="bg-grey-700 rounded-lg px-6 py-[15px] flex flex-col justify-between min-h-[220px] border-none">
       <div>
         <div className="flex justify-between items-start mb-3">
           <StarRating rating={review.score} />
@@ -61,12 +62,12 @@ const ReviewListItemCard = ({
 
         <div className="flex justify-between body-2-medium text-grey-300 mb-[6px]">
           <p>
-            {review.department} {review.grade}학년
+            {review.department} {review.grade}
           </p>
-          <p>{review.createdAt}</p>
+          <p>{formatDate(review.createdAt)}</p>
         </div>
 
-        <p className="body-1-medium text-white whitespace-pre-line line-clamp-3">
+        <p className="body-1-medium text-white whitespace-pre-line">
           {review.content}
         </p>
       </div>
@@ -76,7 +77,7 @@ const ReviewListItemCard = ({
           <span className="text-grey-400">다음에 듣고 싶은 주제:</span> {review.nextTopic}
         </p>
 
-        <div className="relative" ref={menuRef}>
+        <div className="relative flex-shrink-0" ref={menuRef}>
           <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
             <img src={moremenu} className="cursor-pointer" />
           </button>

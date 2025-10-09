@@ -1,37 +1,54 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSeminarState } from '../../../hooks/SeminarManage/useSeminarState';
+import { useSeminarState } from '../../../hooks/SeminarManage/detail/useSeminarState';
+import { useSeminarAddActions } from '../../../hooks/SeminarManage/actions/useSeminarActions';
+import { mapStateToAddRequest } from '../../../utils/seminarMapper';
 
 import Header from '../../../components/admin/seminar-manage/Header';
 import MainContent from '../../../components/admin/seminar-manage/MainContent';
 import Footer from '../../../components/admin/seminar-manage/Footer';
-import { useState } from 'react';
 import AdminModal from '../../../components/admin/common/AdminModal';
+import LoadingSpinner from '../../../components/common/LoadingSpinner';
 
 const Add = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // id 없이 훅을 호출하여 add 모드
   const {
     currentState,
     isDirty,
     updateSeminarData,
-    handleBlur,
+    updatePendingFiles,
+    updateSpeakerProfile,
     hasErrors,
     validationErrors,
     activationError,
+    pendingFiles,
+    getError,
   } = useSeminarState(undefined);
 
-  // 저장
-  const handleSave = () => {
+  const { handleAddSeminar, isLoading } = useSeminarAddActions();
+
+  const handleSave = async () => {
     if (!currentState) return;
 
-    console.log('저장하기 클릭: ', currentState);
-    alert('세미나가 추가되었습니다.');
-    navigate('/admin/seminars');
+    if (hasErrors) {
+      const firstError = getError();
+      alert(firstError || '입력 내용을 확인해주세요.');
+      return;
+    }
+
+    try {
+      const addRequest = mapStateToAddRequest(currentState);
+      await handleAddSeminar(addRequest, pendingFiles);
+
+      alert('세미나가 추가되었습니다.');
+      navigate('/admin/seminars');
+    } catch (error: any) {
+      alert(error);
+    }
   };
 
-  // 취소하기
   const handleCancelClick = () => {
     if (isDirty) {
       setIsModalOpen(true);
@@ -40,13 +57,17 @@ const Add = () => {
     }
   };
 
-  // 모달 내에서 삭제하기
   const handleConfirm = () => {
+    setIsModalOpen(false);
     navigate('/admin/seminars');
   };
 
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   if (!currentState) {
-    return <div className="text-white text-center p-20">로딩 중입니다...</div>;
+    return <div className="text-white text-center p-20">알 수 없는 오류가 발생했습니다.</div>;
   }
 
   return (
@@ -56,8 +77,10 @@ const Add = () => {
       <MainContent
         showReviewList={false}
         currentState={currentState}
+        pendingFiles={pendingFiles}
         updateSeminarData={updateSeminarData}
-        handleBlur={handleBlur}
+        updatePendingFiles={updatePendingFiles}
+        updateSpeakerProfile={updateSpeakerProfile}
         validationErrors={validationErrors}
         activationError={activationError}
       />

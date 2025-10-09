@@ -2,9 +2,10 @@ interface FormFieldProps {
   label: string;
   id: string;
   placeholder: string;
-  value: string;
+  value: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onPaste?: (e: React.ClipboardEvent<HTMLInputElement>) => void;
   error?: string;
   maxLength?: number;
 }
@@ -15,7 +16,7 @@ const FormField = ({
   placeholder,
   value,
   onChange,
-  onBlur,
+  onPaste,
   error,
   maxLength,
 }: FormFieldProps) => {
@@ -30,7 +31,7 @@ const FormField = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        onBlur={onBlur}
+        onPaste={onPaste}
         maxLength={maxLength}
       />
 
