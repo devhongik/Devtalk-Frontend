@@ -71,7 +71,7 @@ const Add = () => {
   }
 
   return (
-    <div className="p-[60px] min-h-screen">
+    <div className="mx-60 my-40 min-h-screen">
       <Header title="세미나 추가하기" showDeleteButton={false} />
 
       <MainContent

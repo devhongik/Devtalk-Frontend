@@ -41,7 +41,7 @@ const MainContent = ({
   handleUnregisterReviewFromHome,
   handleDeleteReview,
 }: MainContentProps) => (
-  <main className="max-w-[1030px] min-w-[850px] mx-auto space-y-10 mb-[65px]">
+  <main className="max-w-[1060px] min-w-[850px] space-y-10 mb-[65px]">
     <AdminImageUpload
       title="세미나 썸네일 이미지"
       serverFileName={currentState.thumbnailFileName ?? undefined}

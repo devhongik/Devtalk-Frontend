@@ -44,26 +44,21 @@ const ApplicantsList = () => {
       {seminars.map((seminar, index) => (
         <div key={seminar.seminarId}>
           {/* 세미나 제목 */}
-          <div
-            className="cursor-pointer py-5 ml-[39px]"
-            onClick={() => toggleExpanded(seminar.seminarNum)}
-          >
-            <h3 className="text-white heading-2-semibold">
-              {getSeminarTitle(seminar.seminarNum)}
-            </h3>
+          <div className="cursor-pointer py-20" onClick={() => toggleExpanded(seminar.seminarNum)}>
+            <h3 className="text-white heading-2-semibold">{getSeminarTitle(seminar.seminarNum)}</h3>
           </div>
 
           {/* 펼쳐진 상태일 때 하위 메뉴 표시 */}
           {expandedSeminarNum === seminar.seminarNum && (
-              <div className="ml-[39px]">
-                {/* 신청자 개인정보 */}
-                <div
-                  className="flex items-center cursor-pointer text-gray-500 subhead-1-medium hover:opacity-70"
-                  onClick={() => handlePersonalInfo(seminar.seminarId)}
-                >
-                  <span className="mr-4">•</span>
-                  <span>신청자 개인정보</span>
-                </div>
+            <div>
+              {/* 신청자 개인정보 */}
+              <div
+                className="flex items-center cursor-pointer text-gray-500 subhead-1-medium hover:opacity-70"
+                onClick={() => handlePersonalInfo(seminar.seminarId)}
+              >
+                <span className="mr-4">•</span>
+                <span>신청자 개인정보</span>
+              </div>
 
               <div className="mt-[20px]">
                 {/* 연사별 질문 */}
@@ -81,7 +76,7 @@ const ApplicantsList = () => {
 
           {/* 세미나 사이 구분선 */}
           {index < seminars.length && (
-            <div className="w-[1119px] h-0 flex-shrink-0 border-b-[1.5px] border-white ml-[27px] mr-[41px]"></div>
+            <div className="w-full h-0 flex-shrink-0 border-b-[1.5px] border-white"></div>
           )}
         </div>
       ))}

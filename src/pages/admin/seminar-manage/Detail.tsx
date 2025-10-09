@@ -136,7 +136,7 @@ const Detail = () => {
   }
 
   return (
-    <div className="p-[60px] min-h-screen">
+    <div className="mx-60 my-40 min-h-screen">
       <Header
         title="세미나 상세정보 관리"
         showDeleteButton={true}

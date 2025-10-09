@@ -42,7 +42,7 @@ const AdminImageUpload: React.FC<AdminImageUploadProps> = ({
   }, [pendingFile]);
 
   return (
-    <div className="w-full max-w-[1030px] min-w-[650px] mx-auto bg-grey-900 p-6 rounded-10 space-y-4 relative">
+    <div className="w-full  mx-auto bg-grey-900 p-6 rounded-10 space-y-4 relative">
       {/* 제목 */}
       <h2 className="heading-2-bold text-white mb-24">{title}</h2>
 

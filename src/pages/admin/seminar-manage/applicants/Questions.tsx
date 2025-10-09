@@ -38,7 +38,7 @@ const Questions = () => {
     name: '이름',
     contact: '연락처',
     question1: `[${speakersInfo.speaker1}]님께 궁금한 점이나 듣고 싶은 이야기가 있나요?`,
-    question2: `[${speakersInfo.speaker2}]님께 궁금한 점이나 듣고 싶은 이야기가 있나요?`
+    question2: `[${speakersInfo.speaker2}]님께 궁금한 점이나 듣고 싶은 이야기가 있나요?`,
   };
 
   return (

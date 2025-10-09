@@ -16,7 +16,7 @@ const PromoImage = () => {
     return <div className="text-status-error text-center p-20">데이터를 불러올 수 없습니다.</div>;
 
   return (
-    <div className="space-y-40 ml-60 mr-60 mb-[175px]">
+    <div className="space-y-40  mx-60 mb-[175px]">
       <h1 className="mt-60 heading-1-bold text-white">홍보 사진 관리</h1>
       <AdminImageUpload
         title="Devtalk 소개 사진"

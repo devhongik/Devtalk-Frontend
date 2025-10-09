@@ -78,7 +78,7 @@ const Reviews = () => {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <div className="space-y-40 ml-60 mr-60 mb-[175px]">
+    <div className="space-y-40  mx-60 my-60 mb-[175px]">
       <h1 className="mt-60 heading-1-bold text-white">후기 카드 갤러리</h1>
       <div className="w-full max-w-[900px] min-w-[800px] rounded-10 grid grid-cols-2 gap-6">
         {reviews.map((review) => (

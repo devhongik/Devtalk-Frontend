@@ -15,20 +15,24 @@ interface ApplicantsQuestionListProps {
   };
 }
 
-const ApplicantsQuestionList: React.FC<ApplicantsQuestionListProps> = ({ applicants, speakers }) => {
-  const headerStyle = "border border-grey-400 px-5 py-3 text-center subhead-1-semibold text-white";
+const ApplicantsQuestionList: React.FC<ApplicantsQuestionListProps> = ({
+  applicants,
+  speakers,
+}) => {
+  const headerStyle = 'border border-grey-400 px-5 py-3 text-center subhead-1-semibold text-white';
 
-  const cellStyle = "border border-grey-400 px-5 py-3 text-center body-1-semibold text-white ";
-  
+  const cellStyle = 'border border-grey-400 px-5 py-3 text-center body-1-semibold text-white ';
+
   //px-5 여백에 맞춰 자동 줄바꿈
-  const questionCellStyle = "border border-grey-400 px-5 py-3 text-left body-1-semibold text-white max-w-sm break-words whitespace-normal leading-relaxed";
+  const questionCellStyle =
+    'border border-grey-400 px-5 py-3 text-left body-1-semibold text-white max-w-sm break-words whitespace-normal leading-relaxed';
 
   const headers = [
     '학번',
     '이름',
     '연락처',
     `[${speakers?.speaker1 || '첫번째 연사'}]님께 궁금한 점이나 듣고 싶은 이야기가 있나요?`,
-    `[${speakers?.speaker2 || '두번째 연사'}]님께 궁금한 점이나 듣고 싶은 이야기가 있나요?`
+    `[${speakers?.speaker2 || '두번째 연사'}]님께 궁금한 점이나 듣고 싶은 이야기가 있나요?`,
   ];
 
   const dataKeys = ['studentId', 'name', 'contact', 'question1', 'question2'] as const;
@@ -37,7 +41,6 @@ const ApplicantsQuestionList: React.FC<ApplicantsQuestionListProps> = ({ applica
     <div className="w-full">
       <div className="overflow-x-auto overflow-y-auto max-h-[calc(100vh-150px)]">
         <table className="min-w-max border-collapse">
-
           <thead>
             <tr className="bg-grey-900">
               {headers.map((header) => (
@@ -50,9 +53,17 @@ const ApplicantsQuestionList: React.FC<ApplicantsQuestionListProps> = ({ applica
 
           <tbody>
             {applicants.map((applicant) => (
-              <tr key={applicant.id} className="bg-grey-700 hover:ring-2 hover:ring-green-300 hover:ring-inset cursor-pointer">
+              <tr
+                key={applicant.id}
+                className="bg-grey-700 hover:ring-2 hover:ring-green-300 hover:ring-inset cursor-pointer"
+              >
                 {dataKeys.map((key) => (
-                  <td key={key} className={key === 'question1' || key === 'question2' ? questionCellStyle : cellStyle}>
+                  <td
+                    key={key}
+                    className={
+                      key === 'question1' || key === 'question2' ? questionCellStyle : cellStyle
+                    }
+                  >
                     {applicant[key]}
                   </td>
                 ))}
@@ -70,6 +81,5 @@ const ApplicantsQuestionList: React.FC<ApplicantsQuestionListProps> = ({ applica
     </div>
   );
 };
-
 
 export default ApplicantsQuestionList;
