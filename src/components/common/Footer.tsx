@@ -24,7 +24,7 @@ const Footer = () => {
             <img src={link} alt="link" className="w-[18px] h-[18px]" />
             <span className="caption-medium text-grey-200">개인정보 처리 방침</span>
           </div>
-          <div className="flex items-center gap-[8px] cursor-pointer">
+          <div className="flex items-center gap-[8px]">
             <img src={mail} alt="mail" className="w-[18px] h-[18px]" />
             <span className="caption-medium text-grey-200">dev.hongik@gmail.com</span>
           </div>
