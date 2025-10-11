@@ -24,6 +24,7 @@ const ApplyInfo = () => {
     place: string;
     startDate: string;
     endDate: string;
+    sessionIds: number[];
   } | null>(null);
   const { setSeminarId } = useApplyFlow();
   const setOnceRef = useRef(false); // StrictMode 중복세팅 방지
@@ -86,7 +87,7 @@ const ApplyInfo = () => {
 
   if (!seminarData) return <LoadingSpinner />;
 
-  const { seminarNum, seminarDate, place } = seminarData;
+  const { seminarNum, seminarDate, place, sessionIds } = seminarData;
 
   return (
     <div className="flex flex-col gap-16 justify-center items-center mb-64">
@@ -110,8 +111,9 @@ const ApplyInfo = () => {
                   </div>
                 </div>
                 <div className="flex flex-col gap-12">
-                  <SpeakerInfo />
-                  <SpeakerInfo />
+                  {(sessionIds ?? []).map((_, idx) => (
+                    <SpeakerInfo key={idx} />
+                  ))}
                 </div>
               </div>
 
