@@ -21,7 +21,11 @@ const SeminarListCard = ({ seminar }: SeminarItem) => {
         <div className="heading-3-semibold text-white whitespace-pre-line">{seminarTopic}</div>
       </div>
       <div className="h-[106px] flex flex-row gap-16">
-        <img src={imageUrl} alt="seminar Img" className="w-[150px] h-[106px] rounded-8" />
+        <img
+          src={imageUrl}
+          alt="seminar Img"
+          className="w-[150px] h-[106px] rounded-8 object-cover"
+        />
         <div className="h-[68px] flex flex-col gap-8 justify-between body-2-medium">
           <div className="flex flex-row gap-20 align-start">
             <div className="text-grey-300 whitespace-nowrap">일정</div>

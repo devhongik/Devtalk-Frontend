@@ -46,8 +46,10 @@ adminInstance.interceptors.response.use(
       //refreshToken으로 새 accessToken 발급
       try {
         const { data } = await refreshInstance.post('/admin/refresh', { refreshToken });
-        const newAccessToken = data?.accessToken;
+        const newAccessToken = data?.result.accessToken;
+        const newRefreshToken = data?.result.refreshToken;
         localStorage.setItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN, newAccessToken);
+        localStorage.setItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN, newRefreshToken);
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return adminInstance(originalRequest);
       } catch (error) {
