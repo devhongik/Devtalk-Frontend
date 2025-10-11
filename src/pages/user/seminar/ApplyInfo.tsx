@@ -3,59 +3,68 @@ import { Chip } from '../../../components/Chip/Chip';
 import SpeakerInfo from '../../../components/SeminarApply/SpeakerInfo';
 import LiveInfo from '../../../components/SeminarApply/LiveInfo';
 import ApplyForm from '../../../components/SeminarApply/ApplyForm';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useBlocker } from 'react-router-dom';
 import ApplyExitModal from '../../../components/Modal/ApplyExitModal';
 import { useApplyDraft } from '../../../stores/useApplyDraft';
-// import { getSeminarList } from '../../../apis/seminarList';
-// import { getUserSeminar } from '../../../apis/userSeminar/userSeminarApi';
-// import LoadingSpinner from '../../../components/common/LoadingSpinner';
+import { useApplyFlow } from '../../../stores/useApplyFlow';
+import { getSeminarList } from '../../../apis/seminarList';
+import { getUserSeminar } from '../../../apis/userSeminar/userSeminarApi';
+import LoadingSpinner from '../../../components/common/LoadingSpinner';
 
 const ApplyInfo = () => {
   const [exitOpen, setExitOpen] = useState(false);
   const [proceed, setProceed] = useState<null | (() => void)>(null);
-  // const [backTo, setBackTo] = useState('/seminar');
-  // const [seminarData, setSeminarData] = useState<{
-  //   seminarId: number;
-  //   seminarNum: number;
-  //   topic: string;
-  //   seminarDate: string;
-  //   place: string;
-  //   startDate: string;
-  //   endDate: string;
-  // } | null>(null);
+  const [backTo, setBackTo] = useState('/seminar');
+  const [seminarData, setSeminarData] = useState<{
+    seminarId: number;
+    seminarNum: number;
+    topic: string;
+    seminarDate: string;
+    place: string;
+    startDate: string;
+    endDate: string;
+  } | null>(null);
+  const { setSeminarId } = useApplyFlow();
+  const setOnceRef = useRef(false); // StrictMode 중복세팅 방지
 
-  // useEffect(() => {
-  //   let mounted = true;
+  useEffect(() => {
+    let mounted = true;
 
-  //   (async () => {
-  //     try {
-  //       // 활성 세미나 찾기
-  //       const res = await getSeminarList();
-  //       const list = res?.result?.seminarList ?? [];
-  //       const activeSeminar = list.find((s: any) => s.isActive);
+    (async () => {
+      try {
+        // 활성 세미나 찾기
+        const res = await getSeminarList();
+        const list = res?.result?.seminarList ?? [];
+        const activeSeminar = list.find((s: any) => s.isActive);
 
-  //       if (mounted && activeSeminar) {
-  //         const seminarId = activeSeminar.seminarId;
-  //         setBackTo(`/seminar/${seminarId}`);
+        if (mounted && activeSeminar) {
+          const seminarId = activeSeminar.seminarId;
+          // seminarId 기억
+          if (!setOnceRef.current) {
+            setSeminarId(seminarId);
+            setOnceRef.current = true;
+          }
 
-  //         // 세미나 상세 조회 요청
-  //         const detailRes = await getUserSeminar(seminarId);
+          setBackTo(`/seminar/${seminarId}`);
 
-  //         // 응답 데이터 result만 저장
-  //         if (mounted && detailRes?.result) {
-  //           setSeminarData(detailRes.result);
-  //         }
-  //       }
-  //     } catch (e) {
-  //       console.error('세미나 데이터 조회 실패:', e);
-  //     }
-  //   })();
+          // 세미나 상세 조회 요청
+          const detailRes = await getUserSeminar(seminarId);
 
-  //   return () => {
-  //     mounted = false;
-  //   };
-  // }, []);
+          // 응답 데이터 result만 저장
+          if (mounted && detailRes?.result) {
+            setSeminarData(detailRes.result);
+          }
+        }
+      } catch (e) {
+        console.error('세미나 데이터 조회 실패:', e);
+      }
+    })();
+
+    return () => {
+      mounted = false;
+    };
+  }, [setSeminarId]);
 
   // 페이지 이동 시 모달 창 띄우기
   const blocker = useBlocker(({ currentLocation, nextLocation }) => {
@@ -75,19 +84,17 @@ const ApplyInfo = () => {
     }
   }, [blocker]);
 
-  // if (!seminarData) return <LoadingSpinner />;
+  if (!seminarData) return <LoadingSpinner />;
 
-  // const { seminarNum, seminarDate, place } = seminarData;
+  const { seminarNum, seminarDate, place } = seminarData;
 
   return (
     <div className="flex flex-col gap-16 justify-center items-center mb-64">
-      {/* <ApplyHeader backTo={backTo} /> */}
-      <ApplyHeader backTo="/seminar/:id" />
+      <ApplyHeader backTo={backTo} />
       <div className="flex flex-col w-[335px] gap-80">
         <div className="flex flex-col gap-14">
           <div className="flex flex-col gap-32">
-            {/* <h1 className="heading-2-bold text-white">제 {seminarNum}회 Devtalk Seminar</h1> */}
-            <h1 className="heading-2-bold text-white">제 10회 Devtalk Seminar</h1>
+            <h1 className="heading-2-bold text-white">제 {seminarNum}회 Devtalk Seminar</h1>
             <div className="flex flex-col gap-48">
               {/* Outline 영역 */}
               <div className="flex flex-col gap-20">
@@ -95,13 +102,11 @@ const ApplyInfo = () => {
                 <div className="flex flex-col gap-8">
                   <div className="flex flex-row gap-16">
                     <p className="body-1-medium text-grey-300">일시</p>
-                    {/* <p className="body-1-medium text-white">{seminarDate}</p> */}
-                    <p className="body-1-medium text-white">2025. 10. 4.(토) 오후 6:30~8:30</p>
+                    <p className="body-1-medium text-white">{seminarDate}</p>
                   </div>
                   <div className="flex flex-row gap-16">
                     <p className="body-1-medium text-grey-300">장소</p>
-                    {/* <p className="body-1-medium text-white">{place}</p> */}
-                    <p className="body-1-medium text-white">홍익대학교 L0201</p>
+                    <p className="body-1-medium text-white">{place}</p>
                   </div>
                 </div>
                 <div className="flex flex-col gap-12">

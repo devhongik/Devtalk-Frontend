@@ -8,6 +8,7 @@ export interface UserSeminarResult {
   place: string;
   startDate: string;
   endDate: string;
+  sessionIds: number[];
 }
 
 export type UserSeminarResponse = CommonResponse<UserSeminarResult>;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { getSeminarList } from '../../apis/seminarList';
+import { getSeminarList } from '../../apis/seminarList';
 
 interface ApplySuccessModalProps {
   open: boolean;
@@ -20,24 +20,24 @@ const ApplySuccessModal: React.FC<ApplySuccessModalProps> = ({ open, onClose, ty
   const handleClose = async () => {
     onClose(); // 상태 정리
     navigate('/seminar/:id');
-    // try {
-    //   onClose();
-    //   const res = await getSeminarList();
+    try {
+      onClose();
+      const res = await getSeminarList();
 
-    //   if (res?.isSuccess && res.result?.seminarList) {
-    //     const activeSeminar = res.result.seminarList.find((seminar: any) => seminar.isActive);
-    //     if (activeSeminar) {
-    //       navigate(`/seminar/${activeSeminar.seminarId}`);
-    //     } else {
-    //       alert('현재 활성화된 세미나가 없습니다.');
-    //     }
-    //   } else {
-    //     alert('세미나 정보를 불러오지 못했습니다.');
-    //   }
-    // } catch (error) {
-    //   console.error('세미나 리스트 조회 실패:', error);
-    //   alert('세미나 정보를 불러오는 중 오류가 발생했습니다.');
-    // }
+      if (res?.isSuccess && res.result?.seminarList) {
+        const activeSeminar = res.result.seminarList.find((seminar: any) => seminar.isActive);
+        if (activeSeminar) {
+          navigate(`/seminar/${activeSeminar.seminarId}`);
+        } else {
+          alert('현재 활성화된 세미나가 없습니다.');
+        }
+      } else {
+        alert('세미나 정보를 불러오지 못했습니다.');
+      }
+    } catch (error) {
+      console.error('세미나 리스트 조회 실패:', error);
+      alert('세미나 정보를 불러오는 중 오류가 발생했습니다.');
+    }
   };
 
   return (

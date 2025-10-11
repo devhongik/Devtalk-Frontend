@@ -2,26 +2,44 @@ import ApplyHeader from '../../../components/SeminarApply/ApplyHeader';
 import SpeakerCard from '../../../components/SeminarApply/SpeakerCard';
 import AutoResizeTextarea from '../../../components/SeminarApply/AutoResizeTextarea';
 import { Button } from '../../../components/Button/Button';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ApplySuccessModal from '../../../components/Modal/ApplySuccessModal';
 import ApplyAlertModal from '../../../components/Modal/ApplyAlertModal';
 import { useApplyDraft } from '../../../stores/useApplyDraft';
+import { useApplyFlow } from '../../../stores/useApplyFlow';
 import { postApplySeminar } from '../../../apis/seminarApply';
 import type {
   SeminarApplyRequest,
   SeminarApplyResponse,
 } from '../../../types/Applicants/seminarApply';
+import { getUserSeminar } from '../../../apis/userSeminar/userSeminarApi';
 import { mapParticipation, mapInflowPath } from '../../../utils/mapEnums';
-
-const SESSION_IDS = [3, 4]; // 실제 세션 ID로 교체
 
 const ApplyQuestion = () => {
   const draft = useApplyDraft();
+  const { seminarId } = useApplyFlow();
+  const [sessionIds, setSessionIds] = useState<number[]>([]);
 
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [successType, setSuccessType] = useState<'online' | 'offline' | null>(null);
+
+  useEffect(() => {
+    if (!seminarId) return;
+    (async () => {
+      try {
+        const res = await getUserSeminar(seminarId);
+        if (res.isSuccess && res.result) {
+          setSessionIds(res.result.sessionIds ?? []);
+        }
+      } catch (e) {
+        console.error('세미나 상세 조회 실패:', e);
+      }
+    })();
+  }, [seminarId]);
+
+  const SESSION_IDS = sessionIds;
 
   const handleChangeQuestion = (sessionId: number, value: string) => {
     draft.setQuestion(sessionId, value);
