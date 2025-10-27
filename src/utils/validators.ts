@@ -42,7 +42,10 @@ export function validateAll(root: HTMLElement) {
   const howEl = root.querySelector(qs.howChecked) as HTMLInputElement | null;
   const howOk = !!howEl && (howEl.value !== '기타' || !!getInputValue(root, qs.howOtherText));
 
-  const participateOk = !!root.querySelector(qs.participateChecked);
+  // 1차 스프린트 임시 코딩 -> 참여 섹션이 없으면 통과로 간주
+  const participateInputs = root.querySelectorAll('input[name="participate"]');
+  const participateOk =
+    participateInputs.length === 0 ? true : !!root.querySelector(qs.participateChecked);
 
   return {
     basicOk,

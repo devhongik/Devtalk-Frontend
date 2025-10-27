@@ -3,9 +3,14 @@ import { useEffect, useRef } from 'react';
 type AutoResizeTextareaProps = {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  placeholder?: string;
 };
 
-export default function AutoResizeTextarea({ value, onChange }: AutoResizeTextareaProps) {
+export default function AutoResizeTextarea({
+  value,
+  onChange,
+  placeholder,
+}: AutoResizeTextareaProps) {
   const ref = useRef<HTMLTextAreaElement>(null);
 
   const resize = () => {
@@ -34,8 +39,7 @@ export default function AutoResizeTextarea({ value, onChange }: AutoResizeTextar
           value={value}
           onChange={onChange}
           onInput={resize}
-          placeholder={`[김데브] 연사님께 드리고 싶은 질문을
-자유롭게 남겨주세요.`}
+          placeholder={placeholder}
           maxLength={500}
           className="w-full bg-transparent outline-none resize-none rounded-8
                      px-16 py-16 body-1-medium text-grey-50 placeholder-grey-300

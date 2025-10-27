@@ -6,16 +6,22 @@ import { StudentIdSection } from './StudentIdSection';
 import { DepartmentSection } from './DepartmentSection';
 import { GradeSection } from './GradeSection';
 import { HowToKnowSection } from './HowToKnowSection';
-import { ParticipateSection } from './ParticipateSection';
+//import { ParticipateSection } from './ParticipateSection';
 import { useApplyFormValidation } from '../../hooks/useApplyFormValidation';
 import { EmailSection } from './EmailSection';
 import { useApplyDraft } from '../../stores/useApplyDraft';
-import { DEPARTMENTS, GRADES, HOWTOKNOW, PARTICIPATE } from '../../constants/seminarApplyInfo';
+import { DEPARTMENTS, GRADES, HOWTOKNOW } from '../../constants/seminarApplyInfo';
+import { useEffect } from 'react';
 
 const ApplyForm = () => {
   const navigate = useNavigate();
   const { rootRef, canNext } = useApplyFormValidation();
   const draft = useApplyDraft();
+  useEffect(() => {
+    if (!draft.participationType) {
+      draft.setField('participationType', '온라인 Live (Q&A, 이벤트 참여 불가)');
+    }
+  }, [draft]);
 
   return (
     <div ref={rootRef} className="flex flex-col gap-80">
@@ -81,11 +87,11 @@ const ApplyForm = () => {
               }}
               onChangeEtc={(v) => draft.setField('inflowPathEtc', v)}
             />
-            <ParticipateSection
+            {/* <ParticipateSection
               options={PARTICIPATE}
               selected={draft.participationType || null}
               onSelect={(label) => draft.setField('participationType', label)}
-            />
+            /> */}
           </div>
         </div>
       </div>

@@ -1,71 +1,41 @@
 import ApplyHeader from '../../../components/SeminarApply/ApplyHeader';
 import { Chip } from '../../../components/Chip/Chip';
 import SpeakerInfo from '../../../components/SeminarApply/SpeakerInfo';
-import LiveInfo from '../../../components/SeminarApply/LiveInfo';
 import ApplyForm from '../../../components/SeminarApply/ApplyForm';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useBlocker } from 'react-router-dom';
 import ApplyExitModal from '../../../components/Modal/ApplyExitModal';
 import { useApplyDraft } from '../../../stores/useApplyDraft';
-import { useApplyFlow } from '../../../stores/useApplyFlow';
-import { getSeminarList } from '../../../apis/seminarList';
+import { getShowSeminar } from '../../../apis/ShowSeminar/userShowSeminar';
 import { getUserSeminar } from '../../../apis/userSeminar/userSeminarApi';
-import LoadingSpinner from '../../../components/common/LoadingSpinner';
+import { getSeminarSession } from '../../../apis/seminarDetail';
+import { useApplyFlow } from '../../../stores/useApplyFlow';
+
+type SeminarSession = {
+  sessionId: number;
+  title: string;
+  description: string;
+  speaker: {
+    name: string;
+    organization?: string;
+    history?: string;
+    profileUrl?: string;
+    speakerId: number;
+  };
+};
 
 const ApplyInfo = () => {
   const [exitOpen, setExitOpen] = useState(false);
   const [proceed, setProceed] = useState<null | (() => void)>(null);
-  const [backTo, setBackTo] = useState('/seminar');
-  const [seminarData, setSeminarData] = useState<{
-    seminarId: number;
-    seminarNum: number;
-    topic: string;
-    seminarDate: string;
-    place: string;
-    startDate: string;
-    endDate: string;
-    sessionIds: number[];
-  } | null>(null);
-  const { setSeminarId } = useApplyFlow();
-  const setOnceRef = useRef(false); // StrictMode 중복세팅 방지
+  const [seminarId, setSeminarId] = useState<number | null>(null);
+  const [seminarNum, setSeminarNum] = useState<number | null>(null);
+  const [seminarDate, setSeminarDate] = useState<string>('-');
+  const [place, setPlace] = useState<string>('-');
+  const [sessions, setSessions] = useState<SeminarSession[]>([]);
 
-  useEffect(() => {
-    let mounted = true;
-
-    (async () => {
-      try {
-        // 활성 세미나 찾기
-        const res = await getSeminarList();
-        const list = res?.result?.seminarList ?? [];
-        const activeSeminar = list.find((s: any) => s.isActive);
-
-        if (mounted && activeSeminar) {
-          const seminarId = activeSeminar.seminarId;
-          // seminarId 기억
-          if (!setOnceRef.current) {
-            setSeminarId(seminarId);
-            setOnceRef.current = true;
-          }
-
-          setBackTo(`/seminar/${seminarId}`);
-
-          // 세미나 상세 조회 요청
-          const detailRes = await getUserSeminar(seminarId);
-
-          // 응답 데이터 result만 저장
-          if (mounted && detailRes?.result) {
-            setSeminarData(detailRes.result);
-          }
-        }
-      } catch (e) {
-        console.error('세미나 데이터 조회 실패:', e);
-      }
-    })();
-
-    return () => {
-      mounted = false;
-    };
-  }, [setSeminarId]);
+  const globalSeminarId = useApplyFlow((s) => s.seminarId);
+  const setSeminarIdGlobal = useApplyFlow((s) => s.setSeminarId);
+  const resetFlow = useApplyFlow((s) => s.reset);
 
   // 페이지 이동 시 모달 창 띄우기
   const blocker = useBlocker(({ currentLocation, nextLocation }) => {
@@ -85,17 +55,74 @@ const ApplyInfo = () => {
     }
   }, [blocker]);
 
-  if (!seminarData) return <LoadingSpinner />;
+  // 1) 홈 노출 세미나 조회
+  useEffect(() => {
+    const fetchShowSeminar = async () => {
+      try {
+        const res = await getShowSeminar();
+        if (res?.isSuccess && res.result?.applicantActivate) {
+          setSeminarNum(res.result?.seminarNum ?? null);
+          setSeminarId(res.result?.seminarId ?? null);
+        } else {
+          setSeminarNum(null);
+          setSeminarId(null);
+        }
+      } catch (e) {
+        console.error('getShowSeminar error:', e);
+      }
+    };
+    fetchShowSeminar();
+  }, []);
 
-  const { seminarNum, seminarDate, place, sessionIds } = seminarData;
+  // 2) seminarId를 전역에 반영 (값이 바뀔 때만)
+  useEffect(() => {
+    if (seminarId != null && globalSeminarId !== seminarId) {
+      setSeminarIdGlobal(seminarId);
+    }
+  }, [seminarId, globalSeminarId, setSeminarIdGlobal]);
+
+  // 3) seminarId 기반 상세조회 (일시/장소)
+  useEffect(() => {
+    if (!seminarId) return;
+    const fetchSeminarDetail = async () => {
+      try {
+        const res = await getUserSeminar(seminarId);
+        if (res?.isSuccess && res.result) {
+          setSeminarDate(res.result.seminarDate);
+          setPlace(res.result.place);
+        }
+      } catch (e) {
+        console.error('getUserSeminar error:', e);
+      }
+    };
+    fetchSeminarDetail();
+  }, [seminarId]);
+
+  // 4) seminarId 기반 세션 목록 조회
+  useEffect(() => {
+    if (!seminarId) return;
+    const fetchSessions = async () => {
+      try {
+        const res = await getSeminarSession(seminarId);
+        if (res?.isSuccess && Array.isArray(res.result)) {
+          setSessions(res.result as SeminarSession[]);
+        }
+      } catch (e) {
+        console.error('getSeminarSession error:', e);
+      }
+    };
+    fetchSessions();
+  }, [seminarId]);
 
   return (
     <div className="flex flex-col gap-16 justify-center items-center mb-64">
-      <ApplyHeader backTo={backTo} />
+      <ApplyHeader backTo={seminarId ? `/seminar/${seminarId}` : '/seminar'} />
       <div className="flex flex-col w-[335px] gap-80">
         <div className="flex flex-col gap-14">
           <div className="flex flex-col gap-32">
-            <h1 className="heading-2-bold text-white">제 {seminarNum}회 Devtalk Seminar</h1>
+            <h1 className="heading-2-bold text-white">
+              {seminarNum !== null ? `제 ${seminarNum}회 Devtalk Seminar` : 'DevTalk Seminar'}
+            </h1>
             <div className="flex flex-col gap-48">
               {/* Outline 영역 */}
               <div className="flex flex-col gap-20">
@@ -111,14 +138,24 @@ const ApplyInfo = () => {
                   </div>
                 </div>
                 <div className="flex flex-col gap-12">
-                  {(sessionIds ?? []).map((_, idx) => (
-                    <SpeakerInfo key={idx} />
-                  ))}
+                  {sessions.length > 0 ? (
+                    sessions.map((s) => (
+                      <SpeakerInfo
+                        key={s.sessionId}
+                        name={s.speaker.name}
+                        history={s.speaker.history}
+                        organization={s.speaker.organization}
+                        profileUrl={s.speaker.profileUrl}
+                      />
+                    ))
+                  ) : (
+                    <div className="text-grey-400 body-2-medium">세션 정보를 불러오는 중…</div>
+                  )}
                 </div>
               </div>
 
               {/* 온라인 LIVE 안내 영역 */}
-              <div className="flex flex-col gap-20">
+              {/* <div className="flex flex-col gap-20">
                 <Chip className="body-2-semibold" text="온라인 LIVE 안내" />
                 <div className="flex flex-col gap-8">
                   <div className="subhead-1-semibold text-white">
@@ -131,7 +168,7 @@ const ApplyInfo = () => {
                   </p>
                   <LiveInfo />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <hr className="text-grey-700 w-full h-[1px]" />
@@ -144,6 +181,7 @@ const ApplyInfo = () => {
         onConfirm={() => {
           useApplyDraft.getState().reset();
           sessionStorage.removeItem('apply-draft');
+          resetFlow();
           setExitOpen(false);
           proceed?.();
         }}

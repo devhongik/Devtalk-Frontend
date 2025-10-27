@@ -13,18 +13,35 @@ import type {
   SeminarApplyResponse,
 } from '../../../types/Applicants/seminarApply';
 import { getUserSeminar } from '../../../apis/userSeminar/userSeminarApi';
+import { getSeminarSession } from '../../../apis/seminarDetail';
 import { mapParticipation, mapInflowPath } from '../../../utils/mapEnums';
+
+type SeminarSession = {
+  sessionId: number;
+  title: string;
+  description: string;
+  speaker: {
+    name: string;
+    organization?: string;
+    profileUrl?: string;
+    history?: string;
+    speakerId: number;
+  };
+};
 
 const ApplyQuestion = () => {
   const draft = useApplyDraft();
-  const { seminarId } = useApplyFlow();
+  const seminarId = useApplyFlow((s) => s.seminarId);
+
   const [sessionIds, setSessionIds] = useState<number[]>([]);
+  const [sessions, setSessions] = useState<SeminarSession[]>([]);
 
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [successType, setSuccessType] = useState<'online' | 'offline' | null>(null);
 
+  // 해당 세미나의 세션 id 리스트 (질문 저장용 키)
   useEffect(() => {
     if (!seminarId) return;
     (async () => {
@@ -39,7 +56,20 @@ const ApplyQuestion = () => {
     })();
   }, [seminarId]);
 
-  const SESSION_IDS = sessionIds;
+  // 세션 상세(연사 정보, 제목/설명 등) 조회 → UI 렌더링에 사용
+  useEffect(() => {
+    if (!seminarId) return;
+    (async () => {
+      try {
+        const res = await getSeminarSession(seminarId);
+        if (res.isSuccess && Array.isArray(res.result)) {
+          setSessions(res.result as SeminarSession[]);
+        }
+      } catch (e) {
+        console.error('세미나 세션 목록 조회 실패:', e);
+      }
+    })();
+  }, [seminarId]);
 
   const handleChangeQuestion = (sessionId: number, value: string) => {
     draft.setQuestion(sessionId, value);
@@ -49,10 +79,12 @@ const ApplyQuestion = () => {
     if (submitting) return;
     setSubmitting(true);
 
-    const questions = SESSION_IDS.map((id) => ({
-      sessionId: id,
-      content: (draft.questions[id] ?? '').trim(),
-    })).filter((q) => q.content.length > 0);
+    const questions = sessionIds
+      .map((id) => ({
+        sessionId: id,
+        content: (draft.questions[id] ?? '').trim(),
+      }))
+      .filter((q) => q.content.length > 0);
 
     // 한국어 라벨 → 백엔드 enum 매핑 (요청 직전에만)
     const participationEnum = mapParticipation(draft.participationType);
@@ -117,18 +149,25 @@ const ApplyQuestion = () => {
 
           {/* 연사별 질문 */}
           <div className="flex flex-col">
-            {SESSION_IDS.map((id, idx) => (
-              <div key={id}>
+            {sessions.map((s, idx) => (
+              <div key={s.sessionId}>
                 <div className="flex flex-col gap-16">
-                  <SpeakerCard />
+                  <SpeakerCard
+                    name={s.speaker.name}
+                    title={s.title}
+                    organization={s.speaker.organization}
+                    description={s.description}
+                    profileUrl={s.speaker.profileUrl}
+                  />
                   <AutoResizeTextarea
-                    value={draft.questions[id] ?? ''}
+                    value={draft.questions[s.sessionId] ?? ''}
                     onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                      handleChangeQuestion(id, e.target.value)
+                      handleChangeQuestion(s.sessionId, e.target.value)
                     }
+                    placeholder={`[${s.speaker.name}] 연사님께 드리고 싶은 질문을\n자유롭게 남겨주세요.`}
                   />
                 </div>
-                {idx < SESSION_IDS.length - 1 && (
+                {idx < sessions.length - 1 && (
                   <hr className="border-t border-grey-700 w-[335px] mx-auto my-32" />
                 )}
               </div>
