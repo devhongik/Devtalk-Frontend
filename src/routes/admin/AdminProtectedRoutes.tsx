@@ -10,11 +10,13 @@ import SeminarApplicantsDetail from '../../pages/admin/seminar-manage/applicants
 import SeminarApplicantsQuestions from '../../pages/admin/seminar-manage/applicants/Questions';
 import Attendance from '../../pages/admin/seminar-live/Attendance';
 import Accounts from '../../pages/admin/auth-manage/Accounts';
+import HomeExposure from '../../pages/admin/home-manage/HomeExposure';
 
 export const adminProtectedRoutes = [
   {
     element: <AdminLayout />,
     children: [
+      { path: 'home/exposure', element: <HomeExposure /> },
       { path: 'home/promo', element: <PromoImage /> },
       { path: 'home/links', element: <Links /> },
       { path: 'home/reviews', element: <Reviews /> },

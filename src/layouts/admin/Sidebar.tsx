@@ -9,6 +9,7 @@ const menuData = [
   {
     title: '홈 화면 관리',
     children: [
+      { name: '홈화면 노출 회차', to: '/admin/home/exposure', end: true },
       { name: '홍보 사진 관리', to: '/admin/home/promo', end: true },
       { name: '링크 관리', to: '/admin/home/links', end: true },
       { name: '후기 카드 갤러리', to: '/admin/home/reviews', end: true },
