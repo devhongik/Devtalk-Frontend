@@ -5,9 +5,13 @@ export const adminInstance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_API_URL,
 });
 
-export const refreshInstance: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_API_URL,
-});
+export const refreshInstance = (refresh: string): AxiosInstance =>
+  axios.create({
+    baseURL: import.meta.env.VITE_SERVER_API_URL,
+    headers: {
+      refreshToken: refresh,
+    },
+  });
 
 adminInstance.interceptors.request.use(
   (config) => {
@@ -31,7 +35,10 @@ adminInstance.interceptors.response.use(
     if (!status) return Promise.reject(status);
 
     //토큰 만료 오류
-    if (status === 419 && !originalRequest._retry) {
+    if (
+      (status === 419 && !originalRequest._retry) ||
+      (status === 403 && !originalRequest._retry)
+    ) {
       originalRequest._retry = true;
       const refreshToken = localStorage.getItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN);
 
@@ -45,7 +52,7 @@ adminInstance.interceptors.response.use(
 
       //refreshToken으로 새 accessToken 발급
       try {
-        const { data } = await refreshInstance.post('/admin/refresh', { refreshToken });
+        const { data } = await refreshInstance(refreshToken).post('/admin/refresh');
         const newAccessToken = data?.result.accessToken;
         const newRefreshToken = data?.result.refreshToken;
         localStorage.setItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN, newAccessToken);
@@ -72,6 +79,8 @@ adminInstance.interceptors.response.use(
     //접근 권한이 없는 경우
     if (status === 403) {
       //홈으로 이동
+      localStorage.removeItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN);
+      localStorage.removeItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN);
       window.location.replace('/');
       return Promise.reject(error);
     }

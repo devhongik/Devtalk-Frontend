@@ -47,8 +47,8 @@
     backdrop-filter: blur(2px);
   }
 
-  .top-gradient {
-    background-image: var(--linear-top-gradient);
+  .image-gradient {
+    background-image: var(--linear-image-gradient);
   }
 
   .bottom-gradient {

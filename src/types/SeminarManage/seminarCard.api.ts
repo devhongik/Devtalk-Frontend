@@ -7,7 +7,6 @@ export interface SeminarCardData {
   seminarDate: string;
   place: string;
   imageUrl: string;
-  isActive: boolean;
 }
 
 export interface SeminarListResult {
