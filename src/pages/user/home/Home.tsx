@@ -23,34 +23,38 @@ const Home = () => {
   const navigate = useNavigate();
   const exSeminarref = useRef<HTMLDivElement | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
-  const [hideCTA, setHideCTA] = useState(false);
+
+  const [exVisible, setExVisible] = useState(false);
+  const [bottomVisible, setBottomVisible] = useState(false);
+
+  // const [hideCTA, setHideCTA] = useState(false);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
   useEffect(() => {
+    const scrollContainer = document.querySelector('.snap-y');
     const observer = new IntersectionObserver(
       (entries) => {
-        const shouldHide = entries.some((entry) => entry.isIntersecting);
-        setHideCTA(shouldHide);
+        entries.forEach((entry) => {
+          if (entry.target === exSeminarref.current) {
+            setExVisible(entry.isIntersecting);
+          }
+          if (entry.target === bottomRef.current) {
+            setBottomVisible(entry.isIntersecting);
+          }
+        });
       },
-      { threshold: 0.3 }
+      { threshold: 0.3, root: scrollContainer ?? null }
     );
 
-    if (exSeminarref.current) {
-      observer.observe(exSeminarref.current);
-    }
-    if (bottomRef.current) {
-      observer.observe(bottomRef.current);
-    }
+    if (exSeminarref.current) observer.observe(exSeminarref.current);
+    if (bottomRef.current) observer.observe(bottomRef.current);
 
     return () => {
-      if (exSeminarref.current) {
-        observer.unobserve(exSeminarref.current);
-      }
-      if (bottomRef.current) {
-        observer.unobserve(bottomRef.current);
-      }
+      if (exSeminarref.current) observer.unobserve(exSeminarref.current);
+      if (bottomRef.current) observer.unobserve(bottomRef.current);
     };
   }, []);
+  const hideCTA = exVisible || bottomVisible;
 
   const { seminarId, seminarNum, liveActivate, applicantActivate, isLoading } = useShowSeminar();
 
@@ -203,8 +207,6 @@ const Home = () => {
             </div>
           </div>
 
-          <div ref={bottomRef} className="w-full h-[1px]" />
-
           {/* 신청하기 */}
           {!isLoading && (
             <>
@@ -247,6 +249,8 @@ const Home = () => {
               ) : null}
             </>
           )}
+
+          <div ref={bottomRef} className="w-full h-[1px]" />
           <div className="h-[122px] snap-start">
             <Footer />
           </div>
