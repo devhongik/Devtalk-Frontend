@@ -16,27 +16,14 @@ import { LectureCardSession } from '../../../components/LectureCard/LectureCardS
 import { useNavigate } from 'react-router-dom';
 import InfiniteCarousel from '../../../components/common/InfiniteCarousel';
 import { useEffect, useRef, useState } from 'react';
-
-// 임시 하드코딩
-type SeminarInfo = {
-  activeStartDate: string;
-  activeEndDate: string;
-};
-
-const seminar: SeminarInfo = {
-  activeStartDate: '2025-10-05T23:53:51.927Z',
-  activeEndDate: '2025-10-08T23:53:51.927Z',
-};
+import { useShowSeminar } from '../../../contexts/ShowSeminarContext';
+import BackgroundVideo from '../../../components/common/BackgroundVideo';
 
 const Home = () => {
   const navigate = useNavigate();
   const exSeminarref = useRef<HTMLDivElement | null>(null);
   const [hideCTA, setHideCTA] = useState(false);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
-  const seminarId = 1;
-
-  const now = new Date();
-  const isActive = now > new Date(seminar.activeStartDate) && now < new Date(seminar.activeEndDate);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -63,33 +50,55 @@ const Home = () => {
     };
   }, []);
 
+  const { seminarId, seminarNum, liveActivate, applicantActivate, isLoading } = useShowSeminar();
+
+  let ctaElement = null;
+  if (applicantActivate && liveActivate) {
+    ctaElement = (
+      <Cta
+        bodyText="지금 바로 입장해 주세요!"
+        buttonText={`${seminarNum ?? ''}회차 세미나 입장하기`}
+        onClick={() => navigate('seminar/live/verification')}
+        isActive
+      />
+    );
+  } else if (applicantActivate && !liveActivate) {
+    ctaElement = (
+      <Cta
+        bodyText="데브톡에 빠져보세요!"
+        buttonText={`${seminarNum ?? ''}회차 세미나 신청하기`}
+        onClick={() => navigate('seminar/apply-info')}
+        isActive={false}
+      />
+    );
+  } else if (!applicantActivate && liveActivate) {
+    ctaElement = (
+      <Cta
+        bodyText="지금 바로 입장해 주세요!"
+        buttonText={`${seminarNum ?? ''}회차 세미나 입장하기`}
+        onClick={() => navigate('seminar/live/verification')}
+        isActive
+      />
+    );
+  } else {
+    ctaElement = null;
+  }
+
   return (
     <>
       <div>
         <Header hamburgerOpen={hamburgerOpen} setHamburgerOpen={setHamburgerOpen} />
-        <div className="pt-[56px] snap-y snap-proximity overflow-y-scroll h-screen scrollbar-hide overflow-x-hidden">
-          <div className="snap-center">
-            <SeminarPoster />
+        <div className="snap-y snap-proximity overflow-y-scroll h-screen scrollbar-hide overflow-x-hidden">
+          <div className="snap-center relative w-[376px] h-[585px] mx-auto pt-[56px]">
+            <BackgroundVideo />
+            <div className="relative z-10">
+              <SeminarPoster />
+            </div>
           </div>
 
-          {!hideCTA && !hamburgerOpen && (
-            <div className="fixed bottom-0 w-full z-50">
-              {isActive ? (
-                <Cta
-                  bodyText="지금 바로 입장해 주세요!"
-                  buttonText="회차 세미나 입장하기"
-                  onClick={() => navigate('seminar/live/verification')}
-                  isActive={isActive}
-                />
-              ) : (
-                <Cta
-                  bodyText="데브톡에 빠져보세요!"
-                  buttonText="회차 세미나 신청하기"
-                  onClick={() => navigate('/seminar/apply-info')}
-                  isActive={isActive}
-                />
-              )}
-            </div>
+          {/* CTA */}
+          {!hideCTA && !hamburgerOpen && !isLoading && ctaElement && (
+            <div className="fixed bottom-0 w-full z-50">{ctaElement}</div>
           )}
 
           {/* 강연 소개 카드 */}
@@ -100,16 +109,16 @@ const Home = () => {
 
             <div className="flex flex-col snap-center pb-[80px]">
               <Carousel>
-                <LectureCardMain seminarId={seminarId} index={0} />
-                <LectureCardSpeaker seminarId={seminarId} index={0} />
-                <LectureCardSession seminarId={seminarId} index={0} />
+                <LectureCardMain seminarId={seminarId ?? 0} index={0} />
+                <LectureCardSpeaker seminarId={seminarId ?? 0} index={0} />
+                <LectureCardSession seminarId={seminarId ?? 0} index={0} />
               </Carousel>
             </div>
             <div className="flex flex-col snap-center">
               <Carousel>
-                <LectureCardMain seminarId={seminarId} index={1} />
-                <LectureCardSpeaker seminarId={seminarId} index={1} />
-                <LectureCardSession seminarId={seminarId} index={1} />
+                <LectureCardMain seminarId={seminarId ?? 0} index={1} />
+                <LectureCardSpeaker seminarId={seminarId ?? 0} index={1} />
+                <LectureCardSession seminarId={seminarId ?? 0} index={1} />
               </Carousel>
             </div>
           </div>
@@ -193,44 +202,47 @@ const Home = () => {
           </div>
 
           {/* 신청하기 */}
-          {isActive ? (
-            <div className="flex flex-col items-center pt-[120px] px-20 pb-[100px] gap-16">
-              <p className="text-white heading-2-bold">지금 바로 입장하세요!</p>
-              <div className="flex flex-col w-[335px] gap-28">
-                <div className="flex flex-col items-center gap-16">
-                  <img
-                    src={Ticket}
-                    alt="티켓 아이콘"
-                    className="w-[240px] h-[153px] object-cover"
-                  />
+          {!isLoading && (
+            <>
+              {liveActivate ? (
+                <div className="flex flex-col items-center pt-[120px] px-20 pb-[100px] gap-16">
+                  <p className="text-white heading-2-bold">지금 바로 입장하세요!</p>
+                  <div className="flex flex-col w-[335px] gap-28">
+                    <div className="flex flex-col items-center gap-16">
+                      <img
+                        src={Ticket}
+                        alt="티켓 아이콘"
+                        className="w-[240px] h-[153px] object-cover"
+                      />
+                    </div>
+                    <Button
+                      variant="default"
+                      text={`${seminarNum ?? ''}회차 세미나 입장하기`}
+                      onClick={() => navigate('seminar/live/verification')}
+                    />
+                  </div>
                 </div>
-                <Button
-                  variant="default"
-                  text="10회차 세미나 입장하기"
-                  onClick={() => navigate('seminar/live/verification')}
-                />
-              </div>
-            </div>
-          ) : (
-            <div className="flex flex-col items-center pt-[120px] px-20 pb-[100px] gap-16">
-              <p className="text-white heading-2-bold">지금 바로 신청하세요!</p>
-              <div className="flex flex-col w-[335px] gap-28">
-                <div className="flex flex-col items-center gap-16">
-                  <img
-                    src={Timer}
-                    alt="타이머 아이콘"
-                    className="w-[240px] h-[153px] object-cover"
-                  />
+              ) : applicantActivate ? (
+                <div className="flex flex-col items-center pt-[120px] px-20 pb-[100px] gap-16">
+                  <p className="text-white heading-2-bold">지금 바로 신청하세요!</p>
+                  <div className="flex flex-col w-[335px] gap-28">
+                    <div className="flex flex-col items-center gap-16">
+                      <img
+                        src={Timer}
+                        alt="타이머 아이콘"
+                        className="w-[240px] h-[153px] object-cover"
+                      />
+                    </div>
+                    <Button
+                      variant="default"
+                      text={`${seminarNum ?? ''}회차 세미나 신청하기`}
+                      onClick={() => navigate('/seminar/apply-info')}
+                    />
+                  </div>
                 </div>
-                <Button
-                  variant="default"
-                  text="10회차 세미나 신청하기"
-                  onClick={() => navigate('/seminar/apply-info')}
-                />
-              </div>
-            </div>
+              ) : null}
+            </>
           )}
-
           <div className="h-[122px] snap-start">
             <Footer />
           </div>

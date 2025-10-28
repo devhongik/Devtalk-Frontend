@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
 import { useGetUserSeminar } from '../../hooks/userMainPage/useSeminar';
-import LoadingSpinner from './LoadingSpinner';
+import { useShowSeminar } from '../../contexts/ShowSeminarContext';
+import { useEffect, useState } from 'react';
 
 const SeminarPoster = () => {
-  const seminarId = 1;
-  const { data: seminar, isLoading } = useGetUserSeminar(seminarId);
+  const { seminarId, seminarNum } = useShowSeminar();
+  const { data: seminar } = useGetUserSeminar(seminarId ?? 1);
   const [showText, setShowText] = useState(false);
 
   useEffect(() => {
@@ -12,30 +12,13 @@ const SeminarPoster = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
   return (
     <div className="relative w-[376px] h-[585px]">
-      {/* 배경 영상 */}
-      <video
-        // @ts-expect-error fetchpriority is a newer attribute not yet in TypeScript DOM types
-        fetchPriority="high"
-        src="/videos/mainPoster.mp4"
-        preload="auto"
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="object-cover"
-      />
-
       {/* 텍스트 */}
       {showText && (
         <div className="absolute top-0 pt-32 pl-20 flex flex-col justify-center w-[335px] h-[196px]">
           <div className="flex flex-col gap-4">
-            <p className="text-grey-50 subhead-2-medium">{seminar?.result?.seminarNum}회차</p>
+            <p className="text-grey-50 subhead-2-medium">{seminarNum}회차</p>
             <p className="heading-1-bold text-gradient">{seminar?.result?.topic}</p>
           </div>
 

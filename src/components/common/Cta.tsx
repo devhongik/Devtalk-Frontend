@@ -1,3 +1,4 @@
+import { useShowSeminar } from '../../contexts/ShowSeminarContext';
 import { useGetUserSeminar } from '../../hooks/userMainPage/useSeminar';
 import { Button } from '../Button/Button';
 
@@ -9,8 +10,8 @@ type CtaProps = {
 };
 
 const Cta = ({ bodyText, buttonText, onClick, isActive }: CtaProps) => {
-  const seminarId = 1;
-  const { data: seminar } = useGetUserSeminar(seminarId);
+  const { seminarId } = useShowSeminar();
+  const { data: seminar } = useGetUserSeminar(seminarId ?? 1);
 
   const extractDate = (dateString?: string) => dateString?.split(' ')[0] ?? '';
 
@@ -32,7 +33,7 @@ const Cta = ({ bodyText, buttonText, onClick, isActive }: CtaProps) => {
           </div>
         </div>
       )}
-      <Button variant="home" text={buttonText} onClick={onClick} seminarId={seminarId} />
+      <Button variant="home" text={buttonText} onClick={onClick} />
     </div>
   );
 };

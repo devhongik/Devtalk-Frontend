@@ -5,6 +5,7 @@ import { useSeminarAttend } from '../../../hooks/SeminarLive/useSeminarAttend';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
 import { useState } from 'react';
+import { useShowSeminar } from '../../../contexts/ShowSeminarContext';
 
 const Live = () => {
   const { mutate, isPending } = useSeminarAttend();
@@ -23,13 +24,14 @@ const Live = () => {
   };
 
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
+  const { seminarNum } = useShowSeminar();
 
   return (
     <>
       <Header hamburgerOpen={hamburgerOpen} setHamburgerOpen={setHamburgerOpen} />
       {isPending && <LoadingSpinner />}
       <div className="flex flex-col pt-28 px-20 gap-24 pb-[10px]">
-        <p className="text-white heading-2-bold">제 10회 Devtalk Seminar</p>
+        <p className="text-white heading-2-bold">제 {seminarNum}회 Devtalk Seminar</p>
         <img src={seminarLive} alt="graphic" className="w-[335px] h-[435px]" />
       </div>
       <div className="flex px-20 pt-20 pb-[89px]">
