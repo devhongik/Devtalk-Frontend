@@ -22,19 +22,15 @@ import BackgroundVideo from '../../../components/common/BackgroundVideo';
 const Home = () => {
   const navigate = useNavigate();
   const exSeminarref = useRef<HTMLDivElement | null>(null);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
   const [hideCTA, setHideCTA] = useState(false);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setHideCTA(true);
-          } else {
-            setHideCTA(false);
-          }
-        });
+        const shouldHide = entries.some((entry) => entry.isIntersecting);
+        setHideCTA(shouldHide);
       },
       { threshold: 0.3 }
     );
@@ -42,10 +38,16 @@ const Home = () => {
     if (exSeminarref.current) {
       observer.observe(exSeminarref.current);
     }
+    if (bottomRef.current) {
+      observer.observe(bottomRef.current);
+    }
 
     return () => {
       if (exSeminarref.current) {
         observer.unobserve(exSeminarref.current);
+      }
+      if (bottomRef.current) {
+        observer.unobserve(bottomRef.current);
       }
     };
   }, []);
@@ -200,6 +202,8 @@ const Home = () => {
               <ButtonExSeminar />
             </div>
           </div>
+
+          <div ref={bottomRef} className="w-full h-[1px]" />
 
           {/* 신청하기 */}
           {!isLoading && (
