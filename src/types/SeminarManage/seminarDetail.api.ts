@@ -35,8 +35,6 @@ export interface UpdateSeminarRequest {
   seminarDate: string;
   place: string;
   topic: string;
-  activeStartDate: string;
-  activeEndDate: string;
   applyStartDate: string;
   applyEndDate: string;
   liveLink: string | null; // 삭제 시 null

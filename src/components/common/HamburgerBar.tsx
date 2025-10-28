@@ -10,6 +10,7 @@ const HamburgerBar = ({ isOpen, onClose: _onClose }: HamburgerBarProps) => {
 
   const handleIntroduceClick = () => {
     navigate('/');
+    _onClose();
   };
 
   const handleFAQClick = () => {
@@ -32,7 +33,7 @@ const HamburgerBar = ({ isOpen, onClose: _onClose }: HamburgerBarProps) => {
       <div
         className={`absolute w-[375px] h-screen bg-black transform transition-transform duration-400 z-40 ${isOpen ? 'translate-y-0' : '-translate-y-full'}`}
       >
-        <div className="flex flex-col gap-16 pt-60 px-20">
+        <div className="flex flex-col gap-16 pt-[110px] px-20">
           <nav className="flex flex-col text-grey-300 subhead-1-semibold">
             <button
               className="w-[335px] py-[12px] pl-[16px] pr-[8px] rounded-8 text-left hover:bg-grey-800 hover:text-white cursor-pointer transition-all duration-200"

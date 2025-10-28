@@ -5,7 +5,7 @@ interface FooterProps {
   isDirty: boolean;
   hasErrors: boolean;
   dateFormatError: string | undefined;
-  validateActivationDates: { seminar: string; application: string };
+  validateActivationDates: {  application: string };
   getError: () => string | null;
   onSave: () => void;
   onCancel: () => void;
@@ -22,7 +22,7 @@ const Footer = ({
   onCancel,
 }: FooterProps) => {
   const isDateError =
-    !!dateFormatError || !!validateActivationDates.seminar || !!validateActivationDates.application;
+    !!dateFormatError || !!validateActivationDates.application;
   const isButtonDisabled = !isDirty || isDateError;
 
   const handleSaveClick = () => {

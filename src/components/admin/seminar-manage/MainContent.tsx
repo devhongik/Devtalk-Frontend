@@ -14,7 +14,7 @@ interface MainContentProps {
   reviews?: ReviewData[];
   pendingFiles: SeminarState['pendingFiles'];
   dateFormatError: string | undefined;
-  validateActivationDates: { seminar: string; application: string };
+  validateActivationDates: { application: string };
   updateSeminarData: (data: Partial<SeminarDetailState>) => void;
   updatePendingFiles: (files: Partial<SeminarState['pendingFiles']>) => void;
   updateSpeakerProfile: (key: number, value: File | null) => void;
@@ -80,12 +80,9 @@ const MainContent = ({
     />
 
     <ActiveDateForm
-      seminarStartDate={currentState.seminarStartDate}
-      seminarEndDate={currentState.seminarEndDate}
       applicationStartDate={currentState.applicationStartDate}
       applicationEndDate={currentState.applicationEndDate}
       onChange={(dateType, newDate) => updateSeminarData({ [dateType]: newDate })}
-      seminarDateError={validateActivationDates.seminar}
       applicationDateError={validateActivationDates.application}
     />
   </main>

@@ -1,4 +1,21 @@
-export const LectureCardSession = () => {
+import { useQuery } from '@tanstack/react-query';
+import type { SeminarSessionResponse } from '../../types/SeminarDetail/seminarDetail';
+import { getSeminarSession } from '../../apis/seminarDetail';
+
+type LectureCardMainProps = {
+  seminarId: number;
+  index: number;
+};
+
+export const LectureCardSession = ({ seminarId, index }: LectureCardMainProps) => {
+  const { data } = useQuery<SeminarSessionResponse>({
+    queryKey: ['seminarSession', seminarId],
+    queryFn: () => getSeminarSession(seminarId),
+  });
+
+  const session = data?.result?.[index];
+  const { title, description } = session || {};
+
   return (
     <div
       className="w-[311px] h-[500px] rounded-12 flex flex-col items-center justify-start px-[28px] pt-[50px] pb-[32px] gap-[48px] flex-shrink-0 snap-center"
@@ -9,15 +26,13 @@ export const LectureCardSession = () => {
     >
       {/* 타이틀 */}
       <div className="flex flex-col items-center text-center w-[237px] h-[92px] gap-[8px]">
-        <p className="heading-3-semibold text-gradient">Session #1</p>
-        <p className="heading-3-semibold text-white">
-          Data Scientist가 바라보는 AI의 지난 10년과 현재
-        </p>
+        <p className="heading-3-semibold text-gradient">Session #{index + 1}</p>
+        <p className="heading-3-semibold text-white">{title}</p>
       </div>
 
       {/* 세션 내용 */}
       <div className="body-2-medium text-grey-200 text-left">
-        <p>
+        {/* <p>
           <span className="text-gradient">ChatGPT 3년차,</span> LLM은 더욱 어려운 문제를 해결하고
           실제 작업을 수행하는 수준으로 발전했습니다.
         </p>
@@ -33,7 +48,8 @@ export const LectureCardSession = () => {
           LLM의 놀라운 능력의 비밀,{' '}
           <span className="text-gradient">추론(Reasoning)과 에이전트(Agent)</span>라는 핵심 키워드를
           쉽고 명확하게 알아봅시다!
-        </p>
+        </p> */}
+        <p>{description}</p>
       </div>
     </div>
   );

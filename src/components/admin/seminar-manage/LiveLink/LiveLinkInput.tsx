@@ -18,7 +18,7 @@ const LiveLinkInput = ({ link, onLinkChange }: LiveLinkInputProps) => {
         type="url"
         className="form-input-base form-input-text"
         placeholder="링크 URL을 입력해주세요."
-        value={link}
+        value={link || ''}
         onChange={handleChange}
       />
     </div>

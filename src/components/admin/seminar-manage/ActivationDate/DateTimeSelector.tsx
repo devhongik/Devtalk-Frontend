@@ -1,21 +1,34 @@
+import { useMemo } from 'react';
 import CustomSelect from './CustomSelect';
 
 interface DateTimeSelectorProps {
-  date: Date;
-  onDateChange: (newDate: Date) => void;
+  date: Date | null;
+  onDateChange: (newDate: Date | null) => void;
 }
 
 const DateTimeSelector = ({ date, onDateChange }: DateTimeSelectorProps) => {
   const handleSelectChange = (
     part: 'year' | 'month' | 'day' | 'hour' | 'minute',
-    value: number
+    value: number | string
   ) => {
-    const newDate = new Date(date);
-    if (part === 'year') newDate.setFullYear(value);
-    if (part === 'month') newDate.setMonth(value - 1);
-    if (part === 'day') newDate.setDate(value);
-    if (part === 'hour') newDate.setHours(value);
-    if (part === 'minute') newDate.setMinutes(value);
+    if (value === '') {
+      onDateChange(null);
+      return;
+    }
+
+    const currentDate = date || new Date();
+    const newDate = new Date(currentDate);
+
+    if (part === 'year') newDate.setFullYear(value as number);
+    if (part === 'month') newDate.setMonth((value as number) - 1);
+    if (part === 'day') newDate.setDate(value as number);
+    if (part === 'hour') newDate.setHours(value as number);
+    if (part === 'minute') newDate.setMinutes(value as number);
+
+    const roundedMinutes = Math.floor(newDate.getMinutes() / 15) * 15;
+    newDate.setMinutes(roundedMinutes);
+    newDate.setSeconds(0, 0);
+
     onDateChange(newDate);
   };
 
@@ -23,33 +36,64 @@ const DateTimeSelector = ({ date, onDateChange }: DateTimeSelectorProps) => {
     return new Date(year, month, 0).getDate();
   };
 
-  // CustomSelect에 맞는 {value, label} 형태의 배열로 변환
-  const yearOptions = Array.from({ length: 3 }, (_, i) => new Date().getFullYear() + i).map(
-    (y) => ({ value: y, label: String(y) })
+  const yearOptions = useMemo(
+    () => [
+      { value: '', label: '선택' },
+      ...Array.from({ length: 5 }, (_, i) => new Date().getFullYear() - 2 + i).map((y) => ({
+        value: y,
+        label: String(y),
+      })),
+    ],
+    []
   );
 
-  const monthOptions = Array.from({ length: 12 }, (_, i) => i + 1).map((m) => ({
-    value: m,
-    label: String(m).padStart(2, '0'),
-  }));
+  const monthOptions = useMemo(
+    () => [
+      { value: '', label: '선택' },
+      ...Array.from({ length: 12 }, (_, i) => i + 1).map((m) => ({
+        value: m,
+        label: String(m).padStart(2, '0'),
+      })),
+    ],
+    []
+  );
 
-  const daysInSelctedMonth = getDayInMonth(date.getFullYear(), date.getMonth() + 1);
-  const dayOptions = Array.from({ length: daysInSelctedMonth }, (_, i) => i + 1).map((d) => ({
-    value: d,
-    label: String(d).padStart(2, '0'),
-  }));
+  const daysInSelectedMonth = date ? getDayInMonth(date.getFullYear(), date.getMonth() + 1) : 31;
 
-  const hourOptions = Array.from({ length: 24 }, (_, i) => i).map((h) => ({
-    value: h,
-    label: String(h).padStart(2, '0'),
-  }));
+  const dayOptions = useMemo(
+    () => [
+      { value: '', label: '선택' },
+      ...Array.from({ length: daysInSelectedMonth }, (_, i) => i + 1).map((d) => ({
+        value: d,
+        label: String(d).padStart(2, '0'),
+      })),
+    ],
+    [daysInSelectedMonth]
+  );
 
-  const minuteOptions = [0, 15, 30, 45].map((m) => ({
-    value: m,
-    label: String(m).padStart(2, '0'),
-  }));
+  const hourOptions = useMemo(
+    () => [
+      { value: '', label: '선택' },
+      ...Array.from({ length: 24 }, (_, i) => i).map((h) => ({
+        value: h,
+        label: String(h).padStart(2, '0'),
+      })),
+    ],
+    []
+  );
 
-  const roundedMinutes = Math.floor(date.getMinutes() / 15) * 15;
+  const minuteOptions = useMemo(
+    () => [
+      { value: '', label: '선택' },
+      ...[0, 15, 30, 45].map((m) => ({
+        value: m,
+        label: String(m).padStart(2, '0'),
+      })),
+    ],
+    []
+  );
+
+  const roundedMinutes = date ? Math.floor(date.getMinutes() / 15) * 15 : '';
 
   return (
     <div className="flex items-center gap-5">
@@ -57,8 +101,8 @@ const DateTimeSelector = ({ date, onDateChange }: DateTimeSelectorProps) => {
       <div className="flex items-center gap-[6px]">
         <CustomSelect
           options={yearOptions}
-          selectedValue={date.getFullYear()}
-          onSelect={(value) => handleSelectChange('year', value as number)}
+          selectedValue={date?.getFullYear() || ''}
+          onSelect={(value) => handleSelectChange('year', value)}
         />
         <span className="subhead-1-medium text-white">년</span>
       </div>
@@ -67,8 +111,8 @@ const DateTimeSelector = ({ date, onDateChange }: DateTimeSelectorProps) => {
       <div className="flex items-center gap-[6px]">
         <CustomSelect
           options={monthOptions}
-          selectedValue={date.getMonth() + 1}
-          onSelect={(value) => handleSelectChange('month', value as number)}
+          selectedValue={date ? date.getMonth() + 1 : ''}
+          onSelect={(value) => handleSelectChange('month', value)}
         />
         <span className="subhead-1-medium text-white">월</span>
       </div>
@@ -77,8 +121,8 @@ const DateTimeSelector = ({ date, onDateChange }: DateTimeSelectorProps) => {
       <div className="flex items-center gap-[6px]">
         <CustomSelect
           options={dayOptions}
-          selectedValue={date.getDate()}
-          onSelect={(value) => handleSelectChange('day', value as number)}
+          selectedValue={date?.getDate() || ''}
+          onSelect={(value) => handleSelectChange('day', value)}
         />
         <span className="subhead-1-medium text-white">일</span>
       </div>
@@ -87,14 +131,14 @@ const DateTimeSelector = ({ date, onDateChange }: DateTimeSelectorProps) => {
       <div className="flex items-center gap-[6px]">
         <CustomSelect
           options={hourOptions}
-          selectedValue={date.getHours()}
-          onSelect={(value) => handleSelectChange('hour', value as number)}
+          selectedValue={date?.getHours() || ''}
+          onSelect={(value) => handleSelectChange('hour', value)}
         />
         <span className="heading-3-semibold text-white">:</span>
         <CustomSelect
           options={minuteOptions}
           selectedValue={roundedMinutes}
-          onSelect={(value) => handleSelectChange('minute', value as number)}
+          onSelect={(value) => handleSelectChange('minute', value)}
         />
       </div>
     </div>

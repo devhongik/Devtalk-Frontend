@@ -24,10 +24,8 @@ export interface SeminarDetailState {
   thumbnailFileName?: string | null;
   materials: FileData[];
   speakers: SpeakerState[];
-  seminarStartDate: Date;
-  seminarEndDate: Date;
-  applicationStartDate: Date;
-  applicationEndDate: Date;
+  applicationStartDate: Date | null;
+  applicationEndDate: Date | null;
 }
 
 export interface FormErrors {

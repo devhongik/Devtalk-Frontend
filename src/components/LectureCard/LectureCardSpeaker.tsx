@@ -1,6 +1,21 @@
-import speakerEx from '../../assets/images/speakerEx.jpg';
+import { useQuery } from '@tanstack/react-query';
+import type { SeminarSessionResponse } from '../../types/SeminarDetail/seminarDetail';
+import { getSeminarSession } from '../../apis/seminarDetail';
 
-export const LectureCardSpeaker = () => {
+type LectureCardMainProps = {
+  seminarId: number;
+  index: number;
+};
+
+export const LectureCardSpeaker = ({ seminarId, index }: LectureCardMainProps) => {
+  const { data } = useQuery<SeminarSessionResponse>({
+    queryKey: ['seminarSession', seminarId],
+    queryFn: () => getSeminarSession(seminarId),
+  });
+
+  const session = data?.result?.[index];
+  const { speaker } = session || {};
+
   return (
     <div
       className="w-[311px] h-[500px] rounded-[12px] flex flex-col items-center justify-start p-6 flex-shrink-0 snap-center"
@@ -11,29 +26,30 @@ export const LectureCardSpeaker = () => {
     >
       {/* 프로필 이미지 */}
       <img
-        src={speakerEx}
+        src={speaker?.profileUrl}
         alt="연사 이미지"
         className="rounded-full w-[150px] h-[150px] object-cover mt-[26px] mb-[18px]"
       />
 
       {/* 연사 정보 */}
       <div className="flex flex-col items-center gap-[4px] text-center">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-8">
           <p className="subhead-1-semibold text-white">연사</p>
-          <p className="heading-2-semibold text-gradient">CoAI</p>
+          <p className="heading-2-semibold text-gradient">{speaker?.name}</p>
           <p className="subhead-1-semibold text-white">님</p>
         </div>
-        <p className="body-1-medium text-white">前 Kakao · Toss Data Scientist</p>
+        <p className="body-1-medium text-white">{speaker?.organization}</p>
       </div>
 
       {/* 경력 리스트 */}
-      <ul className="pl-[16px] pt-[30px] w-[273px] h-[140px] body-2-medium text-grey-200 text-left list-disc pb-[8px]">
-        <li>前 Toss Securities Data Scientist (2021)</li>
-        <li>前 Kakao Corp Data Scientist (2020)</li>
-        <li>성균관대학교 통계학 학사 졸업</li>
-        <li>F사 프로젝트 멘토/ 강사 (2020~2023)</li>
-        <li>N사 부스트 캠프 멘토/강사 (2022~2023)</li>
-        <li>S사 부트캠프 데이터 분석 멘토/강사 (2023~2024)</li>
+      <ul className="pl-[16px] pt-[36px] w-[273px] body-2-medium text-grey-200 text-left list-disc pb-[8px]">
+        {speaker?.history
+          ?.split('-')
+          .map((item) => item.trim())
+          .filter(Boolean)
+          .map((item, idx) => (
+            <li key={idx}>{item}</li>
+          ))}{' '}
       </ul>
     </div>
   );

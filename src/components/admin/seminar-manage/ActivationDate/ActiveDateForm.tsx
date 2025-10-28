@@ -1,53 +1,23 @@
 import DateTimeSelector from './DateTimeSelector';
 
 interface ActiveDateProps {
-  seminarStartDate: Date;
-  seminarEndDate: Date;
-  applicationStartDate: Date;
-  applicationEndDate: Date;
-  onChange: (
-    dateType: 'seminarStartDate' | 'seminarEndDate' | 'applicationStartDate' | 'applicationEndDate',
-    newDate: Date
-  ) => void;
-  seminarDateError?: string;
+  applicationStartDate: Date | null;
+  applicationEndDate: Date | null;
+  onChange: (dateType: 'applicationStartDate' | 'applicationEndDate', newDate: Date | null) => void;
   applicationDateError?: string;
 }
 
 const ActiveDateForm = ({
-  seminarStartDate,
-  seminarEndDate,
   applicationStartDate,
   applicationEndDate,
   onChange,
-  seminarDateError,
   applicationDateError,
 }: ActiveDateProps) => {
   return (
     <div className="space-y-6">
-      {/* 현재 세미나 활성화 기간 */}
+      {/* 세미나 신청 기간 */}
       <div className="bg-grey-900 p-6 rounded-10 min-h-[240px]">
-        <h2 className="heading-2-bold text-white mb-6">현재 세미나 활성화 기간</h2>
-        <div className="flex flex-col gap-y-9">
-          <DateTimeSelector
-            date={seminarStartDate}
-            onDateChange={(newDate) => onChange('seminarStartDate', newDate)}
-          />
-          <div className="flex items-center gap-x-3 ml-auto">
-            <span className="subhead-1-semibold text-white">~</span>
-            <DateTimeSelector
-              date={seminarEndDate}
-              onDateChange={(newDate) => onChange('seminarEndDate', newDate)}
-            />
-          </div>
-        </div>
-        {seminarDateError && (
-          <p className="text-status-error text-sm text-right mt-3">{seminarDateError}</p>
-        )}
-      </div>
-
-      {/* 세미나 신청 활성화 기간 */}
-      <div className="bg-grey-900 p-6 rounded-10 min-h-[240px]">
-        <h2 className="heading-2-bold text-white mb-6">세미나 신청 활성화 기간</h2>
+        <h2 className="heading-2-bold text-white mb-6">세미나 신청 기간</h2>
         <div className="flex flex-col gap-y-9">
           <DateTimeSelector
             date={applicationStartDate}

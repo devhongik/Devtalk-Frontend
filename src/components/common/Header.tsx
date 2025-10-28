@@ -13,7 +13,7 @@ const Header = ({ hamburgerOpen, setHamburgerOpen }: HeaderProps) => {
 
   return (
     <>
-      <header className="relative flex justify-center items-center w-full h-[56px] z-56 bg-black">
+      <header className="fixed top-0 left-0 flex justify-center items-center w-full h-[56px] z-[56] bg-black">
         <div className="flex items-center justify-between w-[335px] h-[34px]">
           <img
             src={devlogo}
