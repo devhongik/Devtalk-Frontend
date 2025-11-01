@@ -11,6 +11,11 @@ const SeminarDetailLectureCard = ({ seminarId, index }: { seminarId: number; ind
   const session = data?.result?.[index];
   const { title, description, speaker } = session || {};
 
+  // %~% 텍스트 <span>으로 변환
+  const highlightDescription = (text: string) => {
+    return text.replace(/%([^%]+)%/g, `<span class="text-gradient">$1</span>`);
+  };
+
   return session ? (
     <div className="relative w-[335px] h-[1033px] rounded-[12px] overflow-hidden flex flex-col items-center justify-start bg-black">
       {isLoading && <div>Loading...</div>}
@@ -47,9 +52,10 @@ const SeminarDetailLectureCard = ({ seminarId, index }: { seminarId: number; ind
           <div className="text-gradient">Session #{index + 1}</div>
           <div className="text-white text-center break-keep-all">{title}</div>
         </div>
-        <div className="w-[295px] body-2-medium text-grey-200 text-left">
-          <p>{description}</p>
-        </div>
+        <div
+          className="w-[295px] body-2-medium text-grey-200 text-left whitespace-pre-line"
+          dangerouslySetInnerHTML={{ __html: highlightDescription(description ?? '') }}
+        />
       </div>
     </div>
   ) : null;

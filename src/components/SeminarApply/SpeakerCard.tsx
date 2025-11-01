@@ -10,6 +10,11 @@ type SpeakerCardProps = {
 };
 
 const SpeakerCard = ({ name, title, organization, description, profileUrl }: SpeakerCardProps) => {
+  // %~% 텍스트 <span>으로 변환
+  const highlightDescription = (text: string) => {
+    return text.replace(/%([^%]+)%/g, '<span class="text-gradient">$1</span>');
+  };
+
   return (
     <div className="flex items-center justify-center">
       <div className="flex flex-col w-[335px] h-[622px] rounded-12 bg-grey-800 gap-5 justify-center">
@@ -47,8 +52,13 @@ const SpeakerCard = ({ name, title, organization, description, profileUrl }: Spe
         </div>
 
         <div className="flex flex-col items-center gap-5">
-          <div className="heading-3-semibold text-center text-white">{title}</div>
-          <div className="body-2-medium text-grey-200 w-[295px]">{description}</div>
+          <div className="heading-3-semibold text-center text-white w-[267px] break-all">
+            {title}
+          </div>
+          <div
+            className="body-2-medium text-grey-200 w-[295px] whitespace-pre-line"
+            dangerouslySetInnerHTML={{ __html: highlightDescription(description ?? '') }}
+          ></div>
         </div>
       </div>
     </div>
