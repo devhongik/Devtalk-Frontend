@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useShowSeminar } from '../../contexts/ShowSeminarContext';
 
 type HamburgerBarProps = {
   isOpen: boolean;
@@ -27,6 +28,9 @@ const HamburgerBar = ({ isOpen, onClose: _onClose }: HamburgerBarProps) => {
     window.open('http://pf.kakao.com/_Gxbrwn/chat', '_self');
   };
 
+  // 노출 회차 정보
+  const { seminarId, seminarNum } = useShowSeminar();
+
   return (
     <>
       {/* 햄버거 바 */}
@@ -47,12 +51,14 @@ const HamburgerBar = ({ isOpen, onClose: _onClose }: HamburgerBarProps) => {
             >
               세미나
             </button>
-            <button
-              className="w-[335px] py-[12px] pl-[16px] pr-[8px] rounded-8 text-left hover:bg-grey-800 cursor-pointer transition-all duration-200"
-              onClick={() => navigate('/seminar/apply-info')}
-            >
-              <p className="text-gradient">10회차 데브톡 신청하기</p> {/* 추후 하드코딩 바꾸기 */}
-            </button>
+            {seminarId && (
+              <button
+                className="w-[335px] py-[12px] pl-[16px] pr-[8px] rounded-8 text-left hover:bg-grey-800 cursor-pointer transition-all duration-200"
+                onClick={() => navigate('/seminar/apply-info')}
+              >
+                <p className="text-gradient">{seminarNum}회차 데브톡 신청하기</p>{' '}
+              </button>
+            )}
             <hr className="border-grey-700 mt-[28px] mb-[8px]" />
             <button
               onClick={handleFAQClick}

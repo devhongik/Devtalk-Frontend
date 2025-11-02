@@ -9,6 +9,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getSeminarReview } from '../../../apis/seminarDetail';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
+import { useShowSeminar } from '../../../contexts/ShowSeminarContext';
 
 const SeminarDetail = () => {
   const { id } = useParams();
@@ -36,6 +37,9 @@ const SeminarDetail = () => {
   });
 
   const seminarReviews = data?.result || [];
+
+  // 노출 회차 정보
+  const { seminarNum } = useShowSeminar();
 
   return (
     <div>
@@ -80,13 +84,15 @@ const SeminarDetail = () => {
           </div>
         </div>
       </div>
-      <div className="fixed bottom-0">
-        <Cta
-          bodyText="데브톡에 빠져보세요!"
-          buttonText="10회차 데브톡 신청하기"
-          onClick={() => navigate('/seminar/apply-info')}
-        />
-      </div>
+      {seminarNum && (
+        <div className="fixed bottom-0">
+          <Cta
+            bodyText="데브톡에 빠져보세요!"
+            buttonText={`${seminarNum}회차 데브톡 신청하기`}
+            onClick={() => navigate('/seminar/apply-info')}
+          />
+        </div>
+      )}
       <div className="h-[250px]" />
     </div>
   );
