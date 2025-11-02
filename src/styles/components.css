@@ -50,6 +50,11 @@
     letter-spacing: var(--letter-spacing-normal);
   }
 
+  .subhead-1-medium th,
+  .subhead-1-medium td {
+    font-weight: var(--font-weight-medium);
+  }
+
   /* Body */
   .body-1-semibold {
     font-size: var(--font-size-body-1);
