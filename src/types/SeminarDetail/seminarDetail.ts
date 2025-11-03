@@ -35,6 +35,7 @@ export type SeminarSessionResponse = CommonResponse<SeminarSession[]>;
 //세미나 세부정보 (리뷰)
 export interface SeminarReview {
   reviewId: number;
+  seminarNum: number;
   score: number;
   strength: string;
 }

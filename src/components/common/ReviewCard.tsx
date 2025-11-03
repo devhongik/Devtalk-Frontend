@@ -10,7 +10,7 @@ const ReviewCard = ({ session, rating, content }: ReviewCardProps) => {
   return (
     <div className="w-[335px] h-[157px] bg-grey-800 rounded-8 px-20 py-16 flex flex-col gap-12">
       <div className="flex flex-col gap-8">
-        <div className="w-[79px] h-[25px] rounded-4 bg-grey-900 text-center">
+        <div className="w-[79px] h-[25px] rounded-4 bg-grey-900 text-center whitespace-nowrap">
           <span className=" px-8 py-4 caption-semibold text-gradient">{session}회차 세미나</span>
         </div>
         <div className="flex flex-row gap-8 h-[20px]">
