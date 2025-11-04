@@ -2,8 +2,15 @@ import link from '../../assets/icons/components/Footer/link.svg';
 import mail from '../../assets/icons/components/Footer/mail.svg';
 import messagecircle from '../../assets/icons/components/Footer/messagecircle.svg';
 import devlogo from '../../assets/logos/devlogo.svg';
+import { getHomeLink } from '../../apis/HomeManage/homeLinkApi';
+import { useQuery } from '@tanstack/react-query';
 
 const Footer = () => {
+  const { data: inquiryLinkData } = useQuery({
+    queryKey: ['home', 'inquiryLink'],
+    queryFn: getHomeLink,
+  });
+
   const handlePrivacyClick = () => {
     window.open(
       'https://noiseless-anaconda-297.notion.site/DevTalk-285aaa6ed13f80558981fb69645223c0?source=copy_link',
@@ -12,7 +19,13 @@ const Footer = () => {
   };
 
   const handleInquiryClick = () => {
-    window.open('http://pf.kakao.com/_Gxbrwn/chat', '_self');
+    const url = inquiryLinkData?.result?.url;
+    console.log(url);
+    if (url) {
+      window.open(url, '_self');
+    } else {
+      console.error('문의하기 링크를 불러오지 못했습니다.');
+    }
   };
 
   return (
