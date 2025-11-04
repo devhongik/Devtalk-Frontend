@@ -25,6 +25,7 @@ const SeminarDetail = () => {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
   const navigate = useNavigate();
+
   useEffect(() => {
     if (secondVisible && secondRef.current) {
       secondRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -93,14 +94,14 @@ const SeminarDetail = () => {
           <Cta
             bodyText="지금 바로 입장해 주세요!"
             buttonText={`${seminarNum ?? ''}회차 세미나 입장하기`}
-            onClick={() => navigate('seminar/live/verification')}
+            onClick={() => navigate('/seminar/live/verification')}
             isActive={true}
           />
         ) : seminarNum && applicantActivate ? (
           <Cta
             bodyText="데브톡에 빠져보세요!"
             buttonText={`${seminarNum ?? ''}회차 세미나 신청하기`}
-            onClick={() => navigate('seminar/apply-info')}
+            onClick={() => navigate('/seminar/apply-info')}
             isActive={false}
           />
         ) : (
