@@ -9,3 +9,14 @@ export const getSeminarApplicantsDetail = async (
   );
   return res.data;
 };
+
+// 세미나 신청자 출석 체크 업데이트
+export const postupdateAttendanceCheck = async (
+  seminarId: string,
+  studentId: string,
+  check: boolean
+): Promise<void> => {
+  await adminInstance.post(
+    `/admin/seminars/${seminarId}/applicants/${studentId}?check=${check}`
+  );
+};
