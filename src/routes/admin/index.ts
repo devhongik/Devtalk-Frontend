@@ -13,11 +13,11 @@ const AdminProtectedWrapper = () => {
     : React.createElement(Navigate, { to: '/admin/login', replace: true });
 };
 
-// 토큰 있는 채로 로그인 페이지 접근 시 home/promo로
+// 토큰 있는 채로 로그인 페이지 접근 시 home/exposure로
 const AdminPublicWrapper = () => {
   const token = localStorage.getItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN);
   return token
-    ? React.createElement(Navigate, { to: '/admin/home/promo', replace: true })
+    ? React.createElement(Navigate, { to: '/admin/home/exposure', replace: true })
     : React.createElement(Outlet);
 };
 

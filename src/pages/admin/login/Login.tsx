@@ -19,9 +19,8 @@ const Login = () => {
       if (res.isSuccess && res.result) {
         localStorage.setItem(STORAGE_KEY.ADMIN_ACCESS_TOKEN, res.result.accessToken);
         localStorage.setItem(STORAGE_KEY.ADMIN_REFRESH_TOKEN, res.result.refreshToken);
-
         setError(false);
-        navigate('/admin/home/promo');
+        navigate('/admin/home/exposure');
       }
     } catch (err) {
       setError(true);

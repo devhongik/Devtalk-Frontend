@@ -7,9 +7,10 @@ import {
 
 interface AddAdminFormProps {
   onSubmit: (data: { name: string; userId: string; password: string }) => void;
+  isLoading?: boolean;
 }
 
-const AddAdminForm: React.FC<AddAdminFormProps> = ({ onSubmit }) => {
+const AddAdminForm: React.FC<AddAdminFormProps> = ({ onSubmit, isLoading = false }) => {
   const [name, setName] = useState('');
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
@@ -114,15 +115,15 @@ const AddAdminForm: React.FC<AddAdminFormProps> = ({ onSubmit }) => {
       {/* 버튼 */}
       <button
         type="submit"
-        disabled={!isFormValid}
+        disabled={!isFormValid || isLoading}
         className={`w-full mt-48 py-[18px] rounded-8 heading-3-semibold transition-all duration-300
           ${
-            isFormValid
+            isFormValid && !isLoading
               ? 'text-black cursor-pointer bg-green-300 hover:[background-image:var(--gradient-graphic)]'
               : 'bg-grey-200 text-grey-700 cursor-not-allowed opacity-60'
           }`}
       >
-        관리자 아이디 추가하기
+        {isLoading ? '추가 중...' : '관리자 아이디 추가하기'}
       </button>
     </form>
   );
