@@ -8,13 +8,13 @@ import { useState } from 'react';
 import { useShowSeminar } from '../../../contexts/ShowSeminarContext';
 
 const Live = () => {
-  const { data: liveData, mutate, isPending } = useSeminarAttend();
+  const { mutate, isPending } = useSeminarAttend();
   const navigate = useNavigate();
 
   const handleAttend = () => {
     mutate(undefined, {
-      onSuccess: (liveData) => {
-        let url = liveData?.result?.liveUrl;
+      onSuccess: (response) => {
+        let url = response?.result?.liveUrl;
         if (url) {
           window.location.assign(url);
         } else {
