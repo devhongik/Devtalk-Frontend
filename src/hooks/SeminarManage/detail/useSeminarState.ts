@@ -35,7 +35,7 @@ export const useSeminarState = (id: string | undefined) => {
   const seminarId = id ? Number(id) : undefined;
 
   // 데이터 페칭
-  const { seminarData, reviews, isLoading, error } = useSeminarData(seminarId);
+  const { seminarData, isLoading, error } = useSeminarData(seminarId);
 
   // 로컬 상태
   const [initialState, setInitialStateValue] = useState<SeminarDetailState | null>(null);
@@ -129,7 +129,6 @@ export const useSeminarState = (id: string | undefined) => {
   return {
     initialState,
     currentState,
-    reviews,
     isLoading,
     error: error ? '데이터를 불러오는데 실패했습니다.' : null,
     isDirty,

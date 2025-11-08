@@ -69,7 +69,6 @@ const Add = () => {
       <Header title="세미나 추가하기" showDeleteButton={false} />
 
       <MainContent
-        showReviewList={false}
         currentState={currentState}
         pendingFiles={pendingFiles}
         updateSeminarData={updateSeminarData}

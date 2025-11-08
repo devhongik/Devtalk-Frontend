@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSeminarState } from '../../../hooks/SeminarManage/detail/useSeminarState';
-import { useReviewActions } from '../../../hooks/SeminarManage/actions/useReviewActions';
 import { useSeminarUpdateActions } from '../../../hooks/SeminarManage/actions/useSeminarActions';
 
 import Header from '../../../components/admin/seminar-manage/Header';
@@ -17,17 +16,14 @@ const Detail = () => {
 
   const [modalConfig, setModalConfig] = useState<{
     isOpen: boolean;
-    variant: 'deleteSeminar' | 'deleteReview' | 'cancel' | null;
-    reviewId: number | null;
+    variant: 'deleteSeminar' | 'cancel' | null;
   }>({
     isOpen: false,
     variant: null,
-    reviewId: null,
   });
 
   const {
     currentState,
-    reviews,
     isLoading: isSeminarLoading,
     error,
     isDirty,
@@ -42,13 +38,6 @@ const Detail = () => {
   } = useSeminarState(id);
 
   const {
-    handleRegisterReviewToHome,
-    handleUnregisterReviewFromHome,
-    handleDeleteReview,
-    isLoading: isReviewLoading,
-  } = useReviewActions({ seminarId });
-
-  const {
     handleUpdateSeminar,
     handleDeleteSeminar,
     isLoading: isSeminarUpdating,
@@ -59,16 +48,6 @@ const Detail = () => {
     setModalConfig({
       isOpen: true,
       variant: 'deleteSeminar',
-      reviewId: null,
-    });
-  };
-
-  // 후기 삭제
-  const handleDeleteReviewModal = (reviewId: number) => {
-    setModalConfig({
-      isOpen: true,
-      variant: 'deleteReview',
-      reviewId,
     });
   };
 
@@ -92,7 +71,6 @@ const Detail = () => {
       setModalConfig({
         isOpen: true,
         variant: 'cancel',
-        reviewId: null,
       });
     } else {
       navigate(-1);
@@ -108,18 +86,16 @@ const Detail = () => {
       } catch (error: any) {
         alert(error.message);
       }
-    } else if (modalConfig.variant === 'deleteReview' && modalConfig.reviewId !== null) {
-      handleDeleteReview?.(modalConfig.reviewId);
     } else if (modalConfig.variant === 'cancel') {
       navigate(-1);
     }
   };
 
   const handleCloseModal = () => {
-    setModalConfig({ isOpen: false, variant: null, reviewId: null });
+    setModalConfig({ isOpen: false, variant: null });
   };
 
-  const isLoading = isSeminarLoading || isReviewLoading || isSeminarUpdating;
+  const isLoading = isSeminarLoading || isSeminarUpdating;
 
   // 로딩 상태
   if (isLoading) {
@@ -145,18 +121,13 @@ const Detail = () => {
       />
 
       <MainContent
-        showReviewList={true}
         currentState={currentState}
-        reviews={reviews ?? []}
         pendingFiles={pendingFiles}
         dateFormatError={dateFormatError}
         validateActivationDates={validateActivationDates}
         updateSeminarData={updateSeminarData}
         updatePendingFiles={updatePendingFiles}
         updateSpeakerProfile={updateSpeakerProfile}
-        handleRegisterReviewToHome={handleRegisterReviewToHome}
-        handleUnregisterReviewFromHome={handleUnregisterReviewFromHome}
-        handleDeleteReview={handleDeleteReviewModal}
       />
 
       <Footer

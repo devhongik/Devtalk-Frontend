@@ -22,7 +22,7 @@ const menuData = [
         name: '세미나 카드 조회',
         to: '/admin/seminars',
         end: true,
-        matchPaths: ['/admin/seminars/:id'],
+        matchPaths: ['/admin/seminars/:id', '/admin/seminars/:id/reviews'],
       },
       { name: '세미나 추가하기', to: '/admin/seminars/add', end: true },
       { name: '세미나 신청자 관리', to: '/admin/seminars/applicants', end: false },

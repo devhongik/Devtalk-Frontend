@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import StarRating from '../seminar-manage/Review/StarRating';
+import StarRating from './StarRating';
 import moremenu from '../../../assets/icons/components/ReviewCard/moremenu.svg';
 
 export interface Review {

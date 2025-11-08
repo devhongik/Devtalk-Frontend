@@ -1,6 +1,5 @@
 import type { FileData } from './seminarFile.api';
 import type { PendingFiles } from './seminarFile.api';
-import type { ReviewData } from './seminarReview.api';
 
 export interface SpeakerState {
   speakerId?: number;
@@ -38,7 +37,6 @@ export interface FormErrors {
 export interface SeminarState {
   initialState: SeminarDetailState | null; // 원본 데이터
   currentState: SeminarDetailState | null; // 현재 데이터
-  reviews: ReviewData[];
   isLoading: boolean;
   error: string | null;
   isDirty: boolean; // 수정 여부

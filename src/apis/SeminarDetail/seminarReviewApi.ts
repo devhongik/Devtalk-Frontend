@@ -8,15 +8,7 @@ export const getSeminarReview = async (seminarId: number): Promise<ReviewListRes
   return res.data;
 };
 
-// 세미나 후기 삭제
-export const deleteSeminarReview = async (reviewId: number): Promise<EmptyResultResponse> => {
-  const res = await adminInstance.delete<EmptyResultResponse>(
-    `/admin/seminars/reviews/${reviewId}`
-  );
-  return res.data;
-};
-
-// 세미나 후기 홈 화면 등록
+// 세미나 후기 공개
 export const patchReviewRegister = async (reviewId: number): Promise<EmptyResultResponse> => {
   const res = await adminInstance.patch<EmptyResultResponse>(
     `/admin/seminars/reviews/${reviewId}/home/on`
@@ -24,7 +16,7 @@ export const patchReviewRegister = async (reviewId: number): Promise<EmptyResult
   return res.data;
 };
 
-// 세미나 후기 홈 화면 해제
+// 세미나 후기 비공개
 export const patchReviewUnregister = async (reviewId: number): Promise<EmptyResultResponse> => {
   const res = await adminInstance.patch<EmptyResultResponse>(
     `/admin/seminars/reviews/${reviewId}/home/off`

@@ -1,41 +1,30 @@
 import type { SeminarState, SeminarDetailState } from '../../../types/SeminarManage/seminar.state';
-import type { ReviewData } from '../../../types/SeminarManage/seminarReview.api';
 
-import AdminImageUpload from '../../../components/admin/upload/AdminImageUpload';
-import SeminarForm from '../../../components/admin/seminar-manage/SeminarDetail/SeminarForm';
-import SpeakersForm from '../../../components/admin/seminar-manage/Speaker/SpeakerForm';
-import ReviewList from '../../../components/admin/seminar-manage/Review/ReviewList';
-import LiveLinkInput from '../../../components/admin/seminar-manage/LiveLink/LiveLinkInput';
-import ActiveDateForm from '../../../components/admin/seminar-manage/ActivationDate/ActiveDateForm';
+import AdminImageUpload from '../upload/AdminImageUpload';
+import SeminarForm from './SeminarDetail/SeminarForm';
+import SpeakersForm from './Speaker/SpeakerForm';
+import LiveLinkInput from './LiveLink/LiveLinkInput';
+import ActiveDateForm from './ActivationDate/ActiveDateForm';
+import ReviewLink from './Review/ReviewLink';
 
 interface MainContentProps {
-  showReviewList: boolean;
   currentState: SeminarDetailState;
-  reviews?: ReviewData[];
   pendingFiles: SeminarState['pendingFiles'];
   dateFormatError: string | undefined;
   validateActivationDates: { application: string };
   updateSeminarData: (data: Partial<SeminarDetailState>) => void;
   updatePendingFiles: (files: Partial<SeminarState['pendingFiles']>) => void;
   updateSpeakerProfile: (key: number, value: File | null) => void;
-  handleRegisterReviewToHome?: (reviewId: number) => void;
-  handleUnregisterReviewFromHome?: (reviewId: number) => void;
-  handleDeleteReview?: (reviewId: number) => void;
 }
 
 const MainContent = ({
-  showReviewList,
   currentState,
-  reviews,
   pendingFiles,
   dateFormatError,
   validateActivationDates,
   updateSeminarData,
   updatePendingFiles,
   updateSpeakerProfile,
-  handleRegisterReviewToHome,
-  handleUnregisterReviewFromHome,
-  handleDeleteReview,
 }: MainContentProps) => (
   <main className="max-w-[1060px] min-w-[850px] space-y-10 mb-[65px]">
     <AdminImageUpload
@@ -65,14 +54,7 @@ const MainContent = ({
       updateSpeakerProfile={updateSpeakerProfile}
     />
 
-    {showReviewList && (
-      <ReviewList
-        reviews={reviews ?? []}
-        onRegisterToHome={handleRegisterReviewToHome}
-        onUnregisterFromHome={handleUnregisterReviewFromHome}
-        onDelete={handleDeleteReview}
-      />
-    )}
+    {currentState.seminarId && <ReviewLink seminarId={currentState.seminarId} />}
 
     <LiveLinkInput
       link={currentState.liveLink}

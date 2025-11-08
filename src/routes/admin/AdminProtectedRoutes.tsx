@@ -4,6 +4,7 @@ import Links from '../../pages/admin/home-manage/Links';
 import Reviews from '../../pages/admin/home-manage/Reviews';
 import SeminarCards from '../../pages/admin/seminar-manage/Cards';
 import SeminarManageDetail from '../../pages/admin/seminar-manage/Detail';
+import SeminarReviews from '../../pages/admin/seminar-manage/Reviews';
 import SeminarAdd from '../../pages/admin/seminar-manage/Add';
 import SeminarApplicantsList from '../../pages/admin/seminar-manage/applicants/List';
 import SeminarApplicantsDetail from '../../pages/admin/seminar-manage/applicants/Detail';
@@ -22,6 +23,7 @@ export const adminProtectedRoutes = [
       { path: 'home/reviews', element: <Reviews /> },
       { path: 'seminars', element: <SeminarCards /> },
       { path: 'seminars/:id', element: <SeminarManageDetail /> },
+      { path: 'seminars/:id/reviews', element: <SeminarReviews /> },
       { path: 'seminars/add', element: <SeminarAdd /> },
       { path: 'seminars/applicants', element: <SeminarApplicantsList /> },
       { path: 'seminars/applicants/:id', element: <SeminarApplicantsDetail /> },

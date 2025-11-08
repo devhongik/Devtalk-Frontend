@@ -2,14 +2,13 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { ReviewListResponse } from '../../../types/SeminarManage/seminarReview.api';
 import {
   getSeminarReview,
-  deleteSeminarReview,
   patchReviewRegister,
   patchReviewUnregister,
 } from '../../../apis/SeminarDetail/seminarReviewApi';
 import { QUERY_KEYS } from '../../../constants/queryKey';
 
 // 세미나 후기 목록 조회
-export const useSeminarReviews = (seminarId: number | undefined) => {
+export const useSeminarReviews = (seminarId: number) => {
   return useQuery<ReviewListResponse>({
     queryKey: [QUERY_KEYS.ADMIN_SEMINAR_REVIEWS, seminarId],
     queryFn: () => getSeminarReview(seminarId!),
@@ -17,22 +16,8 @@ export const useSeminarReviews = (seminarId: number | undefined) => {
   });
 };
 
-// 세미나 후기 삭제
-export const useDeleteSeminarReview = (seminarId: number | undefined) => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (reviewId: number) => deleteSeminarReview(reviewId),
-    onSuccess: () => {
-      if (seminarId) {
-        queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ADMIN_SEMINAR_REVIEWS, seminarId] });
-      }
-    },
-  });
-};
-
 // 세미나 후기 홈 화면 등록
-export const useRegisterReviewToHome = (seminarId: number | undefined) => {
+export const useRegisterReviewToHome = (seminarId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
