@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 
-export default function InfiniteCarousel({
-  children,
-}: {
-  children: React.ReactElement[];
-}) {
+interface InfiniteCarouselProps {
+  children: ReactNode;
+}
+
+export default function InfiniteCarousel({ children }: InfiniteCarouselProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
@@ -12,8 +12,10 @@ export default function InfiniteCarousel({
   const REVIEWCARD_WIDTH = 335;
   const INTERVAL = 4000;
 
+  const childrenArray = Array.isArray(children) ? children : [children];
+
   // children 배열 뒤에 첫 번째 요소 복제
-  const slides = [...children, children[0]];
+  const slides = [...childrenArray, childrenArray[0]];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -40,19 +42,16 @@ export default function InfiniteCarousel({
         className="flex"
         style={{
           gap: `8px`,
-          transform: `translateX(calc(${
-            -(currentIndex * (REVIEWCARD_WIDTH + 8))
-          }px + (50% - ${REVIEWCARD_WIDTH / 2}px)))`,
-          transition: isTransitioning ? "transform 0.5s ease-out" : "none",
+          transform: `translateX(calc(${-(
+            currentIndex *
+            (REVIEWCARD_WIDTH + 8)
+          )}px + (50% - ${REVIEWCARD_WIDTH / 2}px)))`,
+          transition: isTransitioning ? 'transform 0.5s ease-out' : 'none',
         }}
         onTransitionEnd={handleTransitionEnd}
       >
         {slides.map((slide, i) => (
-          <div
-            key={i}
-            className="flex-shrink-0"
-            style={{ width: REVIEWCARD_WIDTH }}
-          >
+          <div key={i} className="flex-shrink-0" style={{ width: REVIEWCARD_WIDTH }}>
             {slide}
           </div>
         ))}

@@ -9,6 +9,7 @@ export interface Review {
   department: string;
   grade: string;
   nextTopic: string;
+  seminarNum: number;
   order: number;
   createdAt: string;
 }

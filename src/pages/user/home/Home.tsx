@@ -18,6 +18,8 @@ import InfiniteCarousel from '../../../components/common/InfiniteCarousel';
 import { useEffect, useRef, useState } from 'react';
 import { useShowSeminar } from '../../../contexts/ShowSeminarContext';
 import BackgroundVideo from '../../../components/common/BackgroundVideo';
+import { useHomeReviews } from '../../../hooks/HomeManage/useHomeReview';
+import { useSeminarReviews } from '../../../hooks/SeminarManage/data/useSeminarReviews';
 import ComingSoon from '../../../components/common/ComingSoon';
 
 const Home = () => {
@@ -59,6 +61,7 @@ const Home = () => {
 
   // 노출 회차 정보
   const { seminarId, seminarNum, liveActivate, applicantActivate, isLoading } = useShowSeminar();
+  const { data } = useHomeReviews();
 
   let ctaElement = null;
   if (applicantActivate && liveActivate && seminarId) {
@@ -166,32 +169,14 @@ const Home = () => {
             <p className="text-white heading-2-bold">학우들의 후기</p>
             <div className="-mx-20">
               <InfiniteCarousel>
-                <ReviewCard
-                  session={9}
-                  rating={5}
-                  content="요즘 핫한 주제로 강연을 들어서 너무 좋았습니다 !"
-                />
-                <ReviewCard
-                  session={6}
-                  rating={5}
-                  content="4학년인 만큼 진로에 고민과 걱정이 많았는데 삶의 경험이 풍부하신 분들의 연사를 들으니 마인드셋에 도움이 되었습니다."
-                />
-                <ReviewCard
-                  session={9}
-                  rating={5}
-                  content="부전공생이라서 정규수업 외에는 실무적인 정보들을 얻기가 어려웠는데 이렇게 좋은 자리 마련해주셔서 정말 재미있고 유익했습니다. 감사합니다."
-                />
-                <ReviewCard session={8} rating={5} content="라이브 코딩 재밌었어요 ㅋㅋㅋ" />
-                <ReviewCard
-                  session={7}
-                  rating={5}
-                  content="생각해보지 못했던 주제들에 대한 이야기를 들을 수 있어서 좋았습니다."
-                />
-                <ReviewCard
-                  session={6}
-                  rating={5}
-                  content="한국뿐만이 아니라 보다 넓은 세상에서 활약하고 계시는 분들의 경험을 들을 수 있는 귀중한 기회를 얻을 수 있어서 좋았습니다."
-                />
+                {data?.result?.map((review) => (
+                  <ReviewCard
+                    key={review.reviewId}
+                    session={review.seminarNum}
+                    rating={review.rating}
+                    content={review.content}
+                  />
+                ))}
               </InfiniteCarousel>
             </div>
           </div>
