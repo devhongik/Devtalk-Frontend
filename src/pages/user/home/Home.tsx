@@ -19,7 +19,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useShowSeminar } from '../../../contexts/ShowSeminarContext';
 import BackgroundVideo from '../../../components/common/BackgroundVideo';
 import { useHomeReviews } from '../../../hooks/HomeManage/useHomeReview';
-import { useSeminarReviews } from '../../../hooks/SeminarManage/data/useSeminarReviews';
 import ComingSoon from '../../../components/common/ComingSoon';
 
 const Home = () => {
