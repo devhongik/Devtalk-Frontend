@@ -1,18 +1,22 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { validateAll } from '../utils/validators';
+import { useApplyDraft } from '../stores/useApplyDraft';
+import { validateStudentId } from '../utils/formatStudentId';
 
 export function useApplyFormValidation() {
   const rootRef = useRef<HTMLDivElement>(null);
   const [canNext, setCanNext] = useState(false);
+  const studentId = useApplyDraft((s) => s.studentNum);
 
   const runValidate = useCallback(() => {
     const root = rootRef.current;
     if (!root) return;
     requestAnimationFrame(() => {
       const { allOk } = validateAll(root);
-      setCanNext(allOk);
+      const finalOk = allOk && validateStudentId(studentId || '');
+      setCanNext(finalOk);
     });
-  }, []);
+  }, [studentId]);
 
   useEffect(() => {
     runValidate();
